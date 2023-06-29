@@ -1,3 +1,4 @@
+import Display from './components/Display';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 
@@ -8,7 +9,7 @@ function App() {
         <Header />
         <div className='w-full h-full flex'>
           <Navbar />
-          <div>Container</div>
+          <Display />
         </div>
       </div>
     </>
