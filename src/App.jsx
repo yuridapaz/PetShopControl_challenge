@@ -6,10 +6,8 @@ function App() {
     <>
       <div className='w-full h-screen bg-slate-200 flex flex-col'>
         <Header />
-        <div>
-          <div>
-            <Navbar />
-          </div>
+        <div className='w-full h-full flex'>
+          <Navbar />
           <div>Container</div>
         </div>
       </div>
