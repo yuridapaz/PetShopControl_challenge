@@ -7,6 +7,7 @@ const Display = ({ children }) => {
           <option value='selecionar' disabled>
             Tipo
           </option>
+          <option value='nenhum'>Nenhum</option>
           <option value='cachorro'>Cachorro</option>
           <option value='gato'>Gato</option>
           <option value='passaro'>Pássaro</option>
@@ -16,6 +17,7 @@ const Display = ({ children }) => {
           <option value='selecionar' disabled>
             Tamanho
           </option>
+          <option value='nenhum'>Nenhum</option>
           <option value='pequeno'>Pequeno</option>
           <option value='medio'>Médio</option>
           <option value='grande'>Grande</option>
