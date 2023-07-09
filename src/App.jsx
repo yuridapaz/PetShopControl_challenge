@@ -5,11 +5,11 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <>
-      <div className='w-full h-screen bg-slate-100 flex flex-col'>
+      <div className='flex h-screen w-full flex-col bg-slate-100'>
         <Header />
-        <div className='w-full h-full flex'>
+        <div className='flex h-full w-full'>
           <Navbar />
-          <Display />
+          <Display>oi</Display>
         </div>
       </div>
     </>

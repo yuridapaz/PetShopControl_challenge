@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <div className='w-full p-4 bg-slate-100 flex justify-between shadow-md border border-b-cyan-900'>
+    <div className=' flex w-full justify-between border border-b-slate-400 bg-slate-300 p-4 shadow-md'>
       <div>
         <img src='' alt='' />
         IMG
