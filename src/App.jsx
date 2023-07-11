@@ -1,13 +1,21 @@
 import Sidebar from './components/Sidebar';
-import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
+import { ArrowRightOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/solid';
 
 function App() {
   return (
-    <div className='flex h-screen bg-slate-200'>
+    <div className='relative min-h-screen bg-slate-200 md:flex'>
       {/* Mobile Icon */}
+      <div className='flex items-center justify-between bg-slate-400 md:hidden '>
+        <a href='' className='block p-4 font-bold text-white'>
+          Pet Control
+        </a>
+        <button className='p-4 focus:bg-slate-700'>
+          <Bars3Icon className='h-8 w-8  text-white' />
+        </button>
+      </div>
       {/* Sidebar */}
       {/* <Sidebar /> */}
-      <div className='absolute inset-y-0 left-0 flex h-full w-64 -translate-x-full transform flex-col border-r-2 border-slate-400 bg-slate-300 p-4 transition duration-200 ease-in-out'>
+      <div className='absolute inset-y-0 left-0 flex  w-64 -translate-x-full transform flex-col border-r-2 border-slate-400 bg-slate-300 p-4 transition duration-200 ease-in-out md:relative md:translate-x-0'>
         <div className='flex w-full flex-col items-center justify-between gap-2 border-b border-b-slate-400 py-4'>
           <div className='flex h-12 w-12 items-center'>
             <img src='/src/assets/images/user-image.png' alt='' />
