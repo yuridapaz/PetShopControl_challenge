@@ -1,18 +1,13 @@
-import Display from './components/Display';
-import Header from './components/Header';
-import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
-    <>
-      <div className='flex h-screen w-full flex-col bg-slate-100'>
-        <Header />
-        <div className='flex h-full w-full'>
-          <Navbar />
-          <Display>oi</Display>
-        </div>
-      </div>
-    </>
+    <div className='flex bg-slate-200'>
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Content Pages */}
+    </div>
   );
 }
 
