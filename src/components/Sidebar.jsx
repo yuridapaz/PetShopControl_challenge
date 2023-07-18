@@ -11,12 +11,12 @@ const Sidebar = () => {
   return (
     <>
       {/* Mobile Icon */}
-      <div className=' flex items-center justify-between bg-gray-300 md:hidden '>
-        <a href='' className='block p-4 font-bold text-gray-950'>
+      <div className=' flex items-center justify-between bg-slate-300 shadow-md md:hidden'>
+        <a href='' className=' block p-3 font-bold text-gray-950 '>
           Pet Control
         </a>
-        <button className='p-4 hover:bg-gray-500' onClick={toggleSideBar}>
-          <Bars3Icon className='h-8 w-8  text-gray-950 active:text-gray-50' />
+        <button className='p-3 hover:bg-gray-500' onClick={toggleSideBar}>
+          <Bars3Icon className='h-8 w-8  text-gray-950  active:text-gray-50' />
         </button>
       </div>
       {/* Sidebar */}
