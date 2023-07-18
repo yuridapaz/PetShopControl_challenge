@@ -1,20 +1,23 @@
 const PetCard = () => {
   return (
-    <div className=' @container'>
-      <div className=' relative my-2 ml-8  flex cursor-pointer  items-center rounded-md bg-slate-50'>
-        <div className='absolute -left-8 w-16 overflow-hidden rounded-md bg-slate-200 p-0'>
-          <img src='src/assets/images/dogIcon.png' alt='' className='object-cover' />
-        </div>
-        <div className=' flex w-full flex-col items-center px-6 py-1 pl-14'>
+    <div className='w-full max-w-md  shadow-md @container'>
+      <div className='relative flex cursor-pointer items-center overflow-hidden rounded-sm ring-black/50 ring-offset-1 @container  hover:ring-1'>
+        <img
+          src='src/assets/images/Todd.jpeg'
+          alt=''
+          className=' absolute -left-6 h-20 w-20 rounded-full object-cover ring-1 ring-black/50 ring-offset-1 @[264px]:-left-2 @[264px]:h-16 @[264px]:w-16'
+        />
+
+        <div className='flex w-full flex-col items-start rounded-sm bg-slate-200 px-1 py-1 pl-16 shadow-lg'>
           <div className=''>
-            <h1 className='text-sm '>Todd da Paz Simonin</h1>
+            <h1 className='text-sm'>Todd da Paz Simonin</h1>
           </div>
-          <div className='flex flex-col justify-center font-bold @xs:w-full @xs:flex-row @xs:justify-center @xs:gap-4'>
-            <p className='text-xs'>
+          <div className='flex  gap-4 font-bold @xs:w-full @xs:flex-row  @xs:gap-4'>
+            <p className='text-xxs'>
               Tipo:
               <span className='font-normal'> Cachorro </span>
             </p>
-            <p className='text-xs '>
+            <p className='text-xxs '>
               Raça:
               <span className=' font-normal'> Schnauzer</span>
             </p>
