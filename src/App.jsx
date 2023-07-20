@@ -1,85 +1,103 @@
 import Sidebar from './components/Sidebar';
 import PetCard from './components/PetCard';
-import DisplayPage from './pages/DisplayPage';
+import { useEffect, useState } from 'react';
+import { firestore } from './firebase_setup/firebase';
+import { collection, getDocs } from '@firebase/firestore';
 
 function App() {
+  const [data, setData] = useState([]);
+  const ref = collection(firestore, 'test_data');
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getDocs(ref);
+      const finalData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log(finalData);
+      setData(finalData);
+    };
+    getData();
+  }, []);
+
   return (
-    <div className='relative min-h-screen bg-gray-100 font-sans md:flex'>
+    <div className='relative min-h-screen bg-gray-100 font-sans dark:bg-gray-900  dark:text-zinc-50 md:flex '>
       <Sidebar />
 
       <div className='mt-2 flex w-full flex-col items-start @container'>
         {/* Inputs section */}
-        <div className='flex w-full max-w-md flex-col items-center self-center'>
-          <div className='flex w-full'>
+        <div className='flex w-full max-w-md flex-col items-center self-center '>
+          <div className='mt-2 flex w-full'>
+            {/* Search input */}
             <input
               type='text'
               placeholder='Pesquisar ...'
-              className='block w-full flex-1 rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 '
+              className='block w-full flex-1 rounded-sm border border-gray-300 bg-gray-50 p-1.5  text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 dark:placeholder-zinc-100 dark:focus:border-blue-500 dark:focus:ring-blue-500'
             />
-            {/* dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 */}
-            <div className='ml-2 block rounded-lg border border-gray-300 bg-gray-50 p-2  text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 '>
-              <select name='Sort' id=''>
-                <option value='A-Z'>A-Z</option>
-              </select>
-            </div>
+
+            <select
+              name='Sort'
+              id=''
+              className='ml-2 block rounded-sm border border-gray-300 bg-gray-50 p-2  text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
+            >
+              <option value='A-Z'>A-Z</option>
+            </select>
           </div>
-          <div className='flex w-full justify-between'>
-            <div className='mt-3'>
+          {/* Filter  */}
+          <div className='mt-3 flex w-full justify-between'>
+            <div>
               <label
                 htmlFor='tipo'
-                className='mb-0.5 ml-1 block text-sm font-medium text-gray-900 '
+                className='mb-1 ml-1 block text-xs font-medium text-gray-900 dark:text-zinc-50 '
               >
-                {/* dark:text-white */}
                 Escolher tipo
               </label>
               <select
                 id='tipo'
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 '
+                className='block w-full rounded-sm border border-gray-300 bg-gray-50 p-0.5 text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
               >
-                {/* dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 */}
-                <option selected>Escolher pet</option>
+                <option defaultValue>Pet</option>
                 <option value='cachorro'>Cachorro</option>
                 <option value='gato'>Gato</option>
                 <option value='passaro'>Pássaro</option>
                 <option value='outro'>Outro</option>
               </select>
             </div>
-            {/* <div>
+            <div>
               <label
                 htmlFor='raca'
-                className='mb-0.5 ml-1 block text-sm font-medium text-gray-900 '
+                className='mb-1 ml-1 block text-xs font-medium text-gray-900 dark:text-zinc-50'
               >
                 Escolher raça
               </label>
               <select
                 id='raca'
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-1 pr-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 '
+                className='block w-full rounded-sm border border-gray-300 bg-gray-50 p-0.5 text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
               >
-                <option selected>Escolher pet</option>
-                <option value='cachorro'>Cachorro</option>
-                <option value='gato'>Gato</option>
-                <option value='passaro'>Pássaro</option>
-                <option value='outro'>Outro</option>
+                <option defaultValue>Raça</option>
+                <option value='schnauzer'>Schnauzer</option>
+                <option value='schnauzer'>Schnauzer</option>
+                <option value='schnauzer'>Schnauzer</option>
+                <option value='schnauzer'>Schnauzer</option>
+                <option value='schnauzer'>Schnauzer</option>
               </select>
-            </div> */}
-            {/* <div>
+            </div>
+            <div>
               <label
                 htmlFor='porte'
-                className='mb-0.5 ml-1 block text-sm font-medium text-gray-900 '
+                className='mb-1 ml-1 block text-xs font-medium text-gray-900 dark:text-zinc-50'
               >
                 Escolher porte
               </label>
               <select
                 id='porte'
-                className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-1 pr-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 '
+                className='block w-full rounded-sm border border-gray-300 bg-gray-50 p-0.5 pr-2 text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'
               >
-                <option selected>Escolher pet</option>
+                <option defaultValue>Porte</option>
                 <option value='micro'>Micro</option>
                 <option value='pequeno'>Pequeno</option>
                 <option value='medio'>Médio</option>
                 <option value='grande'>Grande</option>
               </select>
-            </div> */}
+            </div>
           </div>
         </div>
 
@@ -93,6 +111,8 @@ function App() {
           <PetCard />
           <PetCard />
         </div>
+
+        {data && data.map((data, i) => <h1 key={i}> {data.testData} </h1>)}
       </div>
     </div>
   );

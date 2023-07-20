@@ -14,7 +14,7 @@
   }
 
   .underlineHover::after {
-    @apply absolute bottom-[3px] left-[0px] h-[2px] w-[0%]  bg-gray-800 duration-200 content-[''];
+    @apply absolute bottom-[1px] left-[0px] h-[1px] w-[0%]  bg-gray-800 duration-200 content-[''] dark:bg-zinc-300;
   }
 
   .underlineHover:hover::after {
