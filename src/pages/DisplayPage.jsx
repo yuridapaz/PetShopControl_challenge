@@ -1,3 +1,5 @@
+import SelectInput from '../components/SelectInput';
+
 const DisplayPage = ({ children }) => {
   return (
     <div className='mt-2 flex w-full flex-col items-start @container'>
@@ -81,6 +83,12 @@ const DisplayPage = ({ children }) => {
           </div>
         </div>
       </div>
+
+      <SelectInput
+        defaultValue={'Escolher'}
+        labelName={'Testando Select Input'}
+        values={['Yuri', 'Todd', 'Paola', 'Gillian']}
+      />
 
       {/* Grid Container */}
 

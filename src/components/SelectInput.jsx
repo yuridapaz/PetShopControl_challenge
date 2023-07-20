@@ -29,10 +29,6 @@ const SelectInput = ({ labelName, defaultValue, values }) => {
             </option>
           );
         })}
-        <option value='cachorro'>Cachorro</option>
-        <option value='gato'>Gato</option>
-        <option value='passaro'>Pássaro</option>
-        <option value='outro'>Outro</option>
       </select>
     </div>
   );
