@@ -3,8 +3,8 @@ const DisplayPage = ({ children }) => {
     <div className='mt-2 flex w-full flex-col items-start @container'>
       {/* Inputs section */}
       <div className='flex w-full max-w-md flex-col items-center self-center '>
+        {/* Search input */}
         <div className='mt-2 flex w-full'>
-          {/* Search input */}
           <input
             type='text'
             placeholder='Pesquisar ...'
@@ -19,8 +19,9 @@ const DisplayPage = ({ children }) => {
             <option value='A-Z'>A-Z</option>
           </select>
         </div>
-        {/* Filter  */}
+        {/* Select Inputs Div */}
         <div className='mt-3 flex w-full justify-between'>
+          {/* Filter select input  */}
           <div>
             <label
               htmlFor='tipo'
@@ -39,6 +40,7 @@ const DisplayPage = ({ children }) => {
               <option value='outro'>Outro</option>
             </select>
           </div>
+          {/* Filter select input  */}
           <div>
             <label
               htmlFor='raca'
@@ -58,6 +60,7 @@ const DisplayPage = ({ children }) => {
               <option value='schnauzer'>Schnauzer</option>
             </select>
           </div>
+          {/* Filter select input  */}
           <div>
             <label
               htmlFor='porte'

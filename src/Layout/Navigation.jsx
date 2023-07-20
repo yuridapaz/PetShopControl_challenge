@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowRightOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/solid';
 
-const Sidebar = () => {
+const Navigation = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
 
   const toggleSideBar = () => {
@@ -55,4 +55,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Navigation;

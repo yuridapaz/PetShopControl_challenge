@@ -1,4 +1,4 @@
-import Sidebar from './components/Sidebar';
+import Navigation from './Layout/Navigation';
 import PetCard from './components/PetCard';
 import { useEffect, useState } from 'react';
 import { firestore } from './firebase_setup/firebase';
@@ -17,11 +17,12 @@ function App() {
       setData(finalData);
     };
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className='relative min-h-screen bg-gray-100 font-sans dark:bg-gray-900  dark:text-zinc-50 md:flex '>
-      <Sidebar />
+      <Navigation />
       <DisplayPage>
         <PetCard />
         <PetCard />
