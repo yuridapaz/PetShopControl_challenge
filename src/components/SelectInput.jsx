@@ -1,7 +1,7 @@
 const SelectInput = ({ labelName, defaultValue, values, hideLabel }) => {
   return (
     <div
-      className={`flex w-full flex-col gap-0.5 @3xl:max-w-[150px]   ${
+      className={`last: flex w-full flex-col gap-0.5 @3xl:max-w-[150px]    ${
         hideLabel ? 'w-auto self-stretch  ' : ''
       }`}
     >
