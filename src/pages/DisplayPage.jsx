@@ -1,4 +1,4 @@
-import SelectInput from '../components/SelectInput';
+import SelectInput from '../components/FilterInput';
 
 const DisplayPage = ({ children }) => {
   return (

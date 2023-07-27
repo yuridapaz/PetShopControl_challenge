@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { firestore } from './firebase_setup/firebase';
 import { collection, getDocs } from '@firebase/firestore';
 import DisplayPage from './pages/DisplayPage';
+import { FormPage } from './pages/FormPage';
+import { Button } from './components/Button';
 
 function App() {
   const [data, setData] = useState([]);
@@ -23,16 +25,10 @@ function App() {
   return (
     <div className='relative min-h-screen bg-gray-100 font-sans dark:bg-gray-900  dark:text-zinc-50 md:flex '>
       <Navigation />
-      <DisplayPage>
-        <PetCard />
-        <PetCard />
-        <PetCard />
-        <PetCard />
-        <PetCard />
-        <PetCard />
-        <PetCard />
-        <PetCard />
-      </DisplayPage>
+      <div>
+        <Button size={'small'}>Text</Button>
+      </div>
+      <FormPage />
     </div>
   );
 }
