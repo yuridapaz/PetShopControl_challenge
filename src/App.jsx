@@ -23,11 +23,8 @@ function App() {
   }, []);
 
   return (
-    <div className='relative min-h-screen bg-gray-100 font-sans dark:bg-gray-900  dark:text-zinc-50 md:flex '>
+    <div className='relative min-h-screen w-full bg-gray-100 font-sans dark:bg-gray-900  dark:text-zinc-50 md:flex '>
       <Navigation />
-      <div>
-        <Button size={'small'}>Text</Button>
-      </div>
       <FormPage />
     </div>
   );
