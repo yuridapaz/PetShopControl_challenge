@@ -1,11 +1,8 @@
 import Navigation from './Layout/Navigation';
-import PetCard from './components/PetCard';
 import { useEffect, useState } from 'react';
 import { firestore } from './firebase_setup/firebase';
 import { collection, getDocs } from '@firebase/firestore';
-import DisplayPage from './pages/DisplayPage';
 import { FormPage } from './pages/FormPage';
-import { Button } from './components/Button';
 
 function App() {
   const [data, setData] = useState([]);

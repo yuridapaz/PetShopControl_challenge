@@ -9,6 +9,9 @@ const selectInputVariants = cva(
         md: 'text-md px-4 py-3',
         lg: 'text-xl px-4 py-3',
       },
+      fullWidth: {
+        true: 'w-full',
+      },
     },
     defaultVariants: {
       size: 'sm',
@@ -16,8 +19,8 @@ const selectInputVariants = cva(
   }
 );
 
-export const SelectInput = ({ className, variant, size, bold, values, defaultValue, id }) => (
-  <select id={id} className={selectInputVariants({ variant, size, bold, className })}>
+export const SelectInput = ({ className, variant, size, fullWidth, values, defaultValue, id }) => (
+  <select id={id} className={selectInputVariants({ variant, size, fullWidth, className })}>
     <option defaultValue> {defaultValue} </option>
     {values.map((value, i) => {
       return (
