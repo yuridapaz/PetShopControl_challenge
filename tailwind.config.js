@@ -1,8 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{html,js}'],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        xxs: '0.65rem',
+      },
+    },
   },
-  plugins: [],
+  // eslint-disable-next-line no-undef
+  plugins: [require('@tailwindcss/container-queries')],
 };
