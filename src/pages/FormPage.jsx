@@ -5,19 +5,29 @@ import { FaPaw } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import FormErrorMessage from '../components/FormErrorMessage';
 
+import { collection, addDoc } from '@firebase/firestore';
+import { firestore } from '../firebase_setup/firebase';
+
 export const FormPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('🚀 ~ file: FormPage.jsx:17 ~ onSubmit ~ data:', data);
-  };
+  const onSubmit = async (formData) => {
+    const data = {
+      nome: formData.nome,
+      tipo: formData.tipo,
+      raca: formData.raca,
+      cor: formData.cor,
+      idade: formData.idade,
+      tamanho: formData.tamanho,
+    };
 
-  console.log("🚀 ~ file: FormPage.jsx:19 ~ FormPage ~ watch('name'):", watch('name'));
+    await addDoc(collection(firestore, 'pets_data'), data);
+    alert('Adicionado!');
+  };
 
   return (
     <div className='container flex h-full flex-1 flex-col items-center  p-4 '>
@@ -37,11 +47,11 @@ export const FormPage = () => {
         <div className='relative flex flex-col gap-0.5'>
           <label htmlFor='name'> Nome: </label>
           <TextInput
-            id={'name'}
-            register={{ ...register('name', { required: true }) }}
-            error={errors.name && true}
+            id={'nome'}
+            register={{ ...register('nome', { required: true }) }}
+            error={errors.nome && true}
           />
-          {errors.name && <FormErrorMessage />}
+          {errors.nome && <FormErrorMessage />}
         </div>
         {/* Tipo / Raça - Select */}
         <div className='flex w-full flex-col gap-6'>
@@ -80,7 +90,7 @@ export const FormPage = () => {
           </div>
           <div className='relative flex flex-col gap-0.5'>
             <label htmlFor='idade'>Idade:</label>
-            {/* <SelectInput ={'idade'} values={['1', '2', '3']} /> */}
+
             <input
               type='number'
               name='idade'
