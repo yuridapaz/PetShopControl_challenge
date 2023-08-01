@@ -8,8 +8,8 @@ function App() {
     <div className='relative flex min-h-screen w-full flex-col bg-gray-100  dark:bg-gray-900  dark:text-zinc-50 md:flex md:flex-row'>
       <Navigation />
       {/* <FormPage /> */}
-      {/* <PetDisplay /> */}
-      <PetInfoPage />
+      <PetDisplay />
+      {/* <PetInfoPage /> */}
     </div>
   );
 }

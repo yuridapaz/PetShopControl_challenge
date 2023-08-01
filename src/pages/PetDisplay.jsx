@@ -39,7 +39,7 @@ const PetDisplay = () => {
       </div>
       {/* Display Cards Grid */}
       <div className='grid w-full max-w-screen-2xl grid-cols-1 justify-items-center gap-3 pt-3 @lg:grid-cols-2 @3xl:grid-cols-3 @3xl:p-0 @3xl:pt-6 @6xl:grid-cols-4 @7xl:grid-cols-5'>
-        {petsData.map((petData) => {
+        {petsData?.map((petData) => {
           return <PetCard petInfo={petData} key={petData.id} />;
         })}
         {/* <PetCard />
