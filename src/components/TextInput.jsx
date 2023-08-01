@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 const textInputVariants = cva(
-  'rounded-sm border border-gray-300 bg-gray-50 text-gray-900 focus:border-blue-500  focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
+  'rounded-md border border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
   {
     variants: {
       size: {
@@ -12,6 +12,9 @@ const textInputVariants = cva(
       fullWidth: {
         true: 'w-full',
       },
+      error: {
+        true: 'border-1 border-red-400 focus:outline-none',
+      },
     },
 
     defaultVariants: {
@@ -20,11 +23,21 @@ const textInputVariants = cva(
   }
 );
 
-export const TextInput = ({ className, variant, size, fullWidth, placeholder, id }) => (
+export const TextInput = ({
+  className,
+  variant,
+  size,
+  fullWidth,
+  placeholder,
+  id,
+  register,
+  error,
+}) => (
   <input
     type='text'
     id={id}
     placeholder={placeholder}
-    className={textInputVariants({ variant, size, fullWidth, className })}
+    className={textInputVariants({ variant, size, fullWidth, className, error })}
+    {...register}
   ></input>
 );

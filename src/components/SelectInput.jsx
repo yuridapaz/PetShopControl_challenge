@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 const selectInputVariants = cva(
-  'rounded-sm border border-gray-300 bg-gray-50 text-gray-900 focus:border-blue-500  focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
+  'rounded-md border border-gray-300 bg-gray-50 text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
   {
     variants: {
       size: {
@@ -12,6 +12,9 @@ const selectInputVariants = cva(
       fullWidth: {
         true: 'w-full',
       },
+      error: {
+        true: 'border-1 border-red-400 focus:outline-none',
+      },
     },
     defaultVariants: {
       size: 'sm',
@@ -19,9 +22,22 @@ const selectInputVariants = cva(
   }
 );
 
-export const SelectInput = ({ className, variant, size, fullWidth, values, defaultValue, id }) => (
-  <select id={id} className={selectInputVariants({ variant, size, fullWidth, className })}>
-    <option defaultValue> {defaultValue} </option>
+export const SelectInput = ({
+  className,
+  variant,
+  size,
+  fullWidth,
+  values,
+  id,
+  register,
+  error,
+}) => (
+  <select
+    id={id}
+    className={selectInputVariants({ variant, size, fullWidth, className, error })}
+    {...register}
+  >
+    <option selected disabled hidden></option>
     {values.map((value, i) => {
       return (
         <option
