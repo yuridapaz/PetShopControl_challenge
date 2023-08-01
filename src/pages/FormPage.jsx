@@ -4,9 +4,8 @@ import { SelectInput } from '../components/SelectInput';
 import { FaPaw } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import FormErrorMessage from '../components/FormErrorMessage';
-
-import { collection, addDoc } from '@firebase/firestore';
-import { firestore } from '../firebase_setup/firebase';
+import { useContext } from 'react';
+import { PetShopContext } from '../context/PetShopContext';
 
 export const FormPage = () => {
   const {
@@ -15,7 +14,9 @@ export const FormPage = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (formData) => {
+  const { createPet, testeFunction } = useContext(PetShopContext);
+
+  const onSubmit = (formData) => {
     const data = {
       nome: formData.nome,
       tipo: formData.tipo,
@@ -24,8 +25,8 @@ export const FormPage = () => {
       idade: formData.idade,
       tamanho: formData.tamanho,
     };
+    createPet(data);
 
-    await addDoc(collection(firestore, 'pets_data'), data);
     alert('Adicionado!');
   };
 

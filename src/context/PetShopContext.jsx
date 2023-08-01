@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from 'react';
 import { firestore } from '../firebase_setup/firebase';
-import { collection, getDocs } from '@firebase/firestore';
+import { collection, getDocs, addDoc } from '@firebase/firestore';
 
 export const PetShopContext = createContext([]);
 
@@ -19,7 +19,16 @@ const PetShopProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <PetShopContext.Provider value={{ petShopData }}>{children}</PetShopContext.Provider>;
+  // Create add function
+  const createPet = async (data) => {
+    await addDoc(collection(firestore, 'pets_data'), data);
+  };
+  // Create edit function
+  // Create delete function
+
+  return (
+    <PetShopContext.Provider value={{ petShopData, createPet }}>{children}</PetShopContext.Provider>
+  );
 };
 
 export default PetShopProvider;
