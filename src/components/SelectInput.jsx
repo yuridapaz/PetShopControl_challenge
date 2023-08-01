@@ -22,6 +22,7 @@ const selectInputVariants = cva(
   }
 );
 
+<<<<<<< Updated upstream
 export const SelectInput = ({
   className,
   variant,
@@ -38,6 +39,21 @@ export const SelectInput = ({
     {...register}
   >
     <option selected disabled hidden></option>
+=======
+<<<<<<< Updated upstream
+export const SelectInput = ({ className, variant, size, fullWidth, values, defaultValue, id }) => (
+  <select id={id} className={selectInputVariants({ variant, size, fullWidth, className })}>
+    <option defaultValue> {defaultValue} </option>
+=======
+export const SelectInput = ({ className, size, fullWidth, values, id, register, error }) => (
+  <select
+    id={id}
+    className={selectInputVariants({ size, fullWidth, className, error })}
+    {...register}
+  >
+    <option selected disabled hidden></option>
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     {values.map((value, i) => {
       return (
         <option
