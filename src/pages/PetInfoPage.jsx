@@ -1,14 +1,20 @@
 import { AiOutlineLeft } from 'react-icons/ai';
+import { useParams } from 'react-router-dom';
 
 const PetInfoPage = () => {
+  const { nome } = useParams();
+
   return (
     <div className='mt-2 p-1'>
       {/* Top nav */}
+
       <div className='mb-2 flex rounded-xl bg-gray-100 p-2'>
         <button className='rounded-xl border-2 border-gray-300/50 bg-zinc-100 p-3 text-sm transition-all ease-in hover:border-gray-500/50'>
           <AiOutlineLeft />
         </button>
-        <p className='m-auto text-lg'>Informações</p>
+        <p className='m-auto text-lg'>
+          Informações <h1 className='inline-block text-xs'> {nome} </h1>
+        </p>
       </div>
       {/* Info Card  */}
       <div className='mb-2 flex flex-col gap-4 rounded-xl bg-gray-100 p-2'>
@@ -48,11 +54,11 @@ const PetInfoPage = () => {
         </div>
       </div>
       {/* Services List Card  */}
-      <div className='flex flex-col gap-4 rounded-xl bg-gray-100 p-2'>
+      {/* <div className='flex flex-col gap-4 rounded-xl bg-gray-100 p-2'>
         <div>
           <p className=''> Serviços: </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
