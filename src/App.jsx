@@ -5,11 +5,11 @@ import PetInfoPage from './pages/PetInfoPage';
 
 function App() {
   return (
-    <div className='relative flex min-h-screen w-full flex-col bg-gray-100  dark:bg-gray-900  dark:text-zinc-50 md:flex md:flex-row'>
+    <div className='relative flex min-h-screen w-full flex-col bg-slate-200  dark:bg-gray-900  dark:text-zinc-50 md:flex md:flex-row'>
       <Navigation />
       {/* <FormPage /> */}
-      <PetDisplay />
-      {/* <PetInfoPage /> */}
+      {/* <PetDisplay /> */}
+      <PetInfoPage />
     </div>
   );
 }
