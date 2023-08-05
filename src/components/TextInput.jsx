@@ -15,6 +15,9 @@ const textInputVariants = cva(
       error: {
         true: 'border-1 border-red-400 focus:outline-none',
       },
+      filled: {
+        true: 'border-1 border-green-600 focus:outline-none',
+      },
     },
 
     defaultVariants: {
@@ -32,12 +35,13 @@ export const TextInput = ({
   id,
   register,
   error,
+  filled,
 }) => (
   <input
     type='text'
     id={id}
     placeholder={placeholder}
-    className={textInputVariants({ variant, size, fullWidth, className, error })}
+    className={textInputVariants({ variant, size, fullWidth, className, error, filled })}
     {...register}
   ></input>
 );

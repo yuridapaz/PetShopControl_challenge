@@ -15,6 +15,9 @@ const selectInputVariants = cva(
       error: {
         true: 'border-1 border-red-400 focus:outline-none',
       },
+      filled: {
+        true: 'border-1 border-green-400/50 focus:outline-none',
+      },
     },
     defaultVariants: {
       size: 'sm',
@@ -22,13 +25,22 @@ const selectInputVariants = cva(
   }
 );
 
-export const SelectInput = ({ className, size, fullWidth, values, id, register, error }) => (
+export const SelectInput = ({
+  className,
+  size,
+  fullWidth,
+  values,
+  id,
+  register,
+  error,
+  filled,
+}) => (
   <select
     id={id}
-    className={selectInputVariants({ size, fullWidth, className, error })}
+    className={selectInputVariants({ size, fullWidth, className, error, filled })}
     {...register}
   >
-    <option defaultValue disabled hidden></option>
+    <option defaultValue hidden></option>
 
     {values.map((value, i) => {
       return (

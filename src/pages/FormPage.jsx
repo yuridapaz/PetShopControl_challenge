@@ -11,8 +11,8 @@ export const FormPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid, touchedFields },
+  } = useForm({ mode: 'onChange' });
 
   const { createPet } = useContext(PetShopContext);
 
@@ -49,13 +49,14 @@ export const FormPage = () => {
           <label htmlFor='name'> Nome: </label>
           <TextInput
             id={'nome'}
-            register={{ ...register('nome', { required: true }) }}
+            register={{ ...register('nome', { minLength: 3 }) }}
             error={errors.nome && true}
+            filled={touchedFields.nome && !errors.nome && true}
           />
           {errors.nome && <FormErrorMessage />}
         </div>
         {/* Tipo / Raça - Select */}
-        <div className='flex w-full flex-col gap-6'>
+        <div className='flex w-full flex-col gap-5'>
           <div className='relative flex w-full flex-col gap-0.5'>
             <label htmlFor='tipo'>Tipo:</label>
             <SelectInput
@@ -91,7 +92,6 @@ export const FormPage = () => {
           </div>
           <div className='relative flex flex-col gap-0.5'>
             <label htmlFor='idade'>Idade:</label>
-
             <input
               type='number'
               name='idade'
@@ -106,16 +106,60 @@ export const FormPage = () => {
             {errors.idade && <FormErrorMessage />}
           </div>
         </div>
+        {/* Gênero e Peso */}
+        <div className='flex w-full gap-6'>
+          <div className='relative flex w-full flex-col gap-0.5'>
+            <label htmlFor='genero'>Gênero:</label>
+            <SelectInput
+              id={'genero'}
+              values={['genero 1 ', 'genero 2', 'genero 3']}
+              register={{ ...register('genero', { required: true }) }}
+              error={errors.genero && true}
+            />
+            {errors.genero && <FormErrorMessage />}
+          </div>
+          <div className='relative flex flex-col gap-0.5'>
+            <label htmlFor='peso'>Peso:</label>
+            <input
+              type='number'
+              name='peso'
+              max={50}
+              min={0.1}
+              step={0.1}
+              id='peso'
+              className={`w-32 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
+                errors.peso && 'border-1 border-red-400 focus:outline-none'
+              }`}
+              {...register('peso', { required: true })}
+            />
+            {errors.peso && <FormErrorMessage />}
+          </div>
+        </div>
         {/* Dono - Text Input / Firebase database select input */}
-        <div className='relative flex w-full flex-col gap-0.5'>
-          <label htmlFor='tamanho'>Tamanho:</label>
-          <SelectInput
-            id={'tamanho'}
-            values={['Micro', 'Pequeno', 'Médio', 'Grande', 'Gigante']}
-            register={{ ...register('tamanho', { required: true }) }}
-            error={errors.tamanho && true}
-          />
-          {errors.tamanho && <FormErrorMessage />}
+        <div className='flex w-full gap-6'>
+          <div className='relative flex w-full flex-col gap-0.5'>
+            <label htmlFor='tamanho'>Tamanho:</label>
+            <SelectInput
+              id={'tamanho'}
+              values={['Micro', 'Pequeno', 'Médio', 'Grande', 'Gigante']}
+              register={{ ...register('tamanho', { required: true }) }}
+              error={errors.tamanho && true}
+            />
+            {errors.tamanho && <FormErrorMessage />}
+          </div>
+          <div className='relative flex flex-col gap-0.5'>
+            <label htmlFor='nascimento'>Nascimento:</label>
+            <input
+              type='date'
+              name='nascimento'
+              id='nascimento'
+              className={`w-32 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
+                errors.nascimento && 'border-1 border-red-400 focus:outline-none'
+              }`}
+              {...register('nascimento', { required: true })}
+            />
+            {errors.nascimento && <FormErrorMessage />}
+          </div>
         </div>
 
         <Button type='submit' className={'mt-auto w-full max-w-xs self-center'}>
