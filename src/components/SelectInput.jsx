@@ -16,7 +16,7 @@ const selectInputVariants = cva(
         true: 'border-1 border-red-400 focus:outline-none',
       },
       filled: {
-        true: 'border-1 border-green-400/50 focus:outline-none',
+        true: 'border-1 border-green-500 focus:outline-none',
       },
     },
     defaultVariants: {
