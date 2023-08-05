@@ -1,6 +1,6 @@
 const PetCard = ({ petInfo }) => {
   return (
-    <div className='w-full max-w-md  shadow-md @container  dark:text-zinc-200'>
+    <div className='w-full max-w-md shadow-md @container dark:text-zinc-200'>
       <div className='relative flex cursor-pointer items-center overflow-hidden rounded-sm ring-black/50 ring-offset-1 @container  hover:ring-1  dark:ring-zinc-100 dark:ring-offset-gray-800'>
         <img
           src='src/assets/images/Todd.jpeg'

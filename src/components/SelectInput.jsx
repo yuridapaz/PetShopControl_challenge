@@ -28,7 +28,7 @@ export const SelectInput = ({ className, size, fullWidth, values, id, register, 
     className={selectInputVariants({ size, fullWidth, className, error })}
     {...register}
   >
-    <option selected disabled hidden></option>
+    <option defaultValue disabled hidden></option>
 
     {values.map((value, i) => {
       return (

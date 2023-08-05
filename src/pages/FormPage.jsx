@@ -14,7 +14,7 @@ export const FormPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { createPet, testeFunction } = useContext(PetShopContext);
+  const { createPet } = useContext(PetShopContext);
 
   const onSubmit = (formData) => {
     const data = {
