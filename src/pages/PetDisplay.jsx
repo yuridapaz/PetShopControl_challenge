@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 const PetDisplay = () => {
   const { petsData } = useContext(PetShopContext);
-  console.log('🚀 ~ file: PetDisplay.jsx:9 ~ PetDisplay ~ petShopData:', petsData);
 
   return (
     <div className='p-4'>
@@ -42,7 +41,7 @@ const PetDisplay = () => {
       <div className='grid w-full max-w-screen-2xl grid-cols-1 justify-items-center gap-3 pt-3 @lg:grid-cols-2 @3xl:grid-cols-3 @3xl:p-0 @3xl:pt-6 @6xl:grid-cols-4 @7xl:grid-cols-5'>
         {petsData?.map((petData) => {
           return (
-            <Link key={petData.id} to={`/pets/${petData.nome}`} className='w-full max-w-md'>
+            <Link key={petData.id} to={`/pets/${petData.id}`} className='w-full max-w-md'>
               {/* Precisa modificar className do PetCard */}
               <PetCard petInfo={petData} key={petData.id} />
             </Link>

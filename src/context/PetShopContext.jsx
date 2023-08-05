@@ -18,6 +18,14 @@ const PetShopProvider = ({ children }) => {
     getData();
   }, []);
 
+  // Find a pet function
+  const findPet = (petId) => {
+    const pet = petsData.find((pet) => pet.id == petId);
+    return pet;
+  };
+
+  findPet('3fVjdN69mvPqBQx56FyJ');
+
   // Create add function
   const createPet = async (data) => {
     await addDoc(collection(firestore, 'pets_data'), data);
@@ -26,7 +34,9 @@ const PetShopProvider = ({ children }) => {
   // Create delete function
 
   return (
-    <PetShopContext.Provider value={{ petsData, createPet }}>{children}</PetShopContext.Provider>
+    <PetShopContext.Provider value={{ petsData, createPet, findPet }}>
+      {children}
+    </PetShopContext.Provider>
   );
 };
 

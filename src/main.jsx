@@ -7,6 +7,7 @@ import PetShopProvider from './context/PetShopContext.jsx';
 import ErrorPage from './pages/ErrorPage';
 import PetInfoPage from './pages/PetInfoPage.jsx';
 import PetDisplay from './pages/PetDisplay.jsx';
+import { FormPage } from './pages/FormPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
         element: <PetDisplay />,
       },
       {
-        path: 'pets/:nome',
+        path: 'pets/:id',
         element: <PetInfoPage />,
+      },
+      {
+        path: 'cadastroPet',
+        element: <FormPage />,
       },
     ],
   },

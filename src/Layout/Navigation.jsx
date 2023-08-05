@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowRightOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
 
 const Navigation = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -33,15 +34,26 @@ const Navigation = () => {
         </div>
         <div>
           <ul className='flex flex-col items-start gap-4  pt-10 '>
-            <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer hover:text-zinc-800  dark:text-zinc-50  dark:hover:text-zinc-300'>
-              Dashboard
-            </li>
-            <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300'>
-              Pet List
-            </li>
-            <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300'>
-              Users
-            </li>
+            <Link to={'/'} onClick={toggleSideBar}>
+              <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer hover:text-zinc-800  dark:text-zinc-50  dark:hover:text-zinc-300'>
+                Dashboard / Home
+              </li>
+            </Link>
+            <Link to={'/pets'} onClick={toggleSideBar}>
+              <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300'>
+                Pet List
+              </li>
+            </Link>
+            <Link to={'/cadastroPet'} onClick={toggleSideBar}>
+              <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300'>
+                Cadastrar Pet
+              </li>
+            </Link>
+            {/* <Link to={'/'} onClick={toggleSideBar}>
+              <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300'>
+                Users
+              </li>
+            </Link> */}
           </ul>
         </div>
         <div className='mt-auto flex justify-center'>
