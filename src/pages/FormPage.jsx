@@ -7,13 +7,15 @@ import FormErrorMessage from '../components/FormErrorMessage';
 import { useContext } from 'react';
 import { PetShopContext } from '../context/PetShopContext';
 import { NumberInput } from '../components/NumberInput';
+import { useNavigate } from 'react-router-dom';
 
 export const FormPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, touchedFields },
+    formState: { errors, touchedFields },
   } = useForm({ mode: 'onChange' });
+  const navigate = useNavigate();
 
   const { createPet } = useContext(PetShopContext);
 
@@ -30,7 +32,7 @@ export const FormPage = () => {
       nascimento: formData.nascimento,
     };
     createPet(data);
-    alert('Adicionado!');
+    navigate('/cadastroconcluido');
   };
 
   return (

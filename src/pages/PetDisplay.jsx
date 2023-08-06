@@ -11,7 +11,7 @@ const PetDisplay = () => {
   return (
     <div className='p-4'>
       {/* Search & Sort */}
-      <div className='flex flex-col gap-3 border-b border-slate-300 pb-3'>
+      <div className='flex flex-col gap-3 border-b border-slate-300 pb-1'>
         <div className='flex w-full gap-3'>
           <TextInput placeholder={'Pesquisar'} fullWidth />
           <SelectInput id={'ordenar'} values={['A-Z', 'Z-A', 'Tipo', 'Porte']} />

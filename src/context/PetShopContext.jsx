@@ -16,7 +16,7 @@ const PetShopProvider = ({ children }) => {
       setPetsData(finalData);
     };
     getData();
-  }, []);
+  }, [petsData]);
 
   // Find a pet function
   const findPet = (petId) => {

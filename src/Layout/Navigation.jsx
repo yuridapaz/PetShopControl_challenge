@@ -39,12 +39,7 @@ const Navigation = () => {
                 Dashboard / Home
               </li>
             </Link>
-            <Link
-              to={'/pets'}
-              onClick={() => {
-                toggleSideBar(), window.location.reload();
-              }}
-            >
+            <Link to={'/pets'} onClick={toggleSideBar}>
               <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300'>
                 Pet List
               </li>
