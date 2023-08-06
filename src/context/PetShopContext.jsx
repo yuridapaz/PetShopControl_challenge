@@ -24,8 +24,6 @@ const PetShopProvider = ({ children }) => {
     return pet;
   };
 
-  findPet('3fVjdN69mvPqBQx56FyJ');
-
   // Create add function
   const createPet = async (data) => {
     await addDoc(collection(firestore, 'pets_data'), data);

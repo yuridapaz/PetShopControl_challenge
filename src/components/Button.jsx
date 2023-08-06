@@ -5,7 +5,7 @@ const buttonVariants = cva('rounded-md transition-all ', {
   variants: {
     variant: {
       primary:
-        'bg-sky-400 hover:bg-sky-400/90 dark:bg-sky-400/90 dark:hover:bg-sky-300/90 text-slate-50',
+        'bg-sky-400 hover:bg-sky-400/90 dark:bg-sky-400/90 dark:hover:bg-sky-300/90 text-slate-50 disabled:bg-gray-400 disabled:cursor-not-allowed',
       secondary: 'bg-gray-400 hover:bg-gray-400/90 dark:bg-gray-300 dark:bg-gray-300/90 ',
       plain: 'bg-white border border-black  ',
       delete: 'bg-red-500 hover:bg-red-500/90 dark:bg-red-500/90 dark:hover:bg-red-400/90',
@@ -26,6 +26,8 @@ const buttonVariants = cva('rounded-md transition-all ', {
   },
 });
 
-export const Button = ({ className, variant, size, bold, children }) => (
-  <button className={buttonVariants({ variant, size, bold, className })}>{children}</button>
+export const Button = ({ className, variant, size, bold, children, disabled }) => (
+  <button disabled={disabled} className={buttonVariants({ variant, size, bold, className })}>
+    {children}
+  </button>
 );

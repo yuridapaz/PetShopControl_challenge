@@ -8,6 +8,7 @@ import ErrorPage from './pages/ErrorPage';
 import PetInfoPage from './pages/PetInfoPage.jsx';
 import PetDisplay from './pages/PetDisplay.jsx';
 import { FormPage } from './pages/FormPage.jsx';
+import RegisterConfirmationPage from './pages/RegisterConfirmationPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: 'cadastroPet',
         element: <FormPage />,
+      },
+      {
+        path: 'cadastroConcluido',
+        element: <RegisterConfirmationPage />,
       },
     ],
   },

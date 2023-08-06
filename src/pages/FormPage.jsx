@@ -24,10 +24,12 @@ export const FormPage = () => {
       raca: formData.raca,
       cor: formData.cor,
       idade: formData.idade,
+      genero: formData.genero,
+      peso: formData.peso,
       tamanho: formData.tamanho,
+      nascimento: formData.nascimento,
     };
     createPet(data);
-
     alert('Adicionado!');
   };
 
@@ -128,7 +130,7 @@ export const FormPage = () => {
             <label htmlFor='genero'>Gênero:</label>
             <SelectInput
               id={'genero'}
-              values={['genero 1 ', 'genero 2', 'genero 3']}
+              values={['Macho', 'Fêmea']}
               register={{ ...register('genero', { required: 'Escolher genero' }) }}
               error={errors.genero && true}
               filled={touchedFields.genero && !errors.genero}
