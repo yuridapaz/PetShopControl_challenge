@@ -31,6 +31,7 @@ export const FormPage = () => {
       tamanho: formData.tamanho,
       nascimento: formData.nascimento,
       observacoes: formatObs(formData.observacoes),
+      servicos: [],
     };
     createPet(data);
     navigate('/cadastroconcluido');

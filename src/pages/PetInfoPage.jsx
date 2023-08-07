@@ -7,19 +7,21 @@ import { Button } from '../components/Button';
 const PetInfoPage = () => {
   const { id } = useParams();
   const { findPet } = useContext(PetShopContext);
-  // const currentPet = findPet(id);
-  const currentPet = {
-    nome: 'YURI PAZ SIMONIN',
-    tipo: 'Gato',
-    raca: '2',
-    cor: 'cor-2',
-    idade: 2,
-    genero: 'Fêmea',
-    peso: 2,
-    tamanho: 'Pequeno',
-    nascimento: '1991-04-14T00:00:00.000Z',
-    observacoes: ['Ansioso', 'Gosta de petisco de carne'],
-  };
+  const currentPet = findPet(id);
+  console.log('🚀 ~ file: PetInfoPage.jsx:11 ~ PetInfoPage ~ currentPet:', currentPet);
+
+  // const currentPet = {
+  //   nome: 'YURI PAZ SIMONIN',
+  //   tipo: 'Gato',
+  //   raca: '2',
+  //   cor: 'cor-2',
+  //   idade: 2,
+  //   genero: 'Fêmea',
+  //   peso: 2,
+  //   tamanho: 'Pequeno',
+  //   nascimento: '1991-04-14T00:00:00.000Z',
+  //   observacoes: ['Ansioso', 'Gosta de petisco de carne'],
+  // };
   const navigate = useNavigate();
 
   return (
@@ -69,7 +71,7 @@ const PetInfoPage = () => {
         {/* observações */}
         <div className=' max-h-32 overflow-auto border-t border-gray-300 p-2'>
           <span className='text-sm text-gray-500 dark:text-gray-400'>Observações importantes:</span>
-          {currentPet?.observacoes.map((obs, i) => {
+          {currentPet?.observacoes?.map((obs, i) => {
             return (
               <p className='text-gray-70 pr-4  text-sm leading-4 dark:text-gray-200' key={i}>
                 {i}. {obs}
@@ -85,7 +87,27 @@ const PetInfoPage = () => {
           <p className='pb-2'> Serviços prestados: </p>
           <div className='flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-0.5 dark:bg-gray-700'>
             {/* Services container card */}
-            <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
+            {currentPet?.servicos?.map((servico, i) => {
+              return (
+                <div
+                  key={i}
+                  className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'
+                >
+                  <div className=''>
+                    <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
+                      {servico.data}
+                    </span>
+                    <p className=''> {servico.tipo} </p>
+                  </div>
+                  <div className='ml-auto self-center '>
+                    <p className='font-semibold text-green-700/80 dark:text-green-400/90'>
+                      {servico.valor}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+            {/* <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
               <div className=''>
                 <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
                   06-08-2023
@@ -95,100 +117,18 @@ const PetInfoPage = () => {
               <div className='ml-auto self-center '>
                 <p className='font-semibold text-green-700/80 dark:text-green-400/90'> R$ 80,00 </p>
               </div>
-            </div>
-            {/*  */}
-            <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
-              <div className=''>
-                <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                  06-08-2023
-                </span>
-                <p className=''> Banho e Tosa </p>
-              </div>
-              <div className='ml-auto self-center '>
-                <p className='font-semibold text-green-700/80 dark:text-green-400/90'> R$ 80,00 </p>
-              </div>
-            </div>
-            {/*  */}
-            <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
-              <div className=''>
-                <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                  06-08-2023
-                </span>
-                <p className=''> Banho e Tosa </p>
-              </div>
-              <div className='ml-auto self-center '>
-                <p className='font-semibold text-green-700/80 dark:text-green-400/90'> R$ 80,00 </p>
-              </div>
-            </div>
-            {/*  */}
-            <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
-              <div className=''>
-                <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                  06-08-2023
-                </span>
-                <p className=''> Banho e Tosa </p>
-              </div>
-              <div className='ml-auto self-center '>
-                <p className='font-semibold text-green-700/80 dark:text-green-400/90'> R$ 80,00 </p>
-              </div>
-            </div>
-            {/*  */}
-            <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
-              <div className=''>
-                <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                  06-08-2023
-                </span>
-                <p className=''> Banho e Tosa </p>
-              </div>
-              <div className='ml-auto self-center '>
-                <p className='font-semibold text-green-700/80 dark:text-green-400/90'> R$ 80,00 </p>
-              </div>
-            </div>
-            {/*  */}
-            <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
-              <div className=''>
-                <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                  06-08-2023
-                </span>
-                <p className=''> Banho e Tosa </p>
-              </div>
-              <div className='ml-auto self-center '>
-                <p className='font-semibold text-green-700/80 dark:text-green-400/90'> R$ 80,00 </p>
-              </div>
-            </div>
-            {/*  */}
-            <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
-              <div className=''>
-                <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                  06-08-2023
-                </span>
-                <p className=''> Banho e Tosa </p>
-              </div>
-              <div className='ml-auto self-center '>
-                <p className='font-semibold text-green-700/80 dark:text-green-400/90'> R$ 80,00 </p>
-              </div>
-            </div>
-            {/*  */}
-            <div className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'>
-              <div className=''>
-                <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                  06-08-2023
-                </span>
-                <p className=''> Banho e Tosa </p>
-              </div>
-              <div className='ml-auto self-center '>
-                <p className='font-semibold text-green-700/80 dark:text-green-400/90'> R$ 80,00 </p>
-              </div>
-            </div>
+            </div> */}
             {/*  */}
           </div>
         </div>
       </div>
       {/* Buttons section */}
       <div className='flex justify-between gap-8'>
-        <Button size={'md'} variant={''} className={'flex-1'}>
-          Adicionar Serviço
-        </Button>
+        <Link to={`/pets/${id}/servico`} state={{ id }}>
+          <Button size={'md'} variant={''} className={'flex-1'}>
+            Adicionar Serviço
+          </Button>
+        </Link>
         <Button size={'md'} variant={'delete'} className={'flex-1'}>
           Editar Informações
         </Button>
