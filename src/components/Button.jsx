@@ -1,4 +1,3 @@
-import React from 'react';
 import { cva } from 'class-variance-authority';
 
 const buttonVariants = cva('rounded-md transition-all ', {
@@ -6,9 +5,10 @@ const buttonVariants = cva('rounded-md transition-all ', {
     variant: {
       primary:
         'bg-sky-400 hover:bg-sky-400/90 dark:bg-sky-400/90 dark:hover:bg-sky-300/90 text-slate-50 disabled:bg-gray-400 disabled:cursor-not-allowed',
-      secondary: 'bg-gray-400 hover:bg-gray-400/90 dark:bg-gray-300 dark:bg-gray-300/90 ',
-      plain: 'bg-white border border-black  ',
-      delete: 'bg-red-500 hover:bg-red-500/90 dark:bg-red-500/90 dark:hover:bg-red-400/90',
+      secondary: 'bg-gray-300 hover:bg-gray-300/90 dark:bg-gray-300 dark:bg-gray-300/90 ',
+      plain: 'bg-white border border-black ',
+      delete:
+        'bg-red-500 text-white hover:bg-red-500/90 dark:bg-red-500/90 dark:hover:bg-red-400/90',
     },
     size: {
       sm: 'text-sm px-3 py-2',

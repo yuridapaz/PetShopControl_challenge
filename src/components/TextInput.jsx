@@ -13,10 +13,10 @@ const textInputVariants = cva(
         true: 'w-full',
       },
       error: {
-        true: 'border-1 border-red-400 focus:outline-none',
+        true: 'border-1 border-red-400 focus:outline-none dark:border-red-500/50',
       },
       filled: {
-        true: 'border-1 border-green-500 focus:outline-none',
+        true: 'border-1 border-green-500 focus:outline-none dark:border-green-500/50',
       },
     },
 

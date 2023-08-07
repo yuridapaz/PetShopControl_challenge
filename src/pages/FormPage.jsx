@@ -30,9 +30,35 @@ export const FormPage = () => {
       peso: formData.peso,
       tamanho: formData.tamanho,
       nascimento: formData.nascimento,
+      observacoes: formatObs(formData.observacoes),
     };
     createPet(data);
     navigate('/cadastroconcluido');
+  };
+
+  // const onSubmit = (formData) => {
+  //   const data = {
+  //     nome: formData.nome,
+  //     tipo: formData.tipo,
+  //     raca: formData.raca,
+  //     cor: formData.cor,
+  //     idade: formData.idade,
+  //     genero: formData.genero,
+  //     peso: formData.peso,
+  //     tamanho: formData.tamanho,
+  //     nascimento: formData.nascimento,
+  //     observacoes: formatObs(formData.observacoes),
+  //   };
+  //   console.log(data);
+  // };
+
+  const formatObs = (obs) => {
+    const arr = obs
+      .split('\n')
+      .map((o) => o.trim())
+      .filter(Boolean);
+    console.log(arr);
+    return arr;
   };
 
   return (
@@ -46,7 +72,7 @@ export const FormPage = () => {
       </div>
       {/* Form */}
       <form
-        className='flex h-full w-full max-w-4xl flex-1 flex-col gap-6'
+        className='flex h-full w-full max-w-4xl flex-1 flex-col gap-4'
         onSubmit={handleSubmit(onSubmit)}
       >
         {/* Name - Text Input */}
@@ -95,7 +121,7 @@ export const FormPage = () => {
           </div>
         </div>
         {/* Tamanho / Cor / Idade - Select  */}
-        <div className='flex w-full gap-6'>
+        <div className='flex w-full gap-4'>
           <div className='relative flex w-full flex-col gap-0.5'>
             <label htmlFor='cor'>Cor:</label>
             <SelectInput
@@ -127,7 +153,7 @@ export const FormPage = () => {
           </div>
         </div>
         {/* Gênero e Peso */}
-        <div className='flex w-full gap-6'>
+        <div className='flex w-full gap-4'>
           <div className='relative flex w-full flex-col gap-0.5'>
             <label htmlFor='genero'>Gênero:</label>
             <SelectInput
@@ -157,7 +183,7 @@ export const FormPage = () => {
           </div>
         </div>
         {/* Dono - Text Input / Firebase database select input */}
-        <div className='flex w-full gap-6'>
+        <div className='flex w-full gap-4'>
           <div className='relative flex w-full flex-col gap-0.5'>
             <label htmlFor='tamanho'>Tamanho:</label>
             <SelectInput
@@ -175,21 +201,33 @@ export const FormPage = () => {
             </label>
             <input
               type='date'
+              max={new Date().toISOString().slice(0, -8).split('T')[0]}
               name='nascimento'
               id='nascimento'
               className={`w-32 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
-                errors.nascimento && 'border-1 border-red-400 focus:outline-none'
+                errors.nascimento &&
+                'border-1 border-red-400 focus:outline-none dark:border-red-500/50'
               }
               ${
                 touchedFields.nascimento &&
                 !errors.nascimento &&
-                'border-1 border-green-500 focus:outline-none'
+                'border-1 border-green-500 focus:outline-none dark:border-green-500/50'
               }
               `}
-              {...register('nascimento', { required: true, valueAsDate: true })}
+              {...register('nascimento', { required: true })}
             />
             {errors.nascimento && <FormErrorMessage errorMessage={'Escolher data'} />}
           </div>
+        </div>
+        <div className='flex w-full flex-col gap-0.5'>
+          <label htmlFor='observacoes'> Observações </label>
+          <textarea
+            name='observacoes'
+            id='observacoes'
+            rows='4'
+            className='rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50'
+            {...register('observacoes')}
+          ></textarea>
         </div>
 
         <Button type='submit' className={'mt-auto w-full max-w-xs self-center'}>
