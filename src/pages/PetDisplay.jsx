@@ -1,12 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { TextInput } from '../components/TextInput';
 import { SelectInput } from '../components/SelectInput';
 import PetCard from '../components/PetCard';
 import { PetShopContext } from '../context/PetShopContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const PetDisplay = () => {
-  const { petsData } = useContext(PetShopContext);
+  const { data, getData } = useContext(PetShopContext);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className='p-4'>
@@ -39,7 +44,7 @@ const PetDisplay = () => {
       </div>
       {/* Display Cards Grid */}
       <div className='grid w-full max-w-screen-2xl grid-cols-1 justify-items-center gap-3 pt-3 @lg:grid-cols-2 @3xl:grid-cols-3 @3xl:p-0 @3xl:pt-6 @6xl:grid-cols-4 @7xl:grid-cols-5'>
-        {petsData?.map((petData) => {
+        {data?.map((petData) => {
           return (
             <Link key={petData.id} to={`/pets/${petData.id}`} className='w-full max-w-md'>
               {/* Precisa modificar className do PetCard */}

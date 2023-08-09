@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SelectInput } from '../components/SelectInput';
 import { NumberInput } from '../components/NumberInput';
 import { useForm } from 'react-hook-form';
@@ -9,6 +9,7 @@ import { Button } from '../components/Button';
 const ServiceFormPage = () => {
   const { state } = useLocation();
   const { addService } = useContext(PetShopContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -19,9 +20,12 @@ const ServiceFormPage = () => {
     const serviceData = {
       tipo: formData.tipo,
       valor: formData.valor,
-      data: formData.data,
+      dataCompleta: formData.data,
+      data: formData.data.toLocaleDateString('en-GB'),
+      hora: formData.data.toLocaleTimeString('en-GB'),
     };
     addService(serviceData, state.id);
+    // navigate(-1);
   };
 
   return (
@@ -41,7 +45,7 @@ const ServiceFormPage = () => {
             <input
               type='datetime-local'
               className='rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50'
-              {...register('data')}
+              {...register('data', { valueAsDate: true })}
             />
           </div>
         </div>

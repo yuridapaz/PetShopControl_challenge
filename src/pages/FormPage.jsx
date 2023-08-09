@@ -215,7 +215,7 @@ export const FormPage = () => {
                 'border-1 border-green-500 focus:outline-none dark:border-green-500/50'
               }
               `}
-              {...register('nascimento', { required: true })}
+              {...register('nascimento', { required: true, valueAsDate: true })}
             />
             {errors.nascimento && <FormErrorMessage errorMessage={'Escolher data'} />}
           </div>
