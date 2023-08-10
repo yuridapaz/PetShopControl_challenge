@@ -43,7 +43,6 @@ export const SelectInput = ({
     {...register}
     disabled={disabled}
     onChange={(e) => {
-      console.log(e.target.value);
       setFilter(e.target.value);
     }}
   >

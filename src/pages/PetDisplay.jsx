@@ -20,12 +20,12 @@ const PetDisplay = () => {
   // Filter by 'tipo'
   const filterByTipo = (data, tipo) => {
     if (tipo === 'Nenhum') return data;
-    return data.tipo == tipo;
+    return data.tipo === tipo;
   };
   // Filter by 'Raca'
   const filterByRaca = (data, raca) => {
     if (raca === 'Nenhum') return data;
-    return data.raca == raca;
+    return data.raca === raca;
   };
 
   const filteredData = data.filter((data) => {

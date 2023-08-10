@@ -34,13 +34,6 @@ const PetShopProvider = ({ children }) => {
     setData(finalData);
   };
 
-  // // Filter by 'tipo'
-  // const filterBy = () => {
-  //   const filteredData = data.filter((data) => data.tipo.toLowerCase() == 'cachorro');
-  //   console.log(filteredData);
-  //   setData(filteredData);
-  // };
-
   const getPet = async (petID) => {
     const docRef = doc(firestore, 'pets_data', petID);
     const docSnap = await getDoc(docRef);
