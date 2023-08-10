@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 const selectInputVariants = cva(
-  'rounded-md border border-gray-300 bg-gray-50 text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
+  'rounded-md border border-gray-300 bg-gray-50 text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 disabled:cursor-not-allowed',
   {
     variants: {
       size: {
@@ -34,11 +34,18 @@ export const SelectInput = ({
   register,
   error,
   filled,
+  disabled,
+  setFilter,
 }) => (
   <select
     id={id}
     className={selectInputVariants({ size, fullWidth, className, error, filled })}
     {...register}
+    disabled={disabled}
+    onChange={(e) => {
+      console.log(e.target.value);
+      setFilter(e.target.value);
+    }}
   >
     <option defaultValue hidden></option>
 

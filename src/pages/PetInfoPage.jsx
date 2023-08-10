@@ -13,7 +13,6 @@ const PetInfoPage = () => {
   useEffect(() => {
     const fetchPetData = async () => {
       const petData = await getPet(id);
-      console.log(petData);
       setCurrentPet(petData);
     };
     fetchPetData();
