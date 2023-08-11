@@ -26,8 +26,12 @@ const buttonVariants = cva('rounded-md transition-all ', {
   },
 });
 
-export const Button = ({ className, variant, size, bold, children, disabled }) => (
-  <button disabled={disabled} className={buttonVariants({ variant, size, bold, className })}>
+export const Button = ({ className, variant, size, bold, children, disabled, onClick }) => (
+  <button
+    disabled={disabled}
+    onClick={onClick}
+    className={buttonVariants({ variant, size, bold, className })}
+  >
     {children}
   </button>
 );

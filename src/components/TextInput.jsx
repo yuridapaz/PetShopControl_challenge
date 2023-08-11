@@ -36,6 +36,7 @@ export const TextInput = ({
   register,
   error,
   filled,
+  onChange,
 }) => (
   <input
     type='text'
@@ -43,5 +44,6 @@ export const TextInput = ({
     placeholder={placeholder}
     className={textInputVariants({ variant, size, fullWidth, className, error, filled })}
     {...register}
+    onChange={onChange}
   ></input>
 );

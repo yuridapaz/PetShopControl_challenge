@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom';
 import dogRaceList from '../utils/dogRaceList';
 
 const PetDisplay = () => {
-  const { data, getData, sortData } = useContext(PetShopContext);
+  const { data, getData } = useContext(PetShopContext);
   const [tipo, setTipo] = useState('Nenhum');
   const [raca, setRaca] = useState('Nenhum');
+  const [nome, setNome] = useState('');
 
   useEffect(() => {
-    // getData();
-    sortData('');
+    getData();
   }, []);
 
   // Filter by 'tipo'
@@ -28,8 +28,12 @@ const PetDisplay = () => {
     return data.raca === raca;
   };
 
+  const filterByNome = (data, nome) => {
+    return data.nome.toLowerCase().includes(nome.toLowerCase());
+  };
+
   const filteredData = data.filter((data) => {
-    return filterByTipo(data, tipo) && filterByRaca(data, raca);
+    return filterByTipo(data, tipo) && filterByRaca(data, raca) && filterByNome(data, nome);
   });
 
   return (
@@ -37,8 +41,16 @@ const PetDisplay = () => {
       {/* Search & Sort */}
       <div className='flex flex-col gap-3 border-b border-slate-300 pb-1'>
         <div className='flex w-full gap-3'>
-          <TextInput placeholder={'Pesquisar'} fullWidth />
-          <SelectInput id={'ordenar'} values={['A-Z', 'Z-A', 'Tipo', 'Porte']} />
+          <TextInput
+            placeholder={'Pesquisar'}
+            fullWidth
+            onChange={(e) => setNome(e.target.value)}
+          />
+          <SelectInput
+            id={'ordenar'}
+            values={['A-Z', 'Z-A', 'Tipo', 'Porte']}
+            onChange={(e) => getData(e.target.value)}
+          />
         </div>
         {/* Select filter */}
         <div className='flex  gap-3'>
@@ -57,12 +69,7 @@ const PetDisplay = () => {
             <label htmlFor='tipo' className=' text-xs'>
               Raça:
             </label>
-            <SelectInput
-              id={'tipo'}
-              values={['1']}
-              onChange={(e) => setRaca(e.target.value)}
-              // disabled={raceList.length != 0 || tipo === 'Nenhum'}
-            />
+            <SelectInput id={'tipo'} values={['1']} onChange={(e) => setRaca(e.target.value)} />
           </div>
         </div>
       </div>

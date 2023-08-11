@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PetShopContext } from '../context/PetShopContext';
 import { useContext, useEffect, useState } from 'react';
 import { Button } from '../components/Button';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const PetInfoPage = () => {
   const { id } = useParams();
@@ -101,7 +102,7 @@ const PetInfoPage = () => {
             <div className='mb-6 flex flex-col rounded-xl bg-gray-100 p-2 dark:bg-gray-800'>
               <div>
                 <p className='pb-2'> Serviços prestados: </p>
-                <div className='flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-0.5 dark:bg-gray-700'>
+                <div className='flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-1 dark:bg-gray-700'>
                   {/* Services container card */}
                   {currentPet?.servicos?.map((servico, i) => {
                     return (
@@ -117,8 +118,14 @@ const PetInfoPage = () => {
                         </div>
                         <div className='ml-auto self-center '>
                           <p className='font-semibold text-green-700/80 dark:text-green-400/90'>
-                            {servico.valor}
+                            <span className='mr-1 text-sm '>R$:</span>
+                            {servico.valor.toFixed(2)}
                           </p>
+                        </div>
+                        <div className='ml-4 self-center'>
+                          <Button variant={'delete'} onClick={() => alert()}>
+                            <RiDeleteBin6Line />
+                          </Button>
                         </div>
                       </div>
                     );

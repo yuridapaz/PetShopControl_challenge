@@ -20,20 +20,17 @@ const PetShopProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const ref = collection(firestore, 'pets_data');
 
-  // Get data
-  const getData = async () => {
-    const data = await getDocs(query(ref, orderBy('nome', 'asc')));
-    const finalData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    setData(finalData);
-  };
+  // // Get data
+  // const getData = async () => {
+  //   const data = await getDocs(query(ref, orderBy('nome', 'asc')));
+  //   const finalData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  //   setData(finalData);
+  // };
 
   // Sort by
-  const sortData = async (sortBy) => {
+  const getData = async (sortBy) => {
     let sortData;
     switch (sortBy) {
-      // case 'A-Z':
-      // sortData = await getDocs(query(ref, orderBy('nome', 'asc')));
-      // break;
       case 'Z-A':
         sortData = await getDocs(query(ref, orderBy('nome', 'desc')));
         break;
@@ -42,7 +39,7 @@ const PetShopProvider = ({ children }) => {
         break;
       case 'Porte':
         sortData = await getDocs(
-          query(ref, orderBy('tipo', 'asc'), orderBy('porte', 'asc'), orderBy('nome', 'asc'))
+          query(ref, orderBy('tipo', 'asc'), orderBy('tamanho', 'asc'), orderBy('nome', 'asc'))
         );
         break;
 
@@ -76,9 +73,7 @@ const PetShopProvider = ({ children }) => {
   const deleteService = async () => {};
 
   return (
-    <PetShopContext.Provider
-      value={{ data, setData, getData, createPet, getPet, addService, sortData }}
-    >
+    <PetShopContext.Provider value={{ data, setData, getData, createPet, getPet, addService }}>
       {children}
     </PetShopContext.Provider>
   );
