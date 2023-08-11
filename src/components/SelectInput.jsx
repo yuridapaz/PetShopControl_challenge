@@ -35,16 +35,14 @@ export const SelectInput = ({
   error,
   filled,
   disabled,
-  setFilter,
+  onChange,
 }) => (
   <select
     id={id}
     className={selectInputVariants({ size, fullWidth, className, error, filled })}
     {...register}
     disabled={disabled}
-    onChange={(e) => {
-      setFilter(e.target.value);
-    }}
+    onChange={onChange}
   >
     <option defaultValue hidden></option>
 
@@ -52,7 +50,7 @@ export const SelectInput = ({
       return (
         <option
           value={value
-            .normalize('NFD')
+            // .normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
             .trim()
             .replace(/\s/g, '-')}

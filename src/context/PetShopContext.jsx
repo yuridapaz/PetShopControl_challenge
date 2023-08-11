@@ -22,14 +22,36 @@ const PetShopProvider = ({ children }) => {
 
   // Get data
   const getData = async () => {
-    const data = await getDocs(ref);
+    const data = await getDocs(query(ref, orderBy('nome', 'asc')));
     const finalData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     setData(finalData);
   };
 
   // Sort by
-  const sortData = async () => {
-    const sortData = await getDocs(query(ref, orderBy('nome', 'asc')));
+  const sortData = async (sortBy) => {
+    let sortData;
+    switch (sortBy) {
+      // case 'A-Z':
+      // sortData = await getDocs(query(ref, orderBy('nome', 'asc')));
+      // break;
+      case 'Z-A':
+        sortData = await getDocs(query(ref, orderBy('nome', 'desc')));
+        break;
+      case 'Tipo':
+        sortData = await getDocs(query(ref, orderBy('tipo', 'asc'), orderBy('nome', 'asc')));
+        break;
+      case 'Porte':
+        sortData = await getDocs(
+          query(ref, orderBy('tipo', 'asc'), orderBy('porte', 'asc'), orderBy('nome', 'asc'))
+        );
+        break;
+
+      default:
+        sortData = await getDocs(query(ref, orderBy('nome', 'asc')));
+        break;
+    }
+
+    // const sortData = await getDocs(query(ref, orderBy('nome', 'asc')));
     const finalData = sortData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     setData(finalData);
   };

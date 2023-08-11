@@ -5,26 +5,26 @@ import PetCard from '../components/PetCard';
 import { PetShopContext } from '../context/PetShopContext';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import dogRaceList from '../utils/dogRaceList';
 
 const PetDisplay = () => {
-  const { data, setData, getData, sortData } = useContext(PetShopContext);
+  const { data, getData, sortData } = useContext(PetShopContext);
   const [tipo, setTipo] = useState('Nenhum');
   const [raca, setRaca] = useState('Nenhum');
 
   useEffect(() => {
-    getData();
-    console.log(data);
-    // sortData();
+    // getData();
+    sortData('');
   }, []);
 
   // Filter by 'tipo'
   const filterByTipo = (data, tipo) => {
-    if (tipo === 'Nenhum') return data;
+    if (tipo === 'Nenhum' || tipo === '') return data;
     return data.tipo === tipo;
   };
   // Filter by 'Raca'
   const filterByRaca = (data, raca) => {
-    if (raca === 'Nenhum') return data;
+    if (raca === 'Nenhum' || raca === '') return data;
     return data.raca === raca;
   };
 
@@ -47,9 +47,9 @@ const PetDisplay = () => {
               Tipo:
             </label>
             <SelectInput
-              setFilter={setTipo}
               id={'tipo'}
               values={['Nenhum', 'Cachorro', 'Gato', 'Outro']}
+              onChange={(e) => setTipo(e.target.value)}
             />
           </div>
           {/*  */}
@@ -57,7 +57,12 @@ const PetDisplay = () => {
             <label htmlFor='tipo' className=' text-xs'>
               Raça:
             </label>
-            <SelectInput setFilter={setRaca} id={'tipo'} values={['Nenhum', '1', '2', '3']} />
+            <SelectInput
+              id={'tipo'}
+              values={['1']}
+              onChange={(e) => setRaca(e.target.value)}
+              // disabled={raceList.length != 0 || tipo === 'Nenhum'}
+            />
           </div>
         </div>
       </div>
