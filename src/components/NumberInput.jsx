@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-const textInputVariants = cva(
+const numberInputVariants = cva(
   'rounded-md border border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
   {
     variants: {
@@ -26,24 +26,25 @@ const textInputVariants = cva(
   }
 );
 
-export const TextInput = ({
+export const NumberInput = ({
   className,
-  variant,
   size,
   fullWidth,
-  placeholder,
   id,
   register,
   error,
   filled,
-  onChange,
+  min,
+  max,
+  step,
 }) => (
   <input
-    type='text'
+    type='number'
+    min={min}
+    max={max}
+    step={step}
     id={id}
-    placeholder={placeholder}
-    className={textInputVariants({ variant, size, fullWidth, className, error, filled })}
+    className={numberInputVariants({ size, fullWidth, className, error, filled })}
     {...register}
-    onChange={onChange}
   ></input>
 );

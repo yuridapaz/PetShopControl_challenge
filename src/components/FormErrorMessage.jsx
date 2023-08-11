@@ -13,8 +13,12 @@ const formErrorMessageVariants = cva('text-red-500 absolute right-3 -bottom-4', 
   },
 });
 
-const FormErrorMessage = ({ size }) => {
-  return <span className={formErrorMessageVariants({ size })}>This field is required</span>;
+const FormErrorMessage = ({ size, errorMessage }) => {
+  return (
+    <span className={formErrorMessageVariants({ size })}>
+      {errorMessage ? errorMessage : 'Preencher campo'}
+    </span>
+  );
 };
 
 export default FormErrorMessage;

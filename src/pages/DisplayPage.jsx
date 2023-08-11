@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { SelectInput } from '../components/SelectInput';
 
 const DisplayPage = ({ children }) => {
