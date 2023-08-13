@@ -10,14 +10,13 @@ import { NumberInput } from '../components/NumberInput';
 import { useNavigate } from 'react-router-dom';
 
 export const FormPage = () => {
+  const { createPet } = useContext(PetShopContext);
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields },
+    formState: { errors },
   } = useForm({ mode: 'onChange' });
   const navigate = useNavigate();
-
-  const { createPet } = useContext(PetShopContext);
 
   const onSubmit = (formData) => {
     const data = {
@@ -58,7 +57,6 @@ export const FormPage = () => {
       .split('\n')
       .map((o) => o.trim())
       .filter(Boolean);
-    console.log(arr);
     return arr;
   };
 
@@ -83,12 +81,13 @@ export const FormPage = () => {
             id={'nome'}
             register={{
               ...register('nome', {
-                required: 'Mínimo de três caracteres',
-                minLength: 3,
+                minLength: {
+                  value: 3,
+                  message: 'Mínimo de três caracteres',
+                },
               }),
             }}
             error={errors.nome && true}
-            filled={touchedFields.nome && !errors.nome && true}
           />
           {errors.nome && <FormErrorMessage errorMessage={errors.nome.message} />}
         </div>
@@ -105,7 +104,6 @@ export const FormPage = () => {
                 }),
               }}
               error={errors.tipo && true}
-              filled={touchedFields.tipo && !errors.tipo}
             />
             {errors.tipo && <FormErrorMessage errorMessage={errors.tipo.message} />}
           </div>
@@ -116,7 +114,6 @@ export const FormPage = () => {
               values={['1', '2', '3']}
               register={{ ...register('raca', { required: 'Escolher raça' }) }}
               error={errors.raca && true}
-              filled={touchedFields.raca && !errors.raca}
             />
             {errors.raca && <FormErrorMessage errorMessage={errors.raca.message} />}
           </div>
@@ -130,7 +127,6 @@ export const FormPage = () => {
               values={['cor 1 ', 'cor 2', 'cor 3']}
               register={{ ...register('cor', { required: 'Escolher cor' }) }}
               error={errors.cor && true}
-              filled={touchedFields.cor && !errors.cor}
             />
             {errors.cor && <FormErrorMessage errorMessage={errors.cor.message} />}
           </div>
@@ -147,7 +143,6 @@ export const FormPage = () => {
                 ...register('idade', { required: 'Escolher idade', valueAsNumber: true }),
               }}
               error={errors.idade && true}
-              filled={touchedFields.idade && !errors.idade}
             />
 
             {errors.idade && <FormErrorMessage errorMessage={errors.idade.message} />}
@@ -162,7 +157,6 @@ export const FormPage = () => {
               values={['Macho', 'Fêmea']}
               register={{ ...register('genero', { required: 'Escolher genero' }) }}
               error={errors.genero && true}
-              filled={touchedFields.genero && !errors.genero}
             />
             {errors.genero && <FormErrorMessage errorMessage={errors.genero.message} />}
           </div>
@@ -178,7 +172,6 @@ export const FormPage = () => {
               className={'w-32 text-center'}
               register={{ ...register('peso', { required: 'Escolher peso', valueAsNumber: true }) }}
               error={errors.peso && true}
-              filled={touchedFields.peso && !errors.peso}
             />
             {errors.peso && <FormErrorMessage errorMessage={errors.peso.message} />}
           </div>
@@ -192,7 +185,6 @@ export const FormPage = () => {
               values={['Micro', 'Pequeno', 'Médio', 'Grande', 'Gigante']}
               register={{ ...register('tamanho', { required: 'Escolher tamanho' }) }}
               error={errors.tamanho && true}
-              filled={touchedFields.tamanho && !errors.tamanho}
             />
             {errors.tamanho && <FormErrorMessage errorMessage={errors.tamanho.message} />}
           </div>
@@ -208,11 +200,6 @@ export const FormPage = () => {
               className={`w-32 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
                 errors.nascimento &&
                 'border-1 border-red-400 focus:outline-none dark:border-red-500/50'
-              }
-              ${
-                touchedFields.nascimento &&
-                !errors.nascimento &&
-                'border-1 border-green-500 focus:outline-none dark:border-green-500/50'
               }
               `}
               {...register('nascimento', { required: true, valueAsDate: true })}

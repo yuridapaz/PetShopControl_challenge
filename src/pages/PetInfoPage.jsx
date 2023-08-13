@@ -5,6 +5,7 @@ import { PetShopContext } from '../context/PetShopContext';
 import { useContext, useEffect, useState } from 'react';
 import { Button } from '../components/Button';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import ServiceCard from '../components/ServiceCard';
 
 const PetInfoPage = () => {
   const { id } = useParams();
@@ -106,28 +107,29 @@ const PetInfoPage = () => {
                   {/* Services container card */}
                   {currentPet?.servicos?.map((servico, i) => {
                     return (
-                      <div
-                        key={i}
-                        className='hover:outline-offset- flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-slate-400 dark:bg-gray-800'
-                      >
-                        <div className=''>
-                          <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                            {servico.data}
-                          </span>
-                          <p className=''> {servico.tipo} </p>
-                        </div>
-                        <div className='ml-auto self-center '>
-                          <p className='font-semibold text-green-700/80 dark:text-green-400/90'>
-                            <span className='mr-1 text-sm '>R$:</span>
-                            {servico.valor.toFixed(2)}
-                          </p>
-                        </div>
-                        <div className='ml-4 self-center'>
-                          <Button variant={'delete'} onClick={() => alert()}>
-                            <RiDeleteBin6Line />
-                          </Button>
-                        </div>
-                      </div>
+                      // <div
+                      //   key={i}
+                      //   className='flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-offset-0 hover:outline-slate-400 dark:bg-gray-800'
+                      // >
+                      //   <div className=''>
+                      //     <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
+                      //       {servico.data}
+                      //     </span>
+                      //     <p className=''> {servico.tipo} </p>
+                      //   </div>
+                      //   <div className='ml-auto self-center '>
+                      //     <p className='font-semibold text-green-700/80 dark:text-green-400/90'>
+                      //       <span className='mr-1 text-sm '>R$:</span>
+                      //       {servico.valor.toFixed(2)}
+                      //     </p>
+                      //   </div>
+                      //   <div className='ml-4 self-center'>
+                      //     <Button variant={'delete'} onClick={() => alert()}>
+                      //       <RiDeleteBin6Line />
+                      //     </Button>
+                      //   </div>
+                      // </div>
+                      <ServiceCard servico={servico} key={i} />
                     );
                   })}
                 </div>
