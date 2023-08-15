@@ -1,8 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import Navigation from './Layout/Navigation';
-import { FormPage } from './pages/FormPage';
-import PetDisplay from './pages/PetDisplay';
-import PetInfoPage from './pages/PetInfoPage';
 
 function App() {
   return (

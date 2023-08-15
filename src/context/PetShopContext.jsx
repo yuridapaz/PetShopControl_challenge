@@ -6,7 +6,7 @@ import {
   addDoc,
   updateDoc,
   arrayUnion,
-  // arrayRemove,
+  arrayRemove,
   doc,
   getDoc,
   orderBy,
@@ -18,14 +18,8 @@ export const PetShopContext = createContext([]);
 const PetShopProvider = ({ children }) => {
   // eslint-disable-next-line no-unused-vars
   const [data, setData] = useState([]);
+  const [currentPet, setCurrentPet] = useState('');
   const ref = collection(firestore, 'pets_data');
-
-  // // Get data
-  // const getData = async () => {
-  //   const data = await getDocs(query(ref, orderBy('nome', 'asc')));
-  //   const finalData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-  //   setData(finalData);
-  // };
 
   // Sort by
   const getData = async (sortBy) => {
@@ -56,7 +50,8 @@ const PetShopProvider = ({ children }) => {
   const getPet = async (petID) => {
     const docRef = doc(firestore, 'pets_data', petID);
     const docSnap = await getDoc(docRef);
-    return docSnap.data();
+    const petData = docSnap.data();
+    setCurrentPet(petData);
   };
 
   // Create add function
@@ -70,10 +65,26 @@ const PetShopProvider = ({ children }) => {
     });
   };
   // Create delete function
-  const deleteService = async () => {};
+  const deleteService = async (servico, petId) => {
+    await updateDoc(doc(firestore, 'pets_data', petId), {
+      servicos: arrayRemove(servico),
+    });
+  };
 
   return (
-    <PetShopContext.Provider value={{ data, setData, getData, createPet, getPet, addService }}>
+    <PetShopContext.Provider
+      value={{
+        data,
+        setData,
+        getData,
+        createPet,
+        getPet,
+        addService,
+        deleteService,
+        currentPet,
+        setCurrentPet,
+      }}
+    >
       {children}
     </PetShopContext.Provider>
   );

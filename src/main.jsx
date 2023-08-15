@@ -1,15 +1,15 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
 import './index.css';
+import ErrorPage from './pages/ErrorPage/index';
+import DisplayPage from './pages/DisplayPage/index';
+import PetInfoPage from './pages/InfoPage/index';
+import ServiceFormPage from './pages/ServiceFormPage';
+import { FormPage } from './pages/FormPage/index';
+import RegisterConfirmationPage from './pages/RegisterConfirmationPage';
+import PaginaTeste from './pages/PaginaTeste';
 import PetShopProvider from './context/PetShopContext.jsx';
-import ErrorPage from './pages/ErrorPage';
-import PetInfoPage from './pages/PetInfoPage.jsx';
-import PetDisplay from './pages/PetDisplay.jsx';
-import { FormPage } from './pages/FormPage.jsx';
-import RegisterConfirmationPage from './pages/RegisterConfirmationPage.jsx';
-import ServiceFormPage from './pages/ServiceFormPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/pets',
-        element: <PetDisplay />,
+        element: <DisplayPage />,
       },
       {
         path: 'pets/:id',
@@ -40,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: 'cadastroConcluido',
         element: <RegisterConfirmationPage />,
+      },
+      {
+        path: 'paginateste',
+        element: <PaginaTeste />,
       },
     ],
   },
