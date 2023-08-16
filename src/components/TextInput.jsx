@@ -26,7 +26,7 @@ const textInputVariants = cva(
   }
 );
 
-export const TextInput = ({
+const TextInput = ({
   className,
   variant,
   size,
@@ -47,3 +47,5 @@ export const TextInput = ({
     onChange={onChange}
   ></input>
 );
+
+export default TextInput;

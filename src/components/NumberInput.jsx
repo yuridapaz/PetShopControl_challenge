@@ -26,7 +26,7 @@ const numberInputVariants = cva(
   }
 );
 
-export const NumberInput = ({
+const NumberInput = ({
   className,
   size,
   fullWidth,
@@ -48,3 +48,5 @@ export const NumberInput = ({
     {...register}
   ></input>
 );
+
+export default NumberInput;

@@ -1,10 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SelectInput } from '../components/SelectInput';
-import { NumberInput } from '../components/NumberInput';
 import { useForm } from 'react-hook-form';
 import { PetShopContext } from '../context/PetShopContext';
 import { useContext } from 'react';
-import { Button } from '../components/Button';
+import { Button, SelectInput, NumberInput } from '../components';
 
 const ServiceFormPage = () => {
   const { state } = useLocation();

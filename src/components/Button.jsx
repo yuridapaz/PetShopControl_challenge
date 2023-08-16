@@ -26,7 +26,7 @@ const buttonVariants = cva('rounded-md transition-all ', {
   },
 });
 
-export const Button = ({ className, variant, size, bold, children, disabled, onClick }) => (
+const Button = ({ className, variant, size, bold, children, disabled, onClick }) => (
   <button
     disabled={disabled}
     onClick={onClick}
@@ -35,3 +35,5 @@ export const Button = ({ className, variant, size, bold, children, disabled, onC
     {children}
   </button>
 );
+
+export default Button;

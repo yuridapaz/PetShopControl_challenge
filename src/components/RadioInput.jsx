@@ -20,7 +20,7 @@ const radioInputVariants = cva(
   }
 );
 
-export const RadioInput = ({ className, variant, size, fullWidth, placeholder, id }) => (
+const RadioInput = ({ className, variant, size, fullWidth, placeholder, id }) => (
   <input
     type='text'
     id={id}
@@ -28,3 +28,5 @@ export const RadioInput = ({ className, variant, size, fullWidth, placeholder, i
     className={radioInputVariants({ variant, size, fullWidth, className })}
   ></input>
 );
+
+export default RadioInput;

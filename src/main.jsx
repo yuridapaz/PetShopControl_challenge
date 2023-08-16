@@ -6,7 +6,7 @@ import ErrorPage from './pages/ErrorPage/index';
 import DisplayPage from './pages/DisplayPage/index';
 import PetInfoPage from './pages/InfoPage/index';
 import ServiceFormPage from './pages/ServiceFormPage';
-import { FormPage } from './pages/FormPage/index';
+import FormPage from './pages/FormPage/index';
 import RegisterConfirmationPage from './pages/RegisterConfirmationPage';
 import PaginaTeste from './pages/PaginaTeste';
 import PetShopProvider from './context/PetShopContext.jsx';

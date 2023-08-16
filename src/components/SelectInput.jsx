@@ -25,7 +25,7 @@ const selectInputVariants = cva(
   }
 );
 
-export const SelectInput = ({
+const SelectInput = ({
   className,
   size,
   fullWidth,
@@ -62,3 +62,5 @@ export const SelectInput = ({
     })}
   </select>
 );
+
+export default SelectInput;
