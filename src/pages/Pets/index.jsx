@@ -1,13 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { TextInput } from '../components/TextInput';
-import { SelectInput } from '../components/SelectInput';
-import PetCard from '../components/PetCard';
-import { PetShopContext } from '../context/PetShopContext';
+import { PetShopContext } from '../../context/PetShopContext';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import dogRaceList from '../utils/dogRaceList';
+import { SelectInput, TextInput } from '../../components';
+import PetCard from './PetCard';
 
-const PetDisplay = () => {
+const PetsPage = () => {
   const { data, getData } = useContext(PetShopContext);
   const [tipo, setTipo] = useState('Nenhum');
   const [raca, setRaca] = useState('Nenhum');
@@ -88,4 +86,4 @@ const PetDisplay = () => {
   );
 };
 
-export default PetDisplay;
+export default PetsPage;

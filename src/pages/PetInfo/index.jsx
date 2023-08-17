@@ -1,37 +1,25 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { AiOutlineLeft } from 'react-icons/ai';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { PetShopContext } from '../context/PetShopContext';
 import { useContext, useEffect, useState } from 'react';
-import { Button } from '../components/Button';
+import { PetShopContext } from '../../context/PetShopContext';
+import { AiOutlineLeft } from 'react-icons/ai';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import ServiceCard from '../components/ServiceCard';
+import { Button } from '../../components';
 
 const PetInfoPage = () => {
   const { id } = useParams();
   const { getPet } = useContext(PetShopContext);
-  const [currentPet, setCurrentPet] = useState('');
+  const [currentPet, setCurrentPet] = useState(null);
 
   useEffect(() => {
     const fetchPetData = async () => {
       const petData = await getPet(id);
       setCurrentPet(petData);
+      console.log(petData);
     };
     fetchPetData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const currentPet = {
-  //   nome: 'YURI PAZ SIMONIN',
-  //   tipo: 'Gato',
-  //   raca: '2',
-  //   cor: 'cor-2',
-  //   idade: 2,
-  //   genero: 'Fêmea',
-  //   peso: 2,
-  //   tamanho: 'Pequeno',
-  //   nascimento: '1991-04-14T00:00:00.000Z',
-  //   observacoes: ['Ansioso', 'Gosta de petisco de carne'],
-  // };
   const navigate = useNavigate();
 
   return (
@@ -107,29 +95,30 @@ const PetInfoPage = () => {
                   {/* Services container card */}
                   {currentPet?.servicos?.map((servico, i) => {
                     return (
-                      // <div
-                      //   key={i}
-                      //   className='flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-offset-0 hover:outline-slate-400 dark:bg-gray-800'
-                      // >
-                      //   <div className=''>
-                      //     <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
-                      //       {servico.data}
-                      //     </span>
-                      //     <p className=''> {servico.tipo} </p>
-                      //   </div>
-                      //   <div className='ml-auto self-center '>
-                      //     <p className='font-semibold text-green-700/80 dark:text-green-400/90'>
-                      //       <span className='mr-1 text-sm '>R$:</span>
-                      //       {servico.valor.toFixed(2)}
-                      //     </p>
-                      //   </div>
-                      //   <div className='ml-4 self-center'>
-                      //     <Button variant={'delete'} onClick={() => alert()}>
-                      //       <RiDeleteBin6Line />
-                      //     </Button>
-                      //   </div>
-                      // </div>
-                      <ServiceCard servico={servico} key={i} />
+                      <div
+                        key={i}
+                        className='flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-offset-0 hover:outline-slate-400 dark:bg-gray-800'
+                      >
+                        <div className=''>
+                          <span className='text-xs font-semibold text-gray-500 dark:text-gray-300'>
+                            {servico.data}
+                          </span>
+                          <p className=''> {servico.tipo} </p>
+                        </div>
+                        <div className='ml-auto self-center '>
+                          <p className='font-semibold text-green-700/80 dark:text-green-400/90'>
+                            <span className='mr-1 text-sm '>R$:</span>
+                            {servico.valor.toFixed(2)}
+                          </p>
+                        </div>
+                        <div className='ml-4 self-center'>
+                          <Button variant={'delete'} onClick={() => alert()}>
+                            <RiDeleteBin6Line />
+                          </Button>
+                        </div>
+                      </div>
+                      // <></>
+                      // <ServiceCard servico={servico} key={i} />
                     );
                   })}
                 </div>

@@ -1,15 +1,11 @@
-import { TextInput } from '../components/TextInput';
-import { Button } from '../components/Button';
-import { SelectInput } from '../components/SelectInput';
-import { FaPaw } from 'react-icons/fa';
-import { useForm } from 'react-hook-form';
-import FormErrorMessage from '../components/FormErrorMessage';
-import { useContext } from 'react';
-import { PetShopContext } from '../context/PetShopContext';
-import { NumberInput } from '../components/NumberInput';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { PetShopContext } from '../../context/PetShopContext';
+import { useForm } from 'react-hook-form';
+import { FaPaw } from 'react-icons/fa';
+import { Button, SelectInput, TextInput, FormErrorMessage, NumberInput } from '../../components';
 
-export const FormPage = () => {
+const RegisterPetPage = () => {
   const { createPet } = useContext(PetShopContext);
   const {
     register,
@@ -35,22 +31,6 @@ export const FormPage = () => {
     createPet(data);
     navigate('/cadastroconcluido');
   };
-
-  // const onSubmit = (formData) => {
-  //   const data = {
-  //     nome: formData.nome,
-  //     tipo: formData.tipo,
-  //     raca: formData.raca,
-  //     cor: formData.cor,
-  //     idade: formData.idade,
-  //     genero: formData.genero,
-  //     peso: formData.peso,
-  //     tamanho: formData.tamanho,
-  //     nascimento: formData.nascimento,
-  //     observacoes: formatObs(formData.observacoes),
-  //   };
-  //   console.log(data);
-  // };
 
   const formatObs = (obs) => {
     const arr = obs
@@ -225,3 +205,5 @@ export const FormPage = () => {
     </div>
   );
 };
+
+export default RegisterPetPage;

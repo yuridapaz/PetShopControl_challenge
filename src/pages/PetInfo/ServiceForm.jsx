@@ -1,18 +1,19 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { SelectInput } from '../components/SelectInput';
-import { NumberInput } from '../components/NumberInput';
+import { useLocation } from 'react-router-dom';
+import { SelectInput } from '../../components/SelectInput';
+import { NumberInput } from '../../components/NumberInput';
 import { useForm } from 'react-hook-form';
-import { PetShopContext } from '../context/PetShopContext';
+import { PetShopContext } from '../../context/PetShopContext';
 import { useContext } from 'react';
-import { Button } from '../components/Button';
+import { Button } from '../../components/Button';
 
 const ServiceFormPage = () => {
   const { state } = useLocation();
   const { addService } = useContext(PetShopContext);
-  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    // eslint-disable-next-line no-unused-vars
     formState: { error, touchedFields },
   } = useForm({ mode: 'onChange' });
 
@@ -25,7 +26,6 @@ const ServiceFormPage = () => {
       hora: formData.data.toLocaleTimeString('en-GB'),
     };
     addService(serviceData, state.id);
-    // navigate(-1);
   };
 
   return (
