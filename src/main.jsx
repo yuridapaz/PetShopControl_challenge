@@ -1,32 +1,33 @@
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import App from './App.jsx';
-import './index.css';
-import PetShopProvider from './context/PetShopContext.jsx';
+import ReactDOM from "react-dom/client";
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import App from "./App.jsx";
+import PetShopProvider from "./context/PetShopContext.jsx";
+import "./index.css";
 import {
   ErrorPage,
   PetInfoPage,
   PetsPage,
   RegisterConfirmationPage,
   RegisterPetPage,
-} from './pages';
+} from "./pages";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
-        element: <Navigate to='/pets' />,
+        path: "/",
+        element: <Navigate to="/pets" />,
       },
       {
-        path: '/pets',
+        path: "/pets",
         element: <PetsPage />,
       },
       {
-        path: 'pets/:id',
+        path: "pets/:id",
         element: <PetInfoPage />,
       },
       // {
@@ -34,18 +35,18 @@ const router = createBrowserRouter([
       //   element: <ServiceFormPage />,
       // },
       {
-        path: 'register',
+        path: "register",
         element: <RegisterPetPage />,
       },
       {
-        path: 'cadastroConcluido',
+        path: "cadastroConcluido",
         element: <RegisterConfirmationPage />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <PetShopProvider>
     <RouterProvider router={router} />
