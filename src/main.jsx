@@ -11,6 +11,8 @@ import {
   RegisterConfirmationPage,
   RegisterPetPage,
 } from "./pages";
+import ServiceFormPage from "./pages/PetInfo/ServiceForm";
+import TestePage from "./pages/TestePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,10 +32,10 @@ const router = createBrowserRouter([
         path: "pets/:id",
         element: <PetInfoPage />,
       },
-      // {
-      //   path: 'pets/:id/servico',
-      //   element: <ServiceFormPage />,
-      // },
+      {
+        path: "pets/:id/servico",
+        element: <ServiceFormPage />,
+      },
       {
         path: "register",
         element: <RegisterPetPage />,
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "cadastroConcluido",
         element: <RegisterConfirmationPage />,
+      },
+      {
+        path: "teste",
+        element: <TestePage />,
       },
     ],
   },
