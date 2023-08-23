@@ -36,25 +36,18 @@ const PetsPage = () => {
   });
 
   return (
-    <div className="p-4">
-      {/* Search & Sort */}
-      <div className="flex flex-col gap-3 border-b border-slate-300 pb-1">
-        <div className="flex w-full gap-3">
+    <div className="p-2">
+      <div className="flex flex-col gap-3 rounded-lg bg-gray-100 p-4 dark:bg-gray-800">
+        <div>
           <TextInput
             placeholder={"Pesquisar"}
             fullWidth
             onChange={(e) => setNome(e.target.value)}
           />
-          <SelectInput
-            id={"ordenar"}
-            values={["A-Z", "Z-A", "Tipo", "Porte"]}
-            onChange={(e) => getData(e.target.value)}
-          />
         </div>
-        {/* Select filter */}
-        <div className="flex  gap-3">
-          <div className="flex w-1/3 flex-col ">
-            <label htmlFor="tipo" className=" text-xs">
+        <div className="flex w-full gap-3">
+          <div className="flex w-full flex-col">
+            <label htmlFor="tipo" className="text-xs">
               Tipo:
             </label>
             <SelectInput
@@ -63,17 +56,27 @@ const PetsPage = () => {
               onChange={(e) => setTipo(e.target.value)}
             />
           </div>
-          {/*  */}
-          <div className="flex w-1/3 flex-col">
-            <label htmlFor="tipo" className=" text-xs">
+          <div className="flex w-full flex-col">
+            <label htmlFor="tipo" className="text-xs">
               Raça:
             </label>
             <SelectInput id={"tipo"} values={["1"]} onChange={(e) => setRaca(e.target.value)} />
           </div>
+          <div className="flex flex-col w-full">
+            <label htmlFor="ordenar" className="text-xs">
+              Ordenar:
+            </label>
+            <SelectInput
+              id={"ordenar"}
+              values={["A-Z", "Z-A", "Tipo", "Porte"]}
+              onChange={(e) => getData(e.target.value)}
+            />
+          </div>
         </div>
       </div>
+
       {/* Display Cards Grid */}
-      <div className="grid w-full max-w-screen-2xl grid-cols-1 justify-items-center gap-3 pt-3 @lg:grid-cols-2 @3xl:grid-cols-3 @3xl:p-0 @3xl:pt-6 @6xl:grid-cols-4 @7xl:grid-cols-5">
+      <div className="grid w-full bg-gray-100 mt-3 rounded-lg p-2 max-w-screen-2xl grid-cols-1 justify-items-center gap-2 pt-2 @lg:grid-cols-2 @3xl:grid-cols-3 @3xl:p-0 @3xl:pt-6 @6xl:grid-cols-4 @7xl:grid-cols-5">
         {filteredData.map((petData) => {
           return (
             <Link key={petData.id} to={`/pets/${petData.id}`} className="w-full max-w-md">

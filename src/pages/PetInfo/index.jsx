@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { AiOutlineLeft } from "react-icons/ai";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import { Button, SelectInput } from "../../components";
+import { Button } from "../../components";
 import ModalComponent from "../../components/Modal";
 import { PetShopContext } from "../../context/PetShopContext";
 import ServiceCard from "./ServiceCard";
+import ServiceForm from "./ServiceForm";
 
 const PetInfoPage = () => {
   const navigate = useNavigate();
@@ -23,6 +24,19 @@ const PetInfoPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // handle Add
+  const appendService = (serviceData) => {
+    currentPet.servicos.push(serviceData);
+  };
+  // handle Remove
+  const removeService = (serviceId) => {
+    let newServiceArray = currentPet.servicos.filter((servico) => servico.serviceId != serviceId);
+    setCurrentPet((prev) => ({
+      ...prev,
+      servicos: newServiceArray,
+    }));
+  };
+
   const openModal = () => {
     setShowModal(true);
   };
@@ -35,7 +49,7 @@ const PetInfoPage = () => {
     <>
       <div className="mt-2 flex flex-1 flex-col p-2 pb-6">
         {/* Top nav */}
-        <div className="mb-3 flex rounded-xl bg-gray-100 p-2   dark:bg-gray-800">
+        <div className="mb-3 flex rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
           <Link onClick={() => navigate(-1)}>
             <button className="rounded-xl border-2 border-gray-300/50 bg-zinc-100 p-3 text-sm transition-all  ease-in hover:border-gray-500/50 dark:bg-gray-800">
               <AiOutlineLeft />
@@ -108,8 +122,16 @@ const PetInfoPage = () => {
                   <p className="pb-2"> Serviços prestados: </p>
                   <div className="flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-1 dark:bg-gray-700">
                     {/* Services container card */}
-                    {currentPet?.servicos?.map((servico, i) => {
-                      return <ServiceCard servico={servico} key={i} />;
+                    {/* Verificar depois !!! */}
+                    {currentPet?.servicos?.toReversed()?.map((servico, i) => {
+                      return (
+                        <ServiceCard
+                          servico={servico}
+                          petId={id}
+                          key={i}
+                          removeService={removeService}
+                        />
+                      );
                     })}
                   </div>
                 </div>
@@ -138,20 +160,9 @@ const PetInfoPage = () => {
         closeModal={closeModal}
         modalTitle={"Adicionar serviço"}
       >
-        {/* <div className="flex flex-1 p-8 w-full flex-col gap-6">
-          <div className="flex flex-col w-full">
-            <label htmlFor="servico">Escolher serviço</label>
-            <SelectInput values={["Banho", "Tosa", "Teste"]} id={"servico"} fullWidth />
-          </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="servico">Escolher serviço</label>
-            <SelectInput values={["Banho", "Tosa", "Teste"]} id={"servico"} fullWidth />
-          </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="servico">Escolher serviço</label>
-            <SelectInput values={["Banho", "Tosa", "Teste"]} id={"servico"} fullWidth />
-          </div>
-        </div> */}
+        {currentPet && (
+          <ServiceForm petId={id} closeModal={closeModal} appendService={appendService} />
+        )}
       </ModalComponent>
     </>
   );

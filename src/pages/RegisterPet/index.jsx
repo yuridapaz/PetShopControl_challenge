@@ -3,13 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaPaw } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-import {
-  Button,
-  FormErrorMessage,
-  NumberInput,
-  SelectInput,
-  TextInput,
-} from "../../components";
+import { Button, FormErrorMessage, NumberInput, SelectInput, TextInput } from "../../components";
 import { PetShopContext } from "../../context/PetShopContext";
 
 const RegisterPetPage = () => {
@@ -35,6 +29,7 @@ const RegisterPetPage = () => {
       observacoes: formatObs(formData.observacoes),
       servicos: [],
     };
+
     createPet(data);
     navigate("/cadastroconcluido");
   };
@@ -76,9 +71,7 @@ const RegisterPetPage = () => {
             }}
             error={errors.nome && true}
           />
-          {errors.nome && (
-            <FormErrorMessage errorMessage={errors.nome.message} />
-          )}
+          {errors.nome && <FormErrorMessage errorMessage={errors.nome.message} />}
         </div>
         {/* Tipo / Raça - Select */}
         <div className="flex w-full flex-col gap-5">
@@ -94,9 +87,7 @@ const RegisterPetPage = () => {
               }}
               error={errors.tipo && true}
             />
-            {errors.tipo && (
-              <FormErrorMessage errorMessage={errors.tipo.message} />
-            )}
+            {errors.tipo && <FormErrorMessage errorMessage={errors.tipo.message} />}
           </div>
           <div className="relative flex w-full flex-col gap-0.5">
             <label htmlFor="raca">Raça:</label>
@@ -106,9 +97,7 @@ const RegisterPetPage = () => {
               register={{ ...register("raca", { required: "Escolher raça" }) }}
               error={errors.raca && true}
             />
-            {errors.raca && (
-              <FormErrorMessage errorMessage={errors.raca.message} />
-            )}
+            {errors.raca && <FormErrorMessage errorMessage={errors.raca.message} />}
           </div>
         </div>
         {/* Tamanho / Cor / Idade - Select  */}
@@ -121,9 +110,7 @@ const RegisterPetPage = () => {
               register={{ ...register("cor", { required: "Escolher cor" }) }}
               error={errors.cor && true}
             />
-            {errors.cor && (
-              <FormErrorMessage errorMessage={errors.cor.message} />
-            )}
+            {errors.cor && <FormErrorMessage errorMessage={errors.cor.message} />}
           </div>
           <div className="relative flex flex-col gap-0.5">
             <label htmlFor="idade" className="text-center">
@@ -143,9 +130,7 @@ const RegisterPetPage = () => {
               error={errors.idade && true}
             />
 
-            {errors.idade && (
-              <FormErrorMessage errorMessage={errors.idade.message} />
-            )}
+            {errors.idade && <FormErrorMessage errorMessage={errors.idade.message} />}
           </div>
         </div>
         {/* Gênero e Peso */}
@@ -160,9 +145,7 @@ const RegisterPetPage = () => {
               }}
               error={errors.genero && true}
             />
-            {errors.genero && (
-              <FormErrorMessage errorMessage={errors.genero.message} />
-            )}
+            {errors.genero && <FormErrorMessage errorMessage={errors.genero.message} />}
           </div>
           <div className="relative flex flex-col gap-0.5">
             <label htmlFor="peso" className="text-center">
@@ -182,9 +165,7 @@ const RegisterPetPage = () => {
               }}
               error={errors.peso && true}
             />
-            {errors.peso && (
-              <FormErrorMessage errorMessage={errors.peso.message} />
-            )}
+            {errors.peso && <FormErrorMessage errorMessage={errors.peso.message} />}
           </div>
         </div>
         {/* Dono - Text Input / Firebase database select input */}
@@ -199,9 +180,7 @@ const RegisterPetPage = () => {
               }}
               error={errors.tamanho && true}
             />
-            {errors.tamanho && (
-              <FormErrorMessage errorMessage={errors.tamanho.message} />
-            )}
+            {errors.tamanho && <FormErrorMessage errorMessage={errors.tamanho.message} />}
           </div>
           <div className="relative flex flex-col gap-0.5">
             <label htmlFor="nascimento" className="text-center">
@@ -219,9 +198,7 @@ const RegisterPetPage = () => {
               `}
               {...register("nascimento", { required: true, valueAsDate: true })}
             />
-            {errors.nascimento && (
-              <FormErrorMessage errorMessage={"Escolher data"} />
-            )}
+            {errors.nascimento && <FormErrorMessage errorMessage={"Escolher data"} />}
           </div>
         </div>
         <div className="flex w-full flex-col gap-0.5">

@@ -1,7 +1,4 @@
-import {
-  ArrowRightOnRectangleIcon,
-  Bars3Icon,
-} from "@heroicons/react/24/solid";
+import { ArrowRightOnRectangleIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -16,16 +13,10 @@ const Navigation = () => {
     <>
       {/* Mobile Icon */}
       <div className=" flex items-center justify-between bg-gray-300 shadow-md dark:bg-gray-700  md:hidden">
-        <a
-          href=""
-          className=" block p-3 font-light text-zinc-950 dark:text-zinc-50"
-        >
+        <a href="" className=" block p-3 font-light text-zinc-950 dark:text-zinc-50">
           Pet Control
         </a>
-        <button
-          className="p-3 hover:bg-gray-500 dark:hover:bg-slate-700"
-          onClick={toggleSideBar}
-        >
+        <button className="p-3 hover:bg-gray-500 dark:hover:bg-slate-700" onClick={toggleSideBar}>
           <Bars3Icon className="h-8 w-8  text-zinc-950  active:text-zinc-50 dark:text-gray-50" />
         </button>
       </div>
@@ -53,7 +44,7 @@ const Navigation = () => {
                 Pet List
               </li>
             </Link>
-            <Link to={"/cadastroPet"} onClick={toggleSideBar}>
+            <Link to={"/register"} onClick={toggleSideBar}>
               <li className="underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300">
                 Cadastrar Pet
               </li>

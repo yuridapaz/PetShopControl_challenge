@@ -1,23 +1,34 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { Button } from "../../components";
+import { PetShopContext } from "../../context/PetShopContext";
 
-const ServiceCard = ({ servico }) => {
+const ServiceCard = ({ servico, removeService }) => {
+  const { deleteService } = useContext(PetShopContext);
   const [active, setActive] = useState(false);
 
   const toggleAccordion = () => {
     setActive(!active);
   };
 
+  const deleteHandler = async () => {
+    try {
+      await deleteService(servico, servico.petId);
+      removeService(servico.serviceId);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <div
-      className={`w-full rounded-lg bg-slate-100 hover:cursor-pointer hover:outline hover:outline-offset-0 hover:outline-slate-400 dark:bg-gray-800 transition-all  group ${
+      className={`w-full rounded-lg bg-slate-100  hover:outline hover:outline-offset-0 hover:outline-slate-400 dark:bg-gray-800 transition-all  group ${
         active ? "is-active" : ""
       } `}
     >
-      <div className="flex items-center py-2 px-3" onClick={toggleAccordion}>
-        <p className="text-sm font-semibold text-gray-500 dark:text-gray-300"> 14/04/1991 </p>
-        <p className="ml-4 text-sm group-[.is-active]:font-bold"> {active ? "" : "servico"} </p>
+      <div className="flex items-center py-2 px-3 hover:cursor-pointer" onClick={toggleAccordion}>
+        <p className="text-sm font-semibold text-gray-500 dark:text-gray-300"> {servico.data} </p>
+        <p className="ml-4 text-sm group-[.is-active]:font-bold"> {active ? "" : servico.tipo} </p>
         <p className="ml-auto group-[.is-active]:rotate-180 transition-all">
           {active ? "--" : "+"}
         </p>
@@ -39,7 +50,7 @@ const ServiceCard = ({ servico }) => {
             <p className="text-end"> {servico.data} </p>
           </div>
           <div className="flex flex-col my-2 mt-3 ">
-            <Button variant={"delete"} className={"mt-auto w-28"}>
+            <Button variant={"delete"} className={"mt-auto w-28"} onClick={deleteHandler}>
               Deletar
             </Button>
           </div>
@@ -50,26 +61,3 @@ const ServiceCard = ({ servico }) => {
 };
 
 export default ServiceCard;
-
-// <div
-//   key={i}
-//   className="flex w-full rounded-lg bg-slate-100 px-3 py-1 hover:cursor-pointer hover:outline hover:outline-offset-0 hover:outline-slate-400 dark:bg-gray-800"
-// >
-//   <div className="">
-//     <span className="text-xs font-semibold text-gray-500 dark:text-gray-300">
-//       {servico.data}
-//     </span>
-//     <p className=""> {servico.tipo} </p>
-//   </div>
-//   <div className="ml-auto self-center ">
-//     <p className="font-semibold text-green-700/80 dark:text-green-400/90">
-//       <span className="mr-1 text-sm ">R$:</span>
-//       {servico.valor.toFixed(2)}
-//     </p>
-//   </div>
-//   <div className="ml-4 self-center">
-//     <Button variant={"delete"} onClick={() => alert()}>
-//       <RiDeleteBin6Line />
-//     </Button>
-//   </div>
-// </div>
