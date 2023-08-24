@@ -36,8 +36,8 @@ const PetsPage = () => {
   });
 
   return (
-    <div className="p-2">
-      <div className="flex flex-col gap-3 rounded-lg bg-gray-100 p-4 dark:bg-gray-800">
+    <div className="p-2 flex flex-col gap-3 w-full md:p-4 lg:p-6  md:gap-4 lg:gap-6">
+      <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
         <div>
           <TextInput
             placeholder={"Pesquisar"}
@@ -76,18 +76,32 @@ const PetsPage = () => {
       </div>
 
       {/* Display Cards Grid */}
-      <div className="grid w-full bg-gray-100 mt-3 rounded-lg p-2 max-w-screen-2xl grid-cols-1 justify-items-center gap-2 pt-2 @lg:grid-cols-2 @3xl:grid-cols-3 @3xl:p-0 @3xl:pt-6 @6xl:grid-cols-4 @7xl:grid-cols-5">
+
+      <ul className="w-full @container bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">
+        <div className="w-full my-3 py-2 grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 items-center justify-between border-b border-t border-gray-300">
+          <span> Nome </span>
+          {/* <span> Tipo </span> */}
+          <span> Raça </span>
+          {/* <span> Tamanho </span> */}
+          {/* <span> Idade </span> */}
+        </div>
         {filteredData.map((petData) => {
           return (
-            <Link key={petData.id} to={`/pets/${petData.id}`} className="w-full max-w-md">
-              {/* Precisa modificar className do PetCard */}
+            <Link key={petData.id} to={`/pets/${petData.id}`}>
               <PetCard petInfo={petData} key={petData.id} />
             </Link>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 };
 
 export default PetsPage;
+
+// return (
+//   <Link key={petData.id} to={`/pets/${petData.id}`} className="w-full max-w-md">
+//     {/* Precisa modificar className do PetCard */}
+//     <PetCard petInfo={petData} key={petData.id} />
+//   </Link>
+// );
