@@ -13,7 +13,7 @@ const Navigation = () => {
     <>
       {/* Mobile Icon */}
       <div className="p-2 ">
-        <div className="flex items-center justify-between rounded-xl bg-gray-300  shadow-md dark:bg-gray-700 md:hidden ">
+        <div className="flex items-center justify-between rounded-xl bg-gray-100 ring-2 ring-gray-400 ring-offset-2 ring-offset-slate-300  shadow-md dark:bg-gray-700 md:hidden ">
           <a href="" className="block p-3 font-light  text-zinc-950 dark:text-zinc-50 ">
             Pet Control
           </a>

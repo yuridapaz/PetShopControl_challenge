@@ -4,36 +4,31 @@ import { Link } from 'react-router-dom';
 
 import { SelectInput, TextInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
+import { petTypeFilterKeys, pets } from '../../utils/constants';
 import PetCard from './PetCard';
 
 const PetsPage = () => {
   const { data, getData } = useContext(PetShopContext);
-  const [tipo, setTipo] = useState('Nenhum');
-  const [raca, setRaca] = useState('Nenhum');
-  const [nome, setNome] = useState('');
+  const [typeInput, setTypeInput] = useState('Nenhum');
+  const [raceInput, setRaceInput] = useState('');
+  const [nameInput, setNameInput] = useState('');
+
+  const petRaceFilterKeys = pets[typeInput]?.racas || [''];
 
   useEffect(() => {
     getData();
   }, []);
 
-  // Filter by 'tipo'
-  const filterByTipo = (data, tipo) => {
-    if (tipo === 'Nenhum' || tipo === '') return data;
-    return data.tipo === tipo;
-  };
-  // Filter by 'Raca'
-  const filterByRaca = (data, raca) => {
-    if (raca === 'Nenhum' || raca === '') return data;
-    return data.raca === raca;
-  };
-
-  const filterByNome = (data, nome) => {
-    return data.nome.toLowerCase().includes(nome.toLowerCase());
+  const filterBySelectInput = (data, filterInput, dataKey) => {
+    if (filterInput === 'Nenhum' || filterInput === '') return data;
+    return data[`${dataKey}`] === filterInput;
   };
 
   const filteredData = data.filter((data) => {
     return (
-      filterByTipo(data, tipo) && filterByRaca(data, raca) && filterByNome(data, nome)
+      filterBySelectInput(data, typeInput, 'tipo') &&
+      filterBySelectInput(data, raceInput, 'raca') &&
+      data.nome.toLowerCase().includes(nameInput.toLowerCase())
     );
   });
 
@@ -44,7 +39,7 @@ const PetsPage = () => {
           <TextInput
             placeholder={'Pesquisar'}
             fullWidth
-            onChange={(e) => setNome(e.target.value)}
+            onChange={(e) => setNameInput(e.target.value)}
           />
         </div>
         <div className="flex w-full gap-3">
@@ -54,8 +49,9 @@ const PetsPage = () => {
             </label>
             <SelectInput
               id={'tipo'}
-              values={['Nenhum', 'Cachorro', 'Gato', 'Outro']}
-              onChange={(e) => setTipo(e.target.value)}
+              values={petTypeFilterKeys}
+              onChange={(e) => setTypeInput(e.target.value)}
+              fullWidth
             />
           </div>
           <div className="flex w-full flex-col">
@@ -64,11 +60,13 @@ const PetsPage = () => {
             </label>
             <SelectInput
               id={'tipo'}
-              values={['1']}
-              onChange={(e) => setRaca(e.target.value)}
+              values={petRaceFilterKeys}
+              onChange={(e) => setRaceInput(e.target.value)}
+              fullWidth
+              disabled={typeInput === 'Outro' || typeInput === 'Nenhum'}
             />
           </div>
-          <div className="flex w-full flex-col">
+          <div className="flex flex-col">
             <label htmlFor="ordenar" className="text-xs">
               Ordenar:
             </label>
@@ -104,10 +102,3 @@ const PetsPage = () => {
 };
 
 export default PetsPage;
-
-// return (
-//   <Link key={petData.id} to={`/pets/${petData.id}`} className="w-full max-w-md">
-//     {/* Precisa modificar className do PetCard */}
-//     <PetCard petInfo={petData} key={petData.id} />
-//   </Link>
-// );

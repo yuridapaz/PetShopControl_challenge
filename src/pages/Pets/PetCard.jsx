@@ -13,7 +13,9 @@ const PetCard = ({ petInfo }) => {
       </div>
 
       <div className="">
-        <p className="text-gray-500">{petInfo.raca} </p>
+        <p className="text-gray-500">
+          {petInfo.raca} Tipo: {petInfo.tipo}{' '}
+        </p>
       </div>
 
       {/* <div className="relative flex cursor-pointer items-center overflow-hidden rounded-sm ring-black/50 ring-offset-1 @container  hover:ring-1  dark:ring-zinc-100 dark:ring-offset-gray-800">

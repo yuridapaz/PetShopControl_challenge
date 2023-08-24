@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { AiOutlineLeft } from "react-icons/ai";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react';
+import { AiOutlineLeft } from 'react-icons/ai';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { Button } from "../../components";
-import ModalComponent from "../../components/Modal";
-import { PetShopContext } from "../../context/PetShopContext";
-import ServiceCard from "./ServiceCard";
-import ServiceForm from "./ServiceForm";
+import { Button } from '../../components';
+import ModalComponent from '../../components/Modal';
+import { PetShopContext } from '../../context/PetShopContext';
+import ServiceCard from './ServiceCard';
+import ServiceForm from './ServiceForm';
 
 const PetInfoPage = () => {
   const navigate = useNavigate();
@@ -30,7 +30,9 @@ const PetInfoPage = () => {
   };
   // handle Remove
   const removeService = (serviceId) => {
-    let newServiceArray = currentPet.servicos.filter((servico) => servico.serviceId != serviceId);
+    let newServiceArray = currentPet.servicos.filter(
+      (servico) => servico.serviceId != serviceId
+    );
     setCurrentPet((prev) => ({
       ...prev,
       servicos: newServiceArray,
@@ -44,6 +46,8 @@ const PetInfoPage = () => {
   const closeModal = () => {
     setShowModal(false);
   };
+
+  console.log(currentPet);
 
   return (
     <>
@@ -78,21 +82,30 @@ const PetInfoPage = () => {
               {/* Informações card */}
               <div className="flex gap-6">
                 <div className="w-full rounded-xl bg-green-300/50 px-3 py-2 text-lg leading-6 dark:bg-green-300/90">
-                  <span className="text-xs text-green-800/60 dark:text-green-800/90"> Gênero </span>
+                  <span className="text-xs text-green-800/60 dark:text-green-800/90">
+                    {' '}
+                    Gênero{' '}
+                  </span>
                   <p className="text-green-800"> {currentPet?.genero} </p>
                 </div>
                 <div className="w-full rounded-xl bg-orange-300/50 px-3 py-2 text-lg  leading-6 dark:bg-orange-300/90">
                   <span className="text-xs text-orange-800/60 dark:text-orange-800/90">
-                    {" "}
-                    Idade{" "}
+                    {' '}
+                    Idade{' '}
                   </span>
                   <p className="text-orange-800 dark:text-orange-900">
-                    {`${currentPet?.idade} ano${currentPet?.idade > 1 ? "s" : ""}`}
+                    {`${currentPet?.idade} ano${currentPet?.idade > 1 ? 's' : ''}`}
                   </p>
                 </div>
                 <div className="w-full rounded-xl bg-cyan-300/50 px-3 py-2 text-lg  leading-6 dark:bg-cyan-300/90">
-                  <span className="text-xs text-cyan-800/60 dark:text-cyan-800/90"> Peso </span>
-                  <p className="text-cyan-800 dark:text-cyan-900"> {currentPet?.peso} kg </p>
+                  <span className="text-xs text-cyan-800/60 dark:text-cyan-800/90">
+                    {' '}
+                    Peso{' '}
+                  </span>
+                  <p className="text-cyan-800 dark:text-cyan-900">
+                    {' '}
+                    {currentPet?.peso} kg{' '}
+                  </p>
                 </div>
               </div>
               {/* observações */}
@@ -141,12 +154,12 @@ const PetInfoPage = () => {
             {/* Buttons section */}
             <div className="mt-auto  flex w-full gap-4 px-0">
               {/* <Link to={`/pets/${id}/servico`} state={{ id }} className="w-full"> */}
-              <Button size={"md"} variant={""} className={"w-full"} onClick={openModal}>
+              <Button size={'md'} variant={''} className={'w-full'} onClick={openModal}>
                 Adicionar Serviço
               </Button>
               {/* </Link> */}
               <Link to={`/pets/${id}/servico`} state={{ id }} className="w-full">
-                <Button size={"md"} variant={"delete"} className={"w-full"}>
+                <Button size={'md'} variant={'delete'} className={'w-full'}>
                   Editar Informações
                 </Button>
               </Link>
@@ -158,7 +171,7 @@ const PetInfoPage = () => {
       <ModalComponent
         showModal={showModal}
         closeModal={closeModal}
-        modalTitle={"Adicionar serviço"}
+        modalTitle={'Adicionar serviço'}
       >
         {currentPet && (
           <ServiceForm petId={id} closeModal={closeModal} appendService={appendService} />
