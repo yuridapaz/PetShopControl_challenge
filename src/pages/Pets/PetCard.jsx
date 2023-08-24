@@ -1,19 +1,19 @@
 const PetCard = ({ petInfo }) => {
   return (
-    <li className="w-full my-1  grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 rounded-lg items-center justify-between hover:ring-1 dark:ring-zinc-100 dark:ring-offset-gray-800 ring-black/50 ring-offset-1 cursor-pointer p-1">
+    <li className="my-1 grid w-full cursor-pointer grid-cols-2 items-center justify-between rounded-lg p-1 ring-black/50 ring-offset-1 hover:ring-1 dark:ring-zinc-100 dark:ring-offset-gray-800 sm:grid-cols-3 md:grid-cols-4">
       <div className="flex items-center gap-2">
-        <div className="w-10 h-10 shrink-0">
+        <div className="h-10 w-10 shrink-0">
           <img
             src="src/assets/images/Todd.jpeg"
             alt=""
-            className="rounded-full object-cover w-full h-full inline-block"
+            className="inline-block h-full w-full rounded-full object-cover"
           />
         </div>
-        <p className=""> {petInfo.nome} </p>
+        <p className=""> {petInfo.nome}</p>
       </div>
 
       <div className="">
-        <p className="text-gray-500"> {petInfo.raca} </p>
+        <p className="text-gray-500">{petInfo.raca} </p>
       </div>
 
       {/* <div className="relative flex cursor-pointer items-center overflow-hidden rounded-sm ring-black/50 ring-offset-1 @container  hover:ring-1  dark:ring-zinc-100 dark:ring-offset-gray-800">

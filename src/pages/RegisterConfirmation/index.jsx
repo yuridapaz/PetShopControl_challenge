@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterConfirmationPage = () => {
   const [countdown, setCountdown] = useState(3);
@@ -7,11 +7,10 @@ const RegisterConfirmationPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigate("/pets");
+      navigate('/pets');
     }, 3000);
 
-    const timer =
-      countdown > 0 && setInterval(() => setCountdown(countdown - 1), 1000);
+    const timer = countdown > 0 && setInterval(() => setCountdown(countdown - 1), 1000);
     return () => {
       clearInterval(timer);
     };

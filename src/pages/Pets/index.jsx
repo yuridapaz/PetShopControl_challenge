@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { SelectInput, TextInput } from "../../components";
-import { PetShopContext } from "../../context/PetShopContext";
-import PetCard from "./PetCard";
+import { SelectInput, TextInput } from '../../components';
+import { PetShopContext } from '../../context/PetShopContext';
+import PetCard from './PetCard';
 
 const PetsPage = () => {
   const { data, getData } = useContext(PetShopContext);
-  const [tipo, setTipo] = useState("Nenhum");
-  const [raca, setRaca] = useState("Nenhum");
-  const [nome, setNome] = useState("");
+  const [tipo, setTipo] = useState('Nenhum');
+  const [raca, setRaca] = useState('Nenhum');
+  const [nome, setNome] = useState('');
 
   useEffect(() => {
     getData();
@@ -18,12 +18,12 @@ const PetsPage = () => {
 
   // Filter by 'tipo'
   const filterByTipo = (data, tipo) => {
-    if (tipo === "Nenhum" || tipo === "") return data;
+    if (tipo === 'Nenhum' || tipo === '') return data;
     return data.tipo === tipo;
   };
   // Filter by 'Raca'
   const filterByRaca = (data, raca) => {
-    if (raca === "Nenhum" || raca === "") return data;
+    if (raca === 'Nenhum' || raca === '') return data;
     return data.raca === raca;
   };
 
@@ -32,15 +32,17 @@ const PetsPage = () => {
   };
 
   const filteredData = data.filter((data) => {
-    return filterByTipo(data, tipo) && filterByRaca(data, raca) && filterByNome(data, nome);
+    return (
+      filterByTipo(data, tipo) && filterByRaca(data, raca) && filterByNome(data, nome)
+    );
   });
 
   return (
-    <div className="p-2 flex flex-col gap-3 w-full md:p-4 lg:p-6  md:gap-4 lg:gap-6">
+    <div className="flex w-full flex-col gap-3 p-2 md:gap-4 md:p-4  lg:gap-6 lg:p-6">
       <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
         <div>
           <TextInput
-            placeholder={"Pesquisar"}
+            placeholder={'Pesquisar'}
             fullWidth
             onChange={(e) => setNome(e.target.value)}
           />
@@ -51,8 +53,8 @@ const PetsPage = () => {
               Tipo:
             </label>
             <SelectInput
-              id={"tipo"}
-              values={["Nenhum", "Cachorro", "Gato", "Outro"]}
+              id={'tipo'}
+              values={['Nenhum', 'Cachorro', 'Gato', 'Outro']}
               onChange={(e) => setTipo(e.target.value)}
             />
           </div>
@@ -60,15 +62,19 @@ const PetsPage = () => {
             <label htmlFor="tipo" className="text-xs">
               Raça:
             </label>
-            <SelectInput id={"tipo"} values={["1"]} onChange={(e) => setRaca(e.target.value)} />
+            <SelectInput
+              id={'tipo'}
+              values={['1']}
+              onChange={(e) => setRaca(e.target.value)}
+            />
           </div>
-          <div className="flex flex-col w-full">
+          <div className="flex w-full flex-col">
             <label htmlFor="ordenar" className="text-xs">
               Ordenar:
             </label>
             <SelectInput
-              id={"ordenar"}
-              values={["A-Z", "Z-A", "Tipo", "Porte"]}
+              id={'ordenar'}
+              values={['A-Z', 'Z-A', 'Tipo', 'Porte']}
               onChange={(e) => getData(e.target.value)}
             />
           </div>
@@ -77,8 +83,8 @@ const PetsPage = () => {
 
       {/* Display Cards Grid */}
 
-      <ul className="w-full @container bg-gray-100 dark:bg-gray-800 p-4 rounded-xl">
-        <div className="w-full my-3 py-2 grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 items-center justify-between border-b border-t border-gray-300">
+      <ul className="w-full rounded-xl bg-gray-100 p-4 @container dark:bg-gray-800">
+        <div className="my-3 grid w-full grid-cols-2 items-center justify-between border-y border-gray-300 py-2 sm:grid-cols-3 md:grid-cols-4">
           <span> Nome </span>
           {/* <span> Tipo </span> */}
           <span> Raça </span>

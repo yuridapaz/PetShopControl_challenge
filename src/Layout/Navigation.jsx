@@ -1,6 +1,6 @@
-import { ArrowRightOnRectangleIcon, Bars3Icon } from "@heroicons/react/24/solid";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { ArrowRightOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/solid';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navigation = () => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -12,27 +12,27 @@ const Navigation = () => {
   return (
     <>
       {/* Mobile Icon */}
-      <div className="p-2">
-        <div className="flex items-center justify-between rounded-xl bg-gray-300 shadow-md dark:bg-gray-700  md:hidden">
-          <a href="" className="block p-3 font-light  text-zinc-950 dark:text-zinc-50">
+      <div className="p-2 ">
+        <div className="flex items-center justify-between rounded-xl bg-gray-300  shadow-md dark:bg-gray-700 md:hidden ">
+          <a href="" className="block p-3 font-light  text-zinc-950 dark:text-zinc-50 ">
             Pet Control
           </a>
           <button
-            className="p-0 hover:bg-gray-500 rounded-xl dark:hover:bg-slate-700"
+            className="rounded-xl p-0 hover:bg-gray-500 dark:hover:bg-slate-700"
             onClick={toggleSideBar}
           >
-            <Bars3Icon className="w-14 h-14 p-3 hover:text-white  dark:text-gray-50" />
+            <Bars3Icon className="h-14 w-14 p-3 hover:text-white  dark:text-gray-50" />
           </button>
         </div>
       </div>
       {/* Sidebar */}
       <div
         className={`${
-          openSideBar ? "" : "-translate-x-full"
-        } h-screen absolute flex w-9/12 sm:w-1/2 md:w-72 lg:w-80 md:py-4  md:translate-x-0 lg:py-6 transition transform duration-200 ease-in-out md:relative inset-y-0 left-0 z-10 shrink-0 `}
+          openSideBar ? '' : '-translate-x-full'
+        } absolute inset-y-0 left-0 z-10 flex h-screen w-9/12 shrink-0  transition duration-200 ease-in-out sm:w-1/2 md:relative md:w-72 md:translate-x-0 md:py-4 lg:w-80 lg:py-6 `}
       >
         <div
-          className={` flex-col flex shadow-lg bg-gray-100 p-6  dark:border-gray-600 dark:bg-gray-900 md:rounded-xl rounded-e-2xl border-r-2 border-r-gray-400 md:border-none w-full`}
+          className={` flex w-full flex-col rounded-e-2xl border-r-2  border-r-gray-400 bg-gray-100 p-6 shadow-lg dark:border-gray-600 dark:bg-gray-900 md:rounded-xl md:border-none`}
         >
           <div className="flex w-full flex-col items-center justify-between gap-2 border-b border-b-gray-400 py-4 dark:border-b-gray-600">
             <div className="flex h-12 w-12 items-center">
@@ -42,17 +42,17 @@ const Navigation = () => {
           </div>
           <div>
             <ul className="flex flex-col items-start gap-4  pt-10 ">
-              <Link to={"/"} onClick={toggleSideBar}>
+              <Link to={'/'} onClick={toggleSideBar}>
                 <li className="underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer hover:text-zinc-800  dark:text-zinc-50  dark:hover:text-zinc-300">
                   Dashboard / Home
                 </li>
               </Link>
-              <Link to={"/pets"} onClick={toggleSideBar}>
+              <Link to={'/pets'} onClick={toggleSideBar}>
                 <li className="underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300">
                   Pet List
                 </li>
               </Link>
-              <Link to={"/register"} onClick={toggleSideBar}>
+              <Link to={'/register'} onClick={toggleSideBar}>
                 <li className="underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300">
                   Cadastrar Pet
                 </li>
