@@ -47,7 +47,29 @@ const PetInfoPage = () => {
     setShowModal(false);
   };
 
-  console.log(currentPet);
+  const displayAgeFunction = (petTimeStamp) => {
+    let [years, months, days] = '';
+    let displayPhrase = '';
+    const diffTime = new Date() - new Date(petTimeStamp);
+    const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    years = Math.floor(totalDays / 365.25);
+    months = Math.floor((totalDays % 365.25) / 30.4375);
+    days = Math.floor((totalDays % 365.25) % 30.4375);
+
+    if (years === 0 && months === 0) {
+      displayPhrase = displayPhrase + days + ' dias.';
+    } else if (years === 0) {
+      displayPhrase = displayPhrase + months + (months > 1 ? ' meses.' : ' mês.');
+    } else if (years > 0 && months === 0) {
+      displayPhrase = displayPhrase + years + (years > 0 ? ' anos.' : ' ano.');
+    } else {
+      displayPhrase =
+        displayPhrase + years + (years > 1 ? ' anos e' : ' ano e ') + months + 'm';
+      // (months > 1 ? ' meses' : ' mês');
+    }
+    return displayPhrase;
+  };
 
   return (
     <>
@@ -64,7 +86,7 @@ const PetInfoPage = () => {
         {currentPet && (
           <>
             {/* Info Card  */}
-            <div className="mb-3 flex flex-col gap-4 rounded-xl bg-gray-100 p-2 pb-4 dark:bg-gray-800">
+            <div className="mb-3 flex p-2 flex-col gap-4 rounded-xl bg-gray-100  pb-4 dark:bg-gray-800">
               <div className="flex w-full gap-4 ">
                 {/* Foto e Nome */}
                 <div className="h-28 w-28">
@@ -80,31 +102,27 @@ const PetInfoPage = () => {
                 </div>
               </div>
               {/* Informações card */}
-              <div className="flex gap-6">
-                <div className="w-full rounded-xl bg-green-300/50 px-3 py-2 text-lg leading-6 dark:bg-green-300/90">
+              <div className="flex gap-4">
+                <div className="w-1/3 rounded-xl bg-green-300/50 px-3 py-2 text-lg leading-6 dark:bg-green-300/90 ">
                   <span className="text-xs text-green-800/60 dark:text-green-800/90">
-                    {' '}
-                    Gênero{' '}
+                    Gênero
                   </span>
                   <p className="text-green-800"> {currentPet?.genero} </p>
                 </div>
-                <div className="w-full rounded-xl bg-orange-300/50 px-3 py-2 text-lg  leading-6 dark:bg-orange-300/90">
+                <div className=" w-1/3  rounded-xl bg-orange-300/50 px-3 py-2 text-lg leading-6 dark:bg-orange-300/90">
                   <span className="text-xs text-orange-800/60 dark:text-orange-800/90">
-                    {' '}
-                    Idade{' '}
+                    Idade
                   </span>
-                  <p className="text-orange-800 dark:text-orange-900">
-                    {`${currentPet?.idade} ano${currentPet?.idade > 1 ? 's' : ''}`}
+                  <p className="text-orange-800 dark:text-orange-900 whitespace-nowrap">
+                    {displayAgeFunction(currentPet?.nascimento)}
                   </p>
                 </div>
-                <div className="w-full rounded-xl bg-cyan-300/50 px-3 py-2 text-lg  leading-6 dark:bg-cyan-300/90">
+                <div className="w-1/3 rounded-xl bg-cyan-300/50 px-3 py-2 text-lg  leading-6 dark:bg-cyan-300/90">
                   <span className="text-xs text-cyan-800/60 dark:text-cyan-800/90">
-                    {' '}
-                    Peso{' '}
+                    Peso
                   </span>
                   <p className="text-cyan-800 dark:text-cyan-900">
-                    {' '}
-                    {currentPet?.peso} kg{' '}
+                    {currentPet?.peso} kg
                   </p>
                 </div>
               </div>

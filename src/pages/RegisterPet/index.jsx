@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaPaw } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -11,14 +11,22 @@ import {
   TextInput,
 } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
+import { petTypeFilterKeys, pets } from '../../utils/constants';
 
 const RegisterPetPage = () => {
+  const [typeInput, setTypeInput] = useState('Nenhum');
+  const petRaceFilterKeys = pets[typeInput]?.racas || [''];
   const { createPet } = useContext(PetShopContext);
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: 'onChange' });
+    watch,
+    formState: { errors, touchedFields },
+  } = useForm({ mode: 'all' });
+
+  const watchAllFields = watch();
+  console.log(watchAllFields);
+
   const navigate = useNavigate();
 
   const onSubmit = (formData) => {
@@ -26,16 +34,14 @@ const RegisterPetPage = () => {
       nome: formData.nome,
       tipo: formData.tipo,
       raca: formData.raca,
-      cor: formData.cor,
-      idade: formData.idade,
       genero: formData.genero,
       peso: formData.peso,
       tamanho: formData.tamanho,
-      nascimento: formData.nascimento,
+      nascimento: formData.nascimento.getTime(),
       observacoes: formatObs(formData.observacoes),
       servicos: [],
     };
-
+    console.log(data);
     createPet(data);
     navigate('/cadastroconcluido');
   };
@@ -62,13 +68,13 @@ const RegisterPetPage = () => {
         className="flex h-full w-full max-w-4xl flex-1 flex-col gap-4"
         onSubmit={handleSubmit(onSubmit)}
       >
-        {/* Name - Text Input */}
         <div className="relative flex flex-col gap-0.5">
           <label htmlFor="name"> Nome: </label>
           <TextInput
             id={'nome'}
             register={{
               ...register('nome', {
+                required: 'Escolher nome',
                 minLength: {
                   value: 3,
                   message: 'Mínimo de três caracteres',
@@ -77,69 +83,48 @@ const RegisterPetPage = () => {
             }}
             error={errors.nome && true}
           />
+
           {errors.nome && <FormErrorMessage errorMessage={errors.nome.message} />}
         </div>
-        {/* Tipo / Raça - Select */}
+
         <div className="flex w-full flex-col gap-5">
           <div className="relative flex w-full flex-col gap-0.5">
             <label htmlFor="tipo">Tipo:</label>
             <SelectInput
               id={'tipo'}
-              values={['Cachorro', 'Gato', 'Outro']}
+              values={petTypeFilterKeys.slice(1)}
               register={{
                 ...register('tipo', {
                   required: 'Escolher tipo',
                 }),
               }}
               error={errors.tipo && true}
+              // filled={touchedFields.tipo && !errors?.tipo}
+              onChange={(e) => {
+                setTypeInput(e.target.value);
+              }}
+              defaultValue
             />
             {errors.tipo && <FormErrorMessage errorMessage={errors.tipo.message} />}
           </div>
+
           <div className="relative flex w-full flex-col gap-0.5">
             <label htmlFor="raca">Raça:</label>
             <SelectInput
               id={'raca'}
-              values={['1', '2', '3']}
-              register={{ ...register('raca', { required: 'Escolher raça' }) }}
+              values={typeInput === 'Outro' ? ['Outro'] : petRaceFilterKeys.slice(1)}
+              register={{
+                ...register('raca', {
+                  required: 'Escolher raça',
+                }),
+              }}
               error={errors.raca && true}
+              defaultValue
+              disabled={typeInput === 'Nenhum'}
             />
             {errors.raca && <FormErrorMessage errorMessage={errors.raca.message} />}
           </div>
         </div>
-        {/* Tamanho / Cor / Idade - Select  */}
-        <div className="flex w-full gap-4">
-          <div className="relative flex w-full flex-col gap-0.5">
-            <label htmlFor="cor">Cor:</label>
-            <SelectInput
-              id={'cor'}
-              values={['cor 1 ', 'cor 2', 'cor 3']}
-              register={{ ...register('cor', { required: 'Escolher cor' }) }}
-              error={errors.cor && true}
-            />
-            {errors.cor && <FormErrorMessage errorMessage={errors.cor.message} />}
-          </div>
-          <div className="relative flex flex-col gap-0.5">
-            <label htmlFor="idade" className="text-center">
-              Idade:
-            </label>
-            <NumberInput
-              id={'idade'}
-              min={1}
-              max={20}
-              className={'w-32 text-center'}
-              register={{
-                ...register('idade', {
-                  required: 'Escolher idade',
-                  valueAsNumber: true,
-                }),
-              }}
-              error={errors.idade && true}
-            />
-
-            {errors.idade && <FormErrorMessage errorMessage={errors.idade.message} />}
-          </div>
-        </div>
-        {/* Gênero e Peso */}
         <div className="flex w-full gap-4">
           <div className="relative flex w-full flex-col gap-0.5">
             <label htmlFor="genero">Gênero:</label>
@@ -147,9 +132,10 @@ const RegisterPetPage = () => {
               id={'genero'}
               values={['Macho', 'Fêmea']}
               register={{
-                ...register('genero', { required: 'Escolher genero' }),
+                ...register('genero', { required: 'Escolher gênero' }),
               }}
               error={errors.genero && true}
+              defaultValue
             />
             {errors.genero && <FormErrorMessage errorMessage={errors.genero.message} />}
           </div>
@@ -174,7 +160,6 @@ const RegisterPetPage = () => {
             {errors.peso && <FormErrorMessage errorMessage={errors.peso.message} />}
           </div>
         </div>
-        {/* Dono - Text Input / Firebase database select input */}
         <div className="flex w-full gap-4">
           <div className="relative flex w-full flex-col gap-0.5">
             <label htmlFor="tamanho">Tamanho:</label>
@@ -185,6 +170,7 @@ const RegisterPetPage = () => {
                 ...register('tamanho', { required: 'Escolher tamanho' }),
               }}
               error={errors.tamanho && true}
+              defaultValue
             />
             {errors.tamanho && <FormErrorMessage errorMessage={errors.tamanho.message} />}
           </div>
@@ -216,6 +202,7 @@ const RegisterPetPage = () => {
             className="rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50"
             {...register('observacoes')}
           ></textarea>
+          {/*  */}
         </div>
 
         <Button type="submit" className={'mt-auto w-full max-w-xs self-center'}>
