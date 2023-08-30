@@ -1,23 +1,18 @@
-import { useContext, useState } from 'react';
+/* eslint-disable tailwindcss/no-custom-classname */
+import { useState } from 'react';
 
 import { Button } from '../../components';
-import { PetShopContext } from '../../context/PetShopContext';
 
-const ServiceCard = ({ servico, removeService }) => {
-  const { deleteService } = useContext(PetShopContext);
+const ServiceCard = ({ servico, setModal, setService }) => {
   const [active, setActive] = useState(false);
 
   const toggleAccordion = () => {
     setActive(!active);
   };
 
-  const deleteHandler = async () => {
-    try {
-      await deleteService(servico, servico.petId);
-      removeService(servico.serviceId);
-    } catch (error) {
-      alert(error);
-    }
+  const handleDeleteServiceAlert = () => {
+    setService(servico);
+    setModal(true);
   };
 
   return (
@@ -31,12 +26,10 @@ const ServiceCard = ({ servico, removeService }) => {
         onClick={toggleAccordion}
       >
         <p className="text-sm font-semibold text-gray-500 dark:text-gray-300">
-          {' '}
-          {servico.data}{' '}
+          {servico.data}
         </p>
         <p className="ml-4 text-sm group-[.is-active]:font-bold">
-          {' '}
-          {active ? '' : servico.tipo}{' '}
+          {active ? '' : servico.tipo}
         </p>
         <p className="ml-auto transition-all group-[.is-active]:rotate-180">
           {active ? '--' : '+'}
@@ -59,7 +52,11 @@ const ServiceCard = ({ servico, removeService }) => {
             <p className="text-end"> {servico.data} </p>
           </div>
           <div className="my-2 mt-3 flex flex-col ">
-            <Button variant={'delete'} className={'mt-auto w-28'} onClick={deleteHandler}>
+            <Button
+              variant={'delete'}
+              className={'mt-auto w-28'}
+              onClick={handleDeleteServiceAlert}
+            >
               Deletar
             </Button>
           </div>

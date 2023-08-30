@@ -33,7 +33,7 @@ const PetsPage = () => {
   });
 
   return (
-    <div className="flex w-full flex-col gap-3 p-2 md:gap-4 md:p-4  lg:gap-6 lg:p-6">
+    <div className="flex w-full flex-col gap-3 p-2 md:gap-4 md:p-4 lg:gap-6 lg:p-6">
       <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
         <div>
           <TextInput

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { AiOutlineLeft } from 'react-icons/ai';
+import { GoAlert } from 'react-icons/go';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '../../components';
@@ -11,9 +12,11 @@ import ServiceForm from './ServiceForm';
 const PetInfoPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { getPet } = useContext(PetShopContext);
+  const { getPet, deleteService } = useContext(PetShopContext);
   const [currentPet, setCurrentPet] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [currentPetService, setCurrentPetService] = useState(null);
+  const [formModal, setFormModal] = useState(false);
+  const [alertModal, setAlertModal] = useState(false);
 
   useEffect(() => {
     const fetchPetData = async () => {
@@ -21,14 +24,15 @@ const PetInfoPage = () => {
       setCurrentPet(petData);
     };
     fetchPetData();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // handle Add
+  // handle AddService (STATE)
   const appendService = (serviceData) => {
     currentPet.servicos.push(serviceData);
   };
-  // handle Remove
+  // handle RemoveService (STATE)
   const removeService = (serviceId) => {
     let newServiceArray = currentPet.servicos.filter(
       (servico) => servico.serviceId != serviceId
@@ -39,12 +43,17 @@ const PetInfoPage = () => {
     }));
   };
 
-  const openModal = () => {
-    setShowModal(true);
-  };
+  // handle RemoveService (Firebase & currentState)
+  const handleRemoveService = async (serviceData) => {
+    try {
+      await deleteService(serviceData, serviceData.petId);
+      removeService(serviceData.serviceId);
+    } catch (error) {
+      alert(error);
+    }
 
-  const closeModal = () => {
-    setShowModal(false);
+    setAlertModal(false);
+    setCurrentPetService(null);
   };
 
   const displayAgeFunction = (petTimeStamp) => {
@@ -57,16 +66,16 @@ const PetInfoPage = () => {
     months = Math.floor((totalDays % 365.25) / 30.4375);
     days = Math.floor((totalDays % 365.25) % 30.4375);
 
-    if (years === 0 && months === 0) {
-      displayPhrase = displayPhrase + days + ' dias.';
+    if (isNaN(years) || isNaN(months)) {
+      displayPhrase = '-';
+    } else if (years === 0 && months === 0) {
+      displayPhrase = days + ' dias.';
     } else if (years === 0) {
-      displayPhrase = displayPhrase + months + (months > 1 ? ' meses.' : ' mês.');
+      displayPhrase = months + (months > 1 ? ' meses.' : ' mês.');
     } else if (years > 0 && months === 0) {
-      displayPhrase = displayPhrase + years + (years > 0 ? ' anos.' : ' ano.');
+      displayPhrase = years + (years > 0 ? ' anos.' : ' ano.');
     } else {
-      displayPhrase =
-        displayPhrase + years + (years > 1 ? ' anos e' : ' ano e ') + months + 'm';
-      // (months > 1 ? ' meses' : ' mês');
+      displayPhrase = years + (years > 1 ? ' anos e' : ' ano e ') + months + 'm';
     }
     return displayPhrase;
   };
@@ -86,7 +95,7 @@ const PetInfoPage = () => {
         {currentPet && (
           <>
             {/* Info Card  */}
-            <div className="mb-3 flex p-2 flex-col gap-4 rounded-xl bg-gray-100  pb-4 dark:bg-gray-800">
+            <div className="mb-3 flex flex-col gap-4 rounded-xl bg-gray-100 p-2  pb-4 dark:bg-gray-800">
               <div className="flex w-full gap-4 ">
                 {/* Foto e Nome */}
                 <div className="h-28 w-28">
@@ -113,7 +122,7 @@ const PetInfoPage = () => {
                   <span className="text-xs text-orange-800/60 dark:text-orange-800/90">
                     Idade
                   </span>
-                  <p className="text-orange-800 dark:text-orange-900 whitespace-nowrap">
+                  <p className="whitespace-nowrap text-orange-800 dark:text-orange-900">
                     {displayAgeFunction(currentPet?.nascimento)}
                   </p>
                 </div>
@@ -136,7 +145,7 @@ const PetInfoPage = () => {
                   {currentPet?.observacoes?.map((obs, i) => {
                     return (
                       <p
-                        className="text-gray-70 pr-4  text-sm leading-4 dark:text-gray-200"
+                        className="pr-4 text-sm leading-4 text-gray-700 dark:text-gray-200"
                         key={i}
                       >
                         {i}. {obs}
@@ -160,7 +169,8 @@ const PetInfoPage = () => {
                           servico={servico}
                           petId={id}
                           key={i}
-                          removeService={removeService}
+                          setService={setCurrentPetService}
+                          setModal={setAlertModal}
                         />
                       );
                     })}
@@ -171,11 +181,14 @@ const PetInfoPage = () => {
 
             {/* Buttons section */}
             <div className="mt-auto  flex w-full gap-4 px-0">
-              {/* <Link to={`/pets/${id}/servico`} state={{ id }} className="w-full"> */}
-              <Button size={'md'} variant={''} className={'w-full'} onClick={openModal}>
+              <Button
+                size={'md'}
+                variant={''}
+                className={'w-full'}
+                onClick={() => setFormModal(true)}
+              >
                 Adicionar Serviço
               </Button>
-              {/* </Link> */}
               <Link to={`/pets/${id}/servico`} state={{ id }} className="w-full">
                 <Button size={'md'} variant={'delete'} className={'w-full'}>
                   Editar Informações
@@ -187,13 +200,36 @@ const PetInfoPage = () => {
       </div>
       {/* Modal */}
       <ModalComponent
-        showModal={showModal}
-        closeModal={closeModal}
+        displayModal={formModal}
+        setModal={setFormModal}
         modalTitle={'Adicionar serviço'}
       >
         {currentPet && (
-          <ServiceForm petId={id} closeModal={closeModal} appendService={appendService} />
+          <ServiceForm petId={id} setModal={setFormModal} appendService={appendService} />
         )}
+      </ModalComponent>
+      {/* Modal two */}
+      <ModalComponent
+        displayModal={alertModal}
+        setModal={setAlertModal}
+        modalTitle={'Remover Serviço'}
+      >
+        <div className="flex w-full flex-col items-center justify-center gap-3 p-4">
+          <GoAlert className="text-7xl" fill="#F05252" />
+          <h1 className="my-4 text-3xl">Tem certeza ?</h1>
+          <p className="text-slate-700/70">
+            Se eliminar não voltará e ver esse conteúdo !
+          </p>
+        </div>
+        <div className="flex w-full justify-center p-4">
+          <Button
+            onClick={() => handleRemoveService(currentPetService)}
+            className={'w-2/6'}
+            variant={'delete'}
+          >
+            Deletar
+          </Button>
+        </div>
       </ModalComponent>
     </>
   );

@@ -1,17 +1,19 @@
-import { RiCloseLine } from "react-icons/ri";
+import { RiCloseLine } from 'react-icons/ri';
 
-const ModalComponent = ({ showModal, closeModal, children, modalTitle }) => {
-  return showModal ? (
+const ModalComponent = ({ children, modalTitle, displayModal, setModal }) => {
+  return displayModal ? (
     <div
-      className={`flex absolute justify-center items-center inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full`}
+      className={
+        'absolute inset-0 flex h-full w-full items-center justify-center overflow-y-auto bg-gray-600/50'
+      }
     >
       {/* Modal */}
-      <div className=" bg-gray-100 dark:bg-gray-800 rounded-lg w-full max-w-sm">
-        <div className="border-b border-gray-300 p-4 flex justify-between items-center">
+      <div className="w-full max-w-sm rounded-lg bg-gray-100 dark:bg-gray-800">
+        <div className="flex items-center justify-between border-b border-gray-300 p-4">
           <p> {modalTitle} </p>
           <button
-            className="text-lg border border-gray-400 rounded-full text-gray-600 p-1"
-            onClick={closeModal}
+            className="rounded-full border border-gray-400 p-1 text-lg text-gray-600"
+            onClick={() => setModal(null)}
           >
             <RiCloseLine />
           </button>
