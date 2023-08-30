@@ -33,7 +33,7 @@ const PetsPage = () => {
   });
 
   return (
-    <div className="flex w-full flex-col gap-3 p-2 md:gap-4 md:p-4 lg:gap-6 lg:p-6">
+    <div className="flex w-full flex-col gap-3 p-2 @container md:gap-4 md:p-4 lg:gap-6 lg:p-6">
       <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
         <div>
           <TextInput
@@ -82,11 +82,11 @@ const PetsPage = () => {
       {/* Display Cards Grid */}
 
       <ul className="w-full rounded-xl bg-gray-100 p-4 @container dark:bg-gray-800">
-        <div className="my-3 grid w-full grid-cols-2 items-center justify-between border-y border-gray-300 py-2 sm:grid-cols-3 md:grid-cols-4">
-          <span> Nome </span>
-          {/* <span> Tipo </span> */}
-          <span> Raça </span>
-          {/* <span> Tamanho </span> */}
+        <div className="my-3 grid w-full grid-cols-2 items-center justify-between border-y border-gray-300 py-2 @sm:grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4">
+          <span className=""> Nome </span>
+          <span className="text-end @xl:text-start"> Tipo </span>
+          <span className="hidden @xl:inline-flex"> Raça </span>
+          <span className="hidden @3xl:inline-flex"> Tamanho </span>
           {/* <span> Idade </span> */}
         </div>
         {filteredData.map((petData) => {
