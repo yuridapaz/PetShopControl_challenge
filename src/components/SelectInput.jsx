@@ -1,13 +1,13 @@
 import { cva } from 'class-variance-authority';
 
 const selectInputVariants = cva(
-  'rounded-md border border-gray-300 bg-gray-50 text-gray-900  dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 disabled:cursor-not-allowed',
+  'rounded-md border border-gray-300 bg-gray-50 text-gray-900  disabled:cursor-not-allowed dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
   {
     variants: {
       size: {
-        sm: 'text-sm px-3 py-2',
+        sm: 'px-3 py-2 text-sm',
         md: 'text-md px-4 py-3',
-        lg: 'text-xl px-4 py-3',
+        lg: 'px-4 py-3 text-xl',
       },
       fullWidth: {
         true: 'w-full',
@@ -30,6 +30,7 @@ const SelectInput = ({
   size,
   fullWidth,
   values,
+
   id,
   register,
   error,
@@ -51,7 +52,13 @@ const SelectInput = ({
     disabled={disabled}
     onChange={onChange}
   >
-    {defaultValue ? <option defaultValue hidden></option> : ''}
+    {defaultValue ? (
+      <option defaultValue hidden>
+        {defaultValue}
+      </option>
+    ) : (
+      ''
+    )}
 
     {values.map((value, i) => {
       return (

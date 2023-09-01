@@ -189,7 +189,7 @@ const PetInfoPage = () => {
               >
                 Adicionar Serviço
               </Button>
-              <Link to={`/pets/${id}/servico`} state={{ id }} className="w-full">
+              <Link to={`/pets/${id}/edit`} className="w-full">
                 <Button size={'md'} variant={'delete'} className={'w-full'}>
                   Editar Informações
                 </Button>
@@ -198,6 +198,7 @@ const PetInfoPage = () => {
           </>
         )}
       </div>
+
       {/* Modal */}
       <ModalComponent
         displayModal={formModal}

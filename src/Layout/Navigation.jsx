@@ -13,7 +13,7 @@ const Navigation = () => {
     <>
       {/* Mobile Icon */}
       <div className="p-2 ">
-        <div className="flex items-center justify-between rounded-xl bg-gray-100 ring-2 ring-gray-400 ring-offset-2 ring-offset-slate-300  shadow-md dark:bg-gray-700 md:hidden ">
+        <div className="flex items-center justify-between rounded-xl bg-gray-100 shadow-md ring-2 ring-gray-400 ring-offset-2  ring-offset-slate-300 dark:bg-gray-700 md:hidden ">
           <a href="" className="block p-3 font-light  text-zinc-950 dark:text-zinc-50 ">
             Pet Control
           </a>
@@ -29,7 +29,7 @@ const Navigation = () => {
       <div
         className={`${
           openSideBar ? '' : '-translate-x-full'
-        } absolute inset-y-0 left-0 z-10 flex h-screen w-9/12 shrink-0  transition duration-200 ease-in-out sm:w-1/2 md:relative md:w-72 md:translate-x-0 md:py-4 lg:w-80 lg:py-6 `}
+        } absolute inset-y-0 left-0 z-10 flex h-screen w-9/12 shrink-0 transition duration-200 ease-in-out sm:w-1/2 md:relative md:w-72 md:translate-x-0 md:py-4 lg:w-80 lg:py-6 `}
       >
         <div
           className={` flex w-full flex-col rounded-e-2xl border-r-2  border-r-gray-400 bg-gray-100 p-6 shadow-lg dark:border-gray-600 dark:bg-gray-900 md:rounded-xl md:border-none`}

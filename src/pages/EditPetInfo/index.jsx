@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useContext, useEffect, useState } from 'react';
+import { get, useForm } from 'react-hook-form';
 import { FaPaw } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   Button,
@@ -13,16 +13,35 @@ import {
 import { PetShopContext } from '../../context/PetShopContext';
 import { petTypeFilterKeys, pets } from '../../utils/constants';
 
-const RegisterPetPage = () => {
+const EditPetInfo = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { createPet, getPet } = useContext(PetShopContext);
+
   const [typeInput, setTypeInput] = useState('Nenhum');
-  const petRaceFilterKeys = pets[typeInput]?.racas || [''];
-  const { createPet } = useContext(PetShopContext);
+  const [raceInput, setRaceInput] = useState('Nenhum');
+  const petRaceFilterKeys = pets[typeInput]?.racas;
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm({ mode: 'all' });
+  } = useForm({
+    mode: 'all',
+    defaultValues: async () => {
+      const petData = await getPet(id);
+      console.log(petData.nascimento);
+      petData.nascimento = new Date(petData.nascimento)
+        .toISOString()
+        .slice(0, -8)
+        .split('T')[0];
+
+      setRaceInput(petData.raca);
+
+      return petData;
+    },
+  });
 
   const onSubmit = (formData) => {
     const data = {
@@ -33,18 +52,30 @@ const RegisterPetPage = () => {
       peso: formData.peso,
       tamanho: formData.tamanho,
       nascimento: formData.nascimento.getTime(),
-      observacoes: [...formatObs(formData.observacoes)],
+      observacoes: formatObs(formData.observacoes),
       servicos: [],
     };
-    createPet(data);
-    navigate('/cadastroconcluido');
+
+    console.log(formData.nascimento.getTime());
+
+    for (const key in data) {
+      console.log(key, data[key]);
+      setValue(key, data[key]);
+    }
+
+    // createPet(data);
+    // navigate('/cadastroconcluido');
   };
 
   const formatObs = (obs) => {
+    if (obs.length == 0) {
+      return [];
+    }
     const arr = obs
       .split('\n')
       .map((o) => o.trim())
       .filter(Boolean);
+
     return arr;
   };
 
@@ -93,11 +124,7 @@ const RegisterPetPage = () => {
                 }),
               }}
               error={errors.tipo && true}
-              // filled={touchedFields.tipo && !errors?.tipo}
-              onChange={(e) => {
-                setTypeInput(e.target.value);
-              }}
-              defaultValue
+              defaultValue={typeInput}
             />
             {errors.tipo && <FormErrorMessage errorMessage={errors.tipo.message} />}
           </div>
@@ -113,8 +140,7 @@ const RegisterPetPage = () => {
                 }),
               }}
               error={errors.raca && true}
-              defaultValue
-              disabled={typeInput === 'Nenhum'}
+              defaultValue={raceInput}
             />
             {errors.raca && <FormErrorMessage errorMessage={errors.raca.message} />}
           </div>
@@ -199,12 +225,17 @@ const RegisterPetPage = () => {
           {/*  */}
         </div>
 
-        <Button type="submit" className={'mt-auto w-full max-w-xs self-center'}>
-          Enviar
-        </Button>
+        <div className="mb-4 mt-auto flex h-full w-full justify-between gap-6">
+          <Button type="submit" className={'w-full max-w-xs'} size={'md'}>
+            Editar Informações
+          </Button>
+          <Button type="submit" className={'w-full max-w-xs'} size={'md'}>
+            Editar Informações
+          </Button>
+        </div>
       </form>
     </div>
   );
 };
 
-export default RegisterPetPage;
+export default EditPetInfo;
