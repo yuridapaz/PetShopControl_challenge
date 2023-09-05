@@ -75,7 +75,7 @@ const PetInfoPage = () => {
     } else if (years > 0 && months === 0) {
       displayPhrase = years + (years > 0 ? ' anos.' : ' ano.');
     } else {
-      displayPhrase = years + (years > 1 ? ' anos e' : ' ano e ') + months + 'm';
+      displayPhrase = years + (years > 1 ? ' anos ' : ' ano ') + months + ' m';
     }
     return displayPhrase;
   };

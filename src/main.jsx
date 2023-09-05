@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
+import RegisterPetOwnerPage from './RegisterPetOwner/index.jsx';
 import PetShopProvider from './context/PetShopContext.jsx';
 import './index.css';
 import {
@@ -12,7 +13,6 @@ import {
   RegisterPetPage,
 } from './pages';
 import EditPetInfo from './pages/EditPetInfo/index.jsx';
-import ServiceFormPage from './pages/PetInfo/ServiceForm';
 import TestePage from './pages/TestePage.jsx';
 
 const router = createBrowserRouter([
@@ -38,8 +38,12 @@ const router = createBrowserRouter([
         element: <EditPetInfo />,
       },
       {
-        path: 'register',
+        path: 'register-pet',
         element: <RegisterPetPage />,
+      },
+      {
+        path: 'register-owner',
+        element: <RegisterPetOwnerPage />,
       },
       {
         path: 'cadastroConcluido',

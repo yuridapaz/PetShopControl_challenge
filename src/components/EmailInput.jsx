@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-const textInputVariants = cva(
+const emailInputVariants = cva(
   'rounded-md border border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
   {
     variants: {
@@ -26,7 +26,7 @@ const textInputVariants = cva(
   }
 );
 
-const TextInput = ({
+const EmailInput = ({
   className,
   variant,
   size,
@@ -39,10 +39,10 @@ const TextInput = ({
   onChange,
 }) => (
   <input
-    type="text"
+    type="email"
     id={id}
     placeholder={placeholder}
-    className={textInputVariants({
+    className={emailInputVariants({
       variant,
       size,
       fullWidth,
@@ -55,4 +55,4 @@ const TextInput = ({
   ></input>
 );
 
-export default TextInput;
+export default EmailInput;
