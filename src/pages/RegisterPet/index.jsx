@@ -11,12 +11,11 @@ import {
   TextInput,
 } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
-import { petTypeFilterKeys, pets } from '../../utils/constants';
 
 const RegisterPetPage = () => {
   const navigate = useNavigate();
   const [typeInput, setTypeInput] = useState('Nenhum');
-  const petRaceFilterKeys = pets[typeInput]?.racas || [''];
+  // const petRaceFilterKeys = pets[typeInput]?.racas || [''];
   const { createPet } = useContext(PetShopContext);
   const {
     register,
@@ -86,7 +85,8 @@ const RegisterPetPage = () => {
             <label htmlFor="tipo">Tipo:</label>
             <SelectInput
               id={'tipo'}
-              values={petTypeFilterKeys.slice(1)}
+              // values={petTypeFilterKeys.slice(1)}
+              values={['', '']}
               register={{
                 ...register('tipo', {
                   required: 'Escolher tipo',
@@ -106,7 +106,8 @@ const RegisterPetPage = () => {
             <label htmlFor="raca">Raça:</label>
             <SelectInput
               id={'raca'}
-              values={typeInput === 'Outro' ? ['Outro'] : petRaceFilterKeys.slice(1)}
+              // values={typeInput === 'Outro' ? ['Outro'] : petRaceFilterKeys.slice(1)}
+              values={['', '']}
               register={{
                 ...register('raca', {
                   required: 'Escolher raça',

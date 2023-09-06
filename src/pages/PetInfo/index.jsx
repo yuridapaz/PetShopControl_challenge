@@ -8,6 +8,7 @@ import ModalComponent from '../../components/Modal';
 import { PetShopContext } from '../../context/PetShopContext';
 import ServiceCard from './ServiceCard';
 import ServiceForm from './ServiceForm';
+import Skeleton from './Skeleton';
 
 const PetInfoPage = () => {
   const navigate = useNavigate();
@@ -19,12 +20,13 @@ const PetInfoPage = () => {
   const [alertModal, setAlertModal] = useState(false);
 
   useEffect(() => {
-    const fetchPetData = async () => {
-      const petData = await getPet(id);
-      setCurrentPet(petData);
-    };
-    fetchPetData();
-
+    setTimeout(() => {
+      const fetchPetData = async () => {
+        const petData = await getPet(id);
+        setCurrentPet(petData);
+      };
+      fetchPetData();
+    }, 500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -92,6 +94,7 @@ const PetInfoPage = () => {
           </Link>
           <p className="m-auto text-lg">Informações</p>
         </div>
+        {!currentPet && <Skeleton />}
         {currentPet && (
           <>
             {/* Info Card  */}
@@ -136,7 +139,6 @@ const PetInfoPage = () => {
                 </div>
               </div>
               {/* observações */}
-
               {!!currentPet?.observacoes?.length && (
                 <div className=" max-h-32 overflow-auto border-t border-gray-300 p-2">
                   <span className="text-sm text-gray-500 dark:text-gray-400">

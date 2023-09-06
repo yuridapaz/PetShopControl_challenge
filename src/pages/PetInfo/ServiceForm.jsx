@@ -6,12 +6,7 @@ import { PetShopContext } from '../../context/PetShopContext';
 
 const ServiceForm = ({ petId, setModal, appendService }) => {
   const { addService } = useContext(PetShopContext);
-  const {
-    register,
-    handleSubmit,
-    // eslint-disable-next-line no-unused-vars
-    formState: { error, touchedFields },
-  } = useForm({ mode: 'onChange' });
+  const { register, handleSubmit } = useForm({ mode: 'onChange' });
 
   const onSubmit = async (formData) => {
     const serviceData = {
@@ -54,11 +49,14 @@ const ServiceForm = ({ petId, setModal, appendService }) => {
           />
         </div>
         <div className="flex w-full flex-col gap-1">
-          <label htmlFor="">Data:</label>
+          <label htmlFor="data">Data:</label>
           <input
             type="datetime-local"
+            id="data"
+            name="data"
+            max={new Date().toISOString().slice(0, -8)}
             className="rounded-md border border-gray-300 bg-gray-50 px-3  py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50"
-            {...register('data', { valueAsDate: true })}
+            {...register('data', { required: true, valueAsDate: true })}
           />
         </div>
         <Button className={'mt-4'}>Enviar</Button>

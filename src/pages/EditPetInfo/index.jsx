@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import { get, useForm } from 'react-hook-form';
+import { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { FaPaw } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -11,32 +11,35 @@ import {
   TextInput,
 } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
-import { petTypeFilterKeys, pets } from '../../utils/constants';
 
 const EditPetInfo = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { createPet, getPet } = useContext(PetShopContext);
+  const { getPet } = useContext(PetShopContext);
 
   const [typeInput, setTypeInput] = useState('Nenhum');
   const [raceInput, setRaceInput] = useState('Nenhum');
-  const petRaceFilterKeys = pets[typeInput]?.racas;
+
+  // todo:
+  // [] - validate date
+  // [] - setTypeInput
+  // [] - updatePetInfo
 
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm({
     mode: 'all',
     defaultValues: async () => {
       const petData = await getPet(id);
-      console.log(petData.nascimento);
+
       petData.nascimento = new Date(petData.nascimento)
         .toISOString()
         .slice(0, -8)
         .split('T')[0];
 
+      setTypeInput(petData.tipo);
       setRaceInput(petData.raca);
 
       return petData;
@@ -56,13 +59,7 @@ const EditPetInfo = () => {
       servicos: [],
     };
 
-    console.log(formData.nascimento.getTime());
-
-    for (const key in data) {
-      console.log(key, data[key]);
-      setValue(key, data[key]);
-    }
-
+    // updatePet(data);
     // createPet(data);
     // navigate('/cadastroconcluido');
   };
@@ -117,7 +114,8 @@ const EditPetInfo = () => {
             <label htmlFor="tipo">Tipo:</label>
             <SelectInput
               id={'tipo'}
-              values={petTypeFilterKeys.slice(1)}
+              // values={petTypeFilterKeys.slice(1)}
+              values={['', '']}
               register={{
                 ...register('tipo', {
                   required: 'Escolher tipo',
@@ -125,6 +123,7 @@ const EditPetInfo = () => {
               }}
               error={errors.tipo && true}
               defaultValue={typeInput}
+              onChange={(e) => setTypeInput(e.target.value)}
             />
             {errors.tipo && <FormErrorMessage errorMessage={errors.tipo.message} />}
           </div>
@@ -133,7 +132,8 @@ const EditPetInfo = () => {
             <label htmlFor="raca">Raça:</label>
             <SelectInput
               id={'raca'}
-              values={typeInput === 'Outro' ? ['Outro'] : petRaceFilterKeys.slice(1)}
+              // values={typeInput === 'Outro' ? ['Outro'] : petRaceFilterKeys.slice(1)}
+              values={['', '']}
               register={{
                 ...register('raca', {
                   required: 'Escolher raça',

@@ -52,7 +52,7 @@ const Navigation = () => {
                   Pet List
                 </li>
               </Link>
-              <Link to={'/register'} onClick={toggleSideBar}>
+              <Link to={'/register-pet'} onClick={toggleSideBar}>
                 <li className="underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300">
                   Cadastrar Pet
                 </li>

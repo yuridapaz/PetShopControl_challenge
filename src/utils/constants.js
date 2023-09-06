@@ -1,10 +1,6 @@
 export const pets = {
-  Nenhum: {
-    racas: [],
-  },
   Cachorro: {
     racas: [
-      'Nenhum',
       'Sem Raça Definida (SRD)',
       'Afegão Hound',
       'Affenpinscher',
@@ -101,7 +97,6 @@ export const pets = {
   },
   Gato: {
     racas: [
-      'Nenhum',
       'Sem Raça Definida (SRD)',
       'Persa',
       'Siamês',
@@ -116,7 +111,6 @@ export const pets = {
   },
   Pássaro: {
     racas: [
-      'Nenhum',
       'Sem Raça Definida (SRD)',
       'Arara',
       'Calopsita',
@@ -129,9 +123,13 @@ export const pets = {
       'Tucano',
     ],
   },
-  Outro: {
-    racas: [],
-  },
 };
 
-export const petTypeFilterKeys = Object.keys(pets);
+export const getPetTypeList = () => {
+  return Object.keys(pets);
+};
+
+export const getPetRaceList = (typeOfPet) => {
+  if (['Nenhum', 'Outro', ''].includes(typeOfPet)) return [];
+  return pets[typeOfPet]?.racas;
+};

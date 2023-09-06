@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { AiOutlineUser } from 'react-icons/ai';
+import InputMask from 'react-input-mask';
 
 import { Button, TextInput } from '../components';
 import EmailInput from '../components/EmailInput';
@@ -63,6 +64,34 @@ const RegisterPetOwnerPage = () => {
           {errors.email && <FormErrorMessage errorMessage={errors.email.message} />}
         </div>
         {/* telefone */}
+
+        <InputMask
+          mask={[
+            '(',
+            /[1-9]/,
+            /\d/,
+            ')',
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+            '-',
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+          ]}
+          // mask={(value) =>
+          //   value?.length >= 6 && value?.[5] === '9'
+          //     ? '(99) 99999-9999'
+          //     : '(99) 9999-9999'
+          // }
+          {...register('telefone', {
+            required: 'Escolher telefone',
+          })}
+        />
 
         {/* idade */}
         {/* endereço */}

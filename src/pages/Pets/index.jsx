@@ -4,16 +4,22 @@ import { Link } from 'react-router-dom';
 
 import { SelectInput, TextInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
-import { petTypeFilterKeys, pets } from '../../utils/constants';
+import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 import PetCard from './PetCard';
 
 const PetsPage = () => {
   const { data, getData } = useContext(PetShopContext);
-  const [typeInput, setTypeInput] = useState('Nenhum');
+  const [typeInput, setTypeInput] = useState('');
   const [raceInput, setRaceInput] = useState('');
   const [nameInput, setNameInput] = useState('');
 
-  const petRaceFilterKeys = pets[typeInput]?.racas || [''];
+  const petTypeList = ['Nenhum', ...getPetTypeList(), 'Outro'];
+  const petRaceList = ['Nenhum', ...getPetRaceList(typeInput)];
+
+  //todo:
+  // [] - criar loader
+  // [] - criar mensagem quando não possuir pets na list
+  // [] -
 
   useEffect(() => {
     getData();
@@ -49,7 +55,7 @@ const PetsPage = () => {
             </label>
             <SelectInput
               id={'tipo'}
-              values={petTypeFilterKeys}
+              values={[...petTypeList]}
               onChange={(e) => setTypeInput(e.target.value)}
               fullWidth
             />
@@ -60,10 +66,10 @@ const PetsPage = () => {
             </label>
             <SelectInput
               id={'tipo'}
-              values={petRaceFilterKeys}
+              values={[...petRaceList]}
               onChange={(e) => setRaceInput(e.target.value)}
               fullWidth
-              disabled={typeInput === 'Outro' || typeInput === 'Nenhum'}
+              disabled={['Outro', 'Nenhum', ''].includes(typeInput)}
             />
           </div>
           <div className="flex flex-col">
