@@ -58,6 +58,9 @@ const PetInfoPage = () => {
     setCurrentPetService(null);
   };
 
+  // handle Update Pet Info
+  // const updatePetInfo = () => {};
+
   const displayAgeFunction = (petTimeStamp) => {
     let [years, months, days] = '';
     let displayPhrase = '';

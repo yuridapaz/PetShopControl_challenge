@@ -67,8 +67,20 @@ const PetShopProvider = ({ children }) => {
     await addDoc(collection(firestore, 'pets_data'), data);
   };
   // Update petData
-
+  const updatePetInfo = async (data, petId) => {
+    await updateDoc(doc(firestore, 'pets_data', petId), {
+      nome: data.nome,
+      tipo: data.tipo,
+      raca: data.raca,
+      genero: data.genero,
+      peso: data.peso,
+      tamanho: data.tamanho,
+      nascimento: data.nascimento,
+      observacoes: data.observacoes,
+    });
+  };
   // Delete pet
+  // const deletePet = async (data) => {};
 
   // Add service
   const addService = async (serviceData, petId) => {
@@ -85,7 +97,17 @@ const PetShopProvider = ({ children }) => {
 
   return (
     <PetShopContext.Provider
-      value={{ data, setData, getData, createPet, getPet, addService, deleteService }}
+      value={{
+        data,
+        setData,
+        getData,
+        createPet,
+        updatePetInfo,
+        // deletePet,
+        getPet,
+        addService,
+        deleteService,
+      }}
     >
       {children}
     </PetShopContext.Provider>

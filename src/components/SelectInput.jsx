@@ -30,7 +30,6 @@ const SelectInput = ({
   size,
   fullWidth,
   values,
-
   id,
   register,
   error,

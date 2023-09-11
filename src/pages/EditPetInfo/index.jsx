@@ -1,3 +1,4 @@
+import { DevTool } from '@hookform/devtools';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineLeft } from 'react-icons/ai';
@@ -11,24 +12,23 @@ import {
   TextInput,
 } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
+import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 
 const EditPetInfo = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { getPet } = useContext(PetShopContext);
+  const { getPet, updatePetInfo } = useContext(PetShopContext);
 
-  const [typeInput, setTypeInput] = useState('Nenhum');
-  const [raceInput, setRaceInput] = useState('Nenhum');
+  const [typeInput, setTypeInput] = useState('');
 
-  // todo:
-  // [] - validate date
-  // [] - setTypeInput
-  // [] - updatePetInfo
+  const petTypeList = [...getPetTypeList(), 'Outro'];
+  const petRaceList = getPetRaceList(typeInput);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm({
     mode: 'all',
     defaultValues: async () => {
@@ -39,8 +39,8 @@ const EditPetInfo = () => {
         .slice(0, -8)
         .split('T')[0];
 
+      petData.raca = '';
       setTypeInput(petData.tipo);
-      setRaceInput(petData.raca);
 
       return petData;
     },
@@ -59,9 +59,9 @@ const EditPetInfo = () => {
       servicos: [],
     };
 
-    // updatePet(data);
-    // createPet(data);
-    // navigate('/cadastroconcluido');
+    console.log(data);
+    updatePetInfo(data, id);
+    navigate(-1);
   };
 
   const formatObs = (obs) => {
@@ -87,9 +87,11 @@ const EditPetInfo = () => {
         <p className="m-auto text-lg">Editar Informações</p>
       </div>
 
+      {/* Control */}
+      <DevTool control={control} />
       {/* Form */}
       <form
-        className="flex h-full w-full max-w-4xl flex-1 flex-col gap-4"
+        className="flex h-full w-full max-w-4xl flex-1 flex-col gap-4 self-center md:mt-6"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="relative flex flex-col gap-0.5">
@@ -116,17 +118,18 @@ const EditPetInfo = () => {
             <label htmlFor="tipo">Tipo:</label>
             <SelectInput
               id={'tipo'}
-              // values={petTypeFilterKeys.slice(1)}
-              //lookup: editar
-              values={['', '']}
+              values={petTypeList}
+              defaultValue={typeInput}
+              onChange={(e) => {
+                setTypeInput(e.target.value);
+              }}
               register={{
                 ...register('tipo', {
                   required: 'Escolher tipo',
+                  validate: false,
                 }),
               }}
               error={errors.tipo && true}
-              defaultValue={typeInput}
-              onChange={(e) => setTypeInput(e.target.value)}
             />
             {errors.tipo && <FormErrorMessage errorMessage={errors.tipo.message} />}
           </div>
@@ -135,15 +138,13 @@ const EditPetInfo = () => {
             <label htmlFor="raca">Raça:</label>
             <SelectInput
               id={'raca'}
-              // values={typeInput === 'Outro' ? ['Outro'] : petRaceFilterKeys.slice(1)}
-              values={['', '']}
+              values={typeInput === 'Outro' ? ['Outro'] : petRaceList}
               register={{
                 ...register('raca', {
                   required: 'Escolher raça',
                 }),
               }}
               error={errors.raca && true}
-              defaultValue={raceInput}
             />
             {errors.raca && <FormErrorMessage errorMessage={errors.raca.message} />}
           </div>
