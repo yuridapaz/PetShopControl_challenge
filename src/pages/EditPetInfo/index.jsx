@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaPaw } from 'react-icons/fa';
-import { useNavigate, useParams } from 'react-router-dom';
+import { AiOutlineLeft } from 'react-icons/ai';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import {
   Button,
@@ -77,14 +77,16 @@ const EditPetInfo = () => {
   };
 
   return (
-    <div className="container flex h-full flex-1 flex-col items-center p-4 ">
-      <div className="mb-6 mt-2 flex self-center">
-        {/* Heading */}
-        <i className="mr-3 text-2xl">
-          <FaPaw className="rotate-12" />
-        </i>
-        <h1 className="text-xl">Formulário de Cadastro</h1>
+    <div className="flex flex-1 flex-col gap-4 p-2  md:gap-4 md:p-4 lg:gap-6 lg:p-6">
+      <div className=" flex rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
+        <Link onClick={() => navigate(-1)}>
+          <button className="rounded-xl border-2 border-gray-300/50 bg-zinc-100 p-3 text-sm transition-all  ease-in hover:border-gray-500/50 dark:bg-gray-800">
+            <AiOutlineLeft />
+          </button>
+        </Link>
+        <p className="m-auto text-lg">Editar Informações</p>
       </div>
+
       {/* Form */}
       <form
         className="flex h-full w-full max-w-4xl flex-1 flex-col gap-4"
@@ -115,6 +117,7 @@ const EditPetInfo = () => {
             <SelectInput
               id={'tipo'}
               // values={petTypeFilterKeys.slice(1)}
+              //lookup: editar
               values={['', '']}
               register={{
                 ...register('tipo', {
@@ -225,12 +228,19 @@ const EditPetInfo = () => {
           {/*  */}
         </div>
 
-        <div className="mb-4 mt-auto flex h-full w-full justify-between gap-6">
-          <Button type="submit" className={'w-full max-w-xs'} size={'md'}>
+        <div className="mb-2 mt-auto flex w-full gap-4 px-0 md:mb-0">
+          <Button type="submit" className={'w-full'} size={'md'}>
             Editar Informações
           </Button>
-          <Button type="submit" className={'w-full max-w-xs'} size={'md'}>
-            Editar Informações
+          <Button
+            onClick={() => {
+              navigate(-1);
+            }}
+            className={'w-full'}
+            size={'md'}
+            variant={'delete'}
+          >
+            Cancelar
           </Button>
         </div>
       </form>
@@ -239,3 +249,4 @@ const EditPetInfo = () => {
 };
 
 export default EditPetInfo;
+//

@@ -6,17 +6,17 @@ const selectInputVariants = cva(
     variants: {
       size: {
         sm: 'px-3 py-2 text-sm',
-        md: 'text-md px-4 py-3',
+        md: 'px-4 py-3 text-base',
         lg: 'px-4 py-3 text-xl',
       },
       fullWidth: {
         true: 'w-full',
       },
       error: {
-        true: 'border-1 border-red-400 focus:border-red-400 focus:ring-red-400  dark:border-red-500/50',
+        true: 'border border-red-400 focus:border-red-400 focus:ring-red-400  dark:border-red-500/50',
       },
       filled: {
-        true: 'border-1 border-green-500 focus:border-green-500 focus:ring-green-500 dark:border-green-500/50',
+        true: 'border border-green-500 focus:border-green-500 focus:ring-green-500 dark:border-green-500/50',
       },
     },
     defaultVariants: {

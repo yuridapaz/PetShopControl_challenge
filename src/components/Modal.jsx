@@ -6,7 +6,7 @@ const ModalComponent = ({ children, modalTitle, displayModal, setModal }) => {
     ? ReactDOM.createPortal(
         <div
           className={
-            'absolute inset-0 flex h-full w-full items-center justify-center overflow-y-auto bg-gray-600/50'
+            'absolute inset-0 z-20 flex h-full w-full items-center justify-center overflow-y-auto bg-gray-600/50 backdrop-blur-sm'
           }
         >
           {/* Modal */}

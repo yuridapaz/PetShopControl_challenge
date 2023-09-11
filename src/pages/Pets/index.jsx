@@ -6,6 +6,7 @@ import { SelectInput, TextInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 import PetCard from './PetCard';
+import PetCardSkeleton from './PetCardSkeleton';
 
 const PetsPage = () => {
   const { data, getData } = useContext(PetShopContext);
@@ -15,11 +16,6 @@ const PetsPage = () => {
 
   const petTypeList = ['Nenhum', ...getPetTypeList(), 'Outro'];
   const petRaceList = ['Nenhum', ...getPetRaceList(typeInput)];
-
-  //todo:
-  // [] - criar loader
-  // [] - criar mensagem quando não possuir pets na list
-  // [] -
 
   useEffect(() => {
     getData();
@@ -39,7 +35,7 @@ const PetsPage = () => {
   });
 
   return (
-    <div className="flex w-full flex-col gap-3 p-2 @container md:gap-4 md:p-4 lg:gap-6 lg:p-6">
+    <div className="flex max-h-[calc(100vh-5rem)] w-full flex-col gap-3 p-2 @container md:max-h-screen md:gap-4 md:p-4 lg:gap-6 lg:p-6">
       <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
         <div>
           <TextInput
@@ -55,8 +51,11 @@ const PetsPage = () => {
             </label>
             <SelectInput
               id={'tipo'}
-              values={[...petTypeList]}
-              onChange={(e) => setTypeInput(e.target.value)}
+              values={petTypeList}
+              onChange={(e) => {
+                if (e.target.value === 'Nenhum') setRaceInput('Nenhum');
+                setTypeInput(e.target.value);
+              }}
               fullWidth
             />
           </div>
@@ -65,8 +64,8 @@ const PetsPage = () => {
               Raça:
             </label>
             <SelectInput
-              id={'tipo'}
-              values={[...petRaceList]}
+              id={'raca'}
+              values={petRaceList}
               onChange={(e) => setRaceInput(e.target.value)}
               fullWidth
               disabled={['Outro', 'Nenhum', ''].includes(typeInput)}
@@ -87,7 +86,7 @@ const PetsPage = () => {
 
       {/* Display Cards Grid */}
 
-      <ul className="w-full rounded-xl bg-gray-100 p-4 @container dark:bg-gray-800">
+      <ul className="w-full overflow-auto rounded-xl bg-gray-100 p-4 @container dark:bg-gray-800 md:max-h-screen md:overflow-auto">
         <div className="my-3 grid w-full grid-cols-2 items-center justify-between border-y border-gray-300 py-2 @sm:grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4">
           <span className=""> Nome </span>
           <span className="text-end @xl:text-start"> Tipo </span>
@@ -102,6 +101,21 @@ const PetsPage = () => {
             </Link>
           );
         })}
+        {filteredData.length < 1 && (
+          <p className="p-4 text-center">Nenhum resultado encontrado.</p>
+        )}
+        {/* {data.length < 1 && (
+          <>
+            <PetCardSkeleton />
+            <PetCardSkeleton />
+            <PetCardSkeleton />
+            <PetCardSkeleton />
+            <PetCardSkeleton />
+            <PetCardSkeleton />
+            <PetCardSkeleton />
+            <PetCardSkeleton />
+          </>
+        )} */}
       </ul>
     </div>
   );
