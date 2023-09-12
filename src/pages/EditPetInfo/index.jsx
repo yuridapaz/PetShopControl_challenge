@@ -23,10 +23,8 @@ const EditPetInfo = () => {
   const { getPet, updatePetInfo, deletePet } = useContext(PetShopContext);
   const [deleteModal, setDeleteModal] = useState(null);
   const [typeInput, setTypeInput] = useState('');
-
   const petTypeList = getPetTypeList();
   const petRaceList = getPetRaceList(typeInput);
-
   const {
     register,
     handleSubmit,
@@ -41,7 +39,7 @@ const EditPetInfo = () => {
         .toISOString()
         .slice(0, -8)
         .split('T')[0];
-
+      // lookup:
       petData.race = '';
       setTypeInput(petData.type);
 
@@ -82,10 +80,10 @@ const EditPetInfo = () => {
 
   return (
     <>
-      <div className="flex flex-1 flex-col gap-4 p-2  md:gap-4 md:p-4 lg:gap-6 lg:p-6">
-        <div className=" flex rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
+      <div className="flex flex-1 flex-col gap-4  p-4 md:gap-4 md:p-4 lg:gap-6 lg:p-6">
+        <div className="flex rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
           <Link onClick={() => navigate(-1)}>
-            <button className="rounded-xl border-2 border-gray-300/50 bg-zinc-100 p-3 text-sm transition-all  ease-in hover:border-gray-500/50 dark:bg-gray-800">
+            <button className="rounded-xl border-2 border-gray-300/50 bg-zinc-100 p-3 text-sm transition-all ease-in hover:border-gray-500/50 dark:bg-gray-800">
               <AiOutlineLeft />
             </button>
           </Link>
@@ -96,11 +94,11 @@ const EditPetInfo = () => {
         <DevTool control={control} />
         {/* Form */}
         <form
-          className="relative flex h-full w-full max-w-4xl flex-1 flex-col gap-4 self-center pt-8"
+          className="relative flex w-full max-w-5xl flex-1 flex-col gap-4 self-center overflow-auto pt-8 md:max-h-[calc(100vh-8.15rem)] md:px-4"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Button
-            className={'absolute right-0 top-0 flex items-center gap-2'}
+            className={'absolute right-0 top-0 flex items-center gap-2 md:right-4 '}
             variant={'delete'}
             onClick={(e) => {
               e.preventDefault();
@@ -109,7 +107,7 @@ const EditPetInfo = () => {
           >
             <BsTrash /> Deletar
           </Button>
-          <div className="relative flex flex-col gap-0.5">
+          <div className="relative flex flex-col gap-1.5 md:text-lg">
             <label htmlFor="name"> Nome: </label>
             <TextInput
               id={'name'}
@@ -127,9 +125,8 @@ const EditPetInfo = () => {
 
             {errors.name && <FormErrorMessage errorMessage={errors.name.message} />}
           </div>
-
           <div className="flex w-full flex-col gap-5">
-            <div className="relative flex w-full flex-col gap-0.5">
+            <div className="relative flex w-full flex-col gap-1.5 md:text-lg">
               <label htmlFor="type">Tipo:</label>
               <SelectInput
                 id={'type'}
@@ -149,7 +146,7 @@ const EditPetInfo = () => {
               {errors.type && <FormErrorMessage errorMessage={errors.type.message} />}
             </div>
 
-            <div className="relative flex w-full flex-col gap-0.5">
+            <div className="relative flex w-full flex-col gap-1.5 md:text-lg">
               <label htmlFor="race">Raça:</label>
               <SelectInput
                 id={'race'}
@@ -164,8 +161,8 @@ const EditPetInfo = () => {
               {errors.race && <FormErrorMessage errorMessage={errors.race.message} />}
             </div>
           </div>
-          <div className="flex w-full gap-4">
-            <div className="relative flex w-full flex-col gap-0.5">
+          <div className="flex w-full gap-4 md:gap-6">
+            <div className="relative flex w-full flex-col gap-1.5 md:text-lg">
               <label htmlFor="gender">Gênero:</label>
               <SelectInput
                 id={'gender'}
@@ -178,7 +175,7 @@ const EditPetInfo = () => {
               />
               {errors.gender && <FormErrorMessage errorMessage={errors.gender.message} />}
             </div>
-            <div className="relative flex flex-col gap-0.5">
+            <div className="relative flex flex-col gap-1.5 md:text-lg">
               <label htmlFor="weight" className="text-center">
                 Peso:
               </label>
@@ -187,7 +184,7 @@ const EditPetInfo = () => {
                 min={0.1}
                 step={0.1}
                 id={'weight'}
-                className={'w-32 text-center'}
+                className={'w-36 text-center'}
                 register={{
                   ...register('weight', {
                     required: 'Escolher weight',
@@ -199,8 +196,8 @@ const EditPetInfo = () => {
               {errors.weight && <FormErrorMessage errorMessage={errors.weight.message} />}
             </div>
           </div>
-          <div className="flex w-full gap-4">
-            <div className="relative flex w-full flex-col gap-0.5">
+          <div className="flex w-full gap-4  md:gap-6">
+            <div className="relative flex w-full flex-col gap-1.5 md:text-lg">
               <label htmlFor="size">Tamanho:</label>
               <SelectInput
                 id={'size'}
@@ -213,7 +210,7 @@ const EditPetInfo = () => {
               />
               {errors.size && <FormErrorMessage errorMessage={errors.size.message} />}
             </div>
-            <div className="relative flex flex-col gap-0.5">
+            <div className="relative flex flex-col gap-1.5 md:text-lg">
               <label htmlFor="birthdate" className="text-center">
                 Nascimento:
               </label>
@@ -222,7 +219,7 @@ const EditPetInfo = () => {
                 max={new Date().toISOString().slice(0, -8).split('T')[0]}
                 name="birthdate"
                 id="birthdate"
-                className={`w-32 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
+                className={`w-36 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-base text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
                   errors.birthdate &&
                   'border border-red-400 focus:outline-none dark:border-red-500/50'
                 }
@@ -232,18 +229,18 @@ const EditPetInfo = () => {
               {errors.birthdate && <FormErrorMessage errorMessage={'Escolher data'} />}
             </div>
           </div>
-          <div className="flex w-full flex-col gap-0.5">
+          <div className="flex w-full flex-col gap-1.5 md:text-lg">
             <label htmlFor="notes"> Observações </label>
             <textarea
               name="notes"
               id="notes"
               rows="4"
+              style={{ resize: 'none' }}
               className="rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50"
               {...register('notes')}
             ></textarea>
             {/*  */}
           </div>
-
           <div className="mb-2 mt-auto flex w-full gap-4 px-0 md:mb-0">
             <Button type="submit" className={'w-full'} size={'md'}>
               Editar Informações
@@ -266,18 +263,18 @@ const EditPetInfo = () => {
         setModal={setDeleteModal}
         modalTitle={'Deletar Pet'}
       >
-        <div className="flex w-full flex-col items-center justify-center gap-3 p-4">
+        <div className="flex w-full flex-col items-center justify-center gap-3 p-4 pb-2">
           <GoAlert className="text-7xl" fill="#F05252" />
           <h1 className="my-4 text-3xl">Tem certeza ?</h1>
-          <p className="text-slate-700/70">
+          <p className="text-slate-700/70 dark:text-white">
             Se eliminar não voltará e ver esse conteúdo !
           </p>
         </div>
-        <div className="flex w-full justify-around p-4">
-          <Button onClick={handleDeletePet} className={'w-2/6'} variant={'delete'}>
+        <div className="flex w-full justify-around gap-6 p-6">
+          <Button onClick={handleDeletePet} className={'w-full'} variant={'delete'}>
             Deletar
           </Button>
-          <Button onClick={() => setDeleteModal(null)} className={'w-2/6'}>
+          <Button onClick={() => setDeleteModal(null)} className={'w-full'}>
             Cancelar
           </Button>
         </div>

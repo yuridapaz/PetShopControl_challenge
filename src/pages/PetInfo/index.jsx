@@ -133,7 +133,7 @@ const PetInfoPage = () => {
                     {currentPet?.weight} kg
                   </p>
                 </div>
-                <div className="hidden w-full rounded-xl bg-yellow-400/50 px-3 py-2 text-lg leading-6  @md:block dark:bg-yellow-400/90">
+                <div className="hidden w-full rounded-xl bg-yellow-400/50 px-3 py-2 text-lg leading-6  @md:block dark:bg-yellow-300/80">
                   <span className="text-xs text-yellow-800/60 dark:text-yellow-800/90">
                     Tamanho
                   </span>
@@ -144,14 +144,14 @@ const PetInfoPage = () => {
               </div>
               {/* observações */}
               {!!currentPet?.notes?.length && (
-                <div className=" max-h-32 overflow-auto border-t border-gray-300 p-2">
+                <div className=" max-h-32 overflow-auto border-t border-gray-300 p-2 dark:border-gray-300/20">
                   <span className="text-sm text-gray-500 dark:text-gray-400">
                     Observações importantes:
                   </span>
                   {currentPet?.notes?.map((obs, i) => {
                     return (
                       <p
-                        className="pr-4 text-sm leading-4 text-gray-700 dark:text-gray-200"
+                        className="pr-4 text-sm text-gray-700 dark:text-gray-200"
                         key={i}
                       >
                         {i + 1}. {obs}

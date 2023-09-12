@@ -14,7 +14,6 @@ const PetsPage = () => {
   const [typeInput, setTypeInput] = useState('');
   const [raceInput, setRaceInput] = useState('');
   const [nameInput, setNameInput] = useState('');
-
   const petTypeList = getPetTypeList();
   const petRaceList = getPetRaceList(typeInput);
 
@@ -37,7 +36,7 @@ const PetsPage = () => {
 
   return (
     <div className="flex max-h-[calc(100vh-5rem)] w-full flex-col gap-3 p-2 @container md:max-h-screen md:gap-4 md:p-4 lg:gap-6 lg:p-6">
-      <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
+      <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800/80">
         <div>
           <TextInput
             placeholder={'Pesquisar'}
@@ -46,8 +45,8 @@ const PetsPage = () => {
           />
         </div>
         <div className="flex w-full gap-3">
-          <div className="flex w-full flex-col">
-            <label htmlFor="type" className="text-xs">
+          <div className="flex w-full flex-col gap-1 md:gap-2">
+            <label htmlFor="type" className="text-sm md:text-base">
               Tipo:
             </label>
             <SelectInput
@@ -60,8 +59,8 @@ const PetsPage = () => {
               fullWidth
             />
           </div>
-          <div className="flex w-full flex-col">
-            <label htmlFor="type" className="text-xs">
+          <div className="flex w-full flex-col gap-1 md:gap-2">
+            <label htmlFor="type" className="text-sm md:text-base">
               Raça:
             </label>
             <SelectInput
@@ -72,8 +71,8 @@ const PetsPage = () => {
               disabled={['Outro', 'Nenhum', ''].includes(typeInput)}
             />
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="ordenar" className="text-xs">
+          <div className="flex flex-col gap-1 md:gap-2">
+            <label htmlFor="ordenar" className="text-sm md:text-base">
               Ordenar:
             </label>
             <SelectInput
@@ -85,7 +84,7 @@ const PetsPage = () => {
         </div>
       </div>
 
-      <ul className="w-full overflow-auto rounded-xl bg-gray-100 p-4 @container dark:bg-gray-800 md:max-h-screen md:overflow-auto">
+      <ul className="w-full overflow-auto rounded-xl bg-gray-100 p-4 @container dark:bg-gray-800/80 md:max-h-screen md:overflow-auto">
         <div className="my-3 grid w-full grid-cols-2 items-center justify-between border-y border-gray-300 py-2 @sm:grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4">
           <span className=""> Nome </span>
           <span className="text-end @xl:text-start"> Tipo </span>

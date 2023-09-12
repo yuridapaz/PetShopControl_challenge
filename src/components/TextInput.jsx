@@ -5,7 +5,7 @@ const textInputVariants = cva(
   {
     variants: {
       size: {
-        sm: 'px-3 py-2 text-sm placeholder:text-sm placeholder:capitalize',
+        sm: 'px-3 py-2 text-base placeholder:text-sm placeholder:capitalize',
         md: 'px-4 py-3 text-base placeholder:text-base placeholder:capitalize',
         lg: 'px-4 py-3 text-xl placeholder:text-lg placeholder:capitalize',
       },
