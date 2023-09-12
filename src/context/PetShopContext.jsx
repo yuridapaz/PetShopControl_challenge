@@ -3,6 +3,7 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -80,7 +81,15 @@ const PetShopProvider = ({ children }) => {
     });
   };
   // Delete pet
-  // const deletePet = async (data) => {};
+  const deletePet = async (docID) => {
+    await deleteDoc(doc(firestore, 'pets_data', docID))
+      .then(() => {
+        console.log('Entire Document has been deleted successfully.');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   // Add service
   const addService = async (serviceData, petId) => {
@@ -103,7 +112,7 @@ const PetShopProvider = ({ children }) => {
         getData,
         createPet,
         updatePetInfo,
-        // deletePet,
+        deletePet,
         getPet,
         addService,
         deleteService,

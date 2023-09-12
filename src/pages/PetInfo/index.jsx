@@ -58,9 +58,6 @@ const PetInfoPage = () => {
     setCurrentPetService(null);
   };
 
-  // handle Update Pet Info
-  // const updatePetInfo = () => {};
-
   const displayAgeFunction = (petTimeStamp) => {
     let [years, months, days] = '';
     let displayPhrase = '';
@@ -87,7 +84,7 @@ const PetInfoPage = () => {
 
   return (
     <>
-      <div className=" flex flex-1 flex-col gap-4 p-2 md:gap-4 md:p-4 lg:gap-6 lg:p-6">
+      <div className=" flex  flex-1 flex-col gap-4  p-2 md:gap-4 md:p-4  lg:gap-6 lg:p-6 ">
         {/* Top nav */}
         <div className=" flex rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
           <Link onClick={() => navigate(-1)}>
@@ -101,8 +98,8 @@ const PetInfoPage = () => {
         {currentPet && (
           <>
             {/* Info Card  */}
-            <div className=" flex flex-col gap-4 rounded-xl bg-gray-100 p-2  pb-4 dark:bg-gray-800">
-              <div className="flex w-full gap-4 ">
+            <div className="flex flex-col gap-4 rounded-xl bg-gray-100 p-2 pb-4  @container dark:bg-gray-800 ">
+              <div className="relative flex w-full  gap-4">
                 {/* Foto e Nome */}
                 <div className="h-28 w-28">
                   <img
@@ -118,13 +115,13 @@ const PetInfoPage = () => {
               </div>
               {/* Informações card */}
               <div className="flex gap-4">
-                <div className="w-1/3 rounded-xl bg-green-300/50 px-3 py-2 text-lg leading-6 dark:bg-green-300/90 ">
+                <div className="w-full rounded-xl bg-green-300/50 px-3 py-2 text-lg leading-6 dark:bg-green-300/90 ">
                   <span className="text-xs text-green-800/60 dark:text-green-800/90">
                     Gênero
                   </span>
                   <p className="text-green-800"> {currentPet?.genero} </p>
                 </div>
-                <div className=" w-1/3  rounded-xl bg-orange-300/50 px-3 py-2 text-lg leading-6 dark:bg-orange-300/90">
+                <div className=" w-full  rounded-xl bg-orange-300/50 px-3 py-2 text-lg leading-6 dark:bg-orange-300/90">
                   <span className="text-xs text-orange-800/60 dark:text-orange-800/90">
                     Idade
                   </span>
@@ -132,12 +129,20 @@ const PetInfoPage = () => {
                     {displayAgeFunction(currentPet?.nascimento)}
                   </p>
                 </div>
-                <div className="w-1/3 rounded-xl bg-cyan-300/50 px-3 py-2 text-lg  leading-6 dark:bg-cyan-300/90">
+                <div className="w-full rounded-xl bg-cyan-300/50 px-3 py-2 text-lg  leading-6 dark:bg-cyan-300/90">
                   <span className="text-xs text-cyan-800/60 dark:text-cyan-800/90">
                     Peso
                   </span>
                   <p className="text-cyan-800 dark:text-cyan-900">
                     {currentPet?.peso} kg
+                  </p>
+                </div>
+                <div className="hidden w-full rounded-xl bg-yellow-400/50 px-3 py-2 text-lg leading-6  @md:block dark:bg-yellow-400/90">
+                  <span className="text-xs text-yellow-800/60 dark:text-yellow-800/90">
+                    Tamanho
+                  </span>
+                  <p className="text-yellow-800 dark:text-yellow-900">
+                    {currentPet?.tamanho}
                   </p>
                 </div>
               </div>
@@ -164,10 +169,8 @@ const PetInfoPage = () => {
             {!!currentPet?.servicos?.length && (
               <div className="mb-6 flex flex-col rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
                 <div>
-                  <p className="pb-2"> Serviços prestados: </p>
+                  <p className="p-2 pb-3"> Serviços prestados: </p>
                   <div className="flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-1 dark:bg-gray-700">
-                    {/* Services container card */}
-                    {/* Verificar depois !!! */}
                     {currentPet?.servicos?.toReversed()?.map((servico, i) => {
                       return (
                         <ServiceCard
