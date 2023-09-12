@@ -80,7 +80,7 @@ const EditPetInfo = () => {
   };
 
   const handleDeletePet = () => {
-    // deletePet(id);
+    deletePet(id);
     navigate('/pets');
   };
 

@@ -6,7 +6,8 @@ import { SelectInput, TextInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 import PetCard from './PetCard';
-import PetCardSkeleton from './PetCardSkeleton';
+
+// import PetCardSkeleton from './PetCardSkeleton';
 
 const PetsPage = () => {
   const { data, getData } = useContext(PetShopContext);
