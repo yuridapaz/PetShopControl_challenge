@@ -3,6 +3,7 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -26,26 +27,26 @@ const PetShopProvider = ({ children }) => {
     let sortData;
     switch (sortBy) {
       case 'Z-A':
-        sortData = await getDocs(query(ref, orderBy('nome', 'desc')));
+        sortData = await getDocs(query(ref, orderBy('name', 'desc')));
         break;
       case 'Tipo':
         sortData = await getDocs(
-          query(ref, orderBy('tipo', 'asc'), orderBy('nome', 'asc'))
+          query(ref, orderBy('type', 'asc'), orderBy('name', 'asc'))
         );
         break;
       case 'Porte':
         sortData = await getDocs(
           query(
             ref,
-            orderBy('tipo', 'asc'),
-            orderBy('tamanho', 'asc'),
-            orderBy('nome', 'asc')
+            orderBy('type', 'asc'),
+            orderBy('size', 'asc'),
+            orderBy('name', 'asc')
           )
         );
         break;
 
       default:
-        sortData = await getDocs(query(ref, orderBy('nome', 'asc')));
+        sortData = await getDocs(query(ref, orderBy('name', 'asc')));
         break;
     }
     const finalData = sortData.docs.map((doc) => ({
@@ -66,9 +67,30 @@ const PetShopProvider = ({ children }) => {
   const createPet = async (data) => {
     await addDoc(collection(firestore, 'pets_data'), data);
   };
-  // Update petData
 
+  // Update petData
+  const updatePetInfo = async (data, petId) => {
+    await updateDoc(doc(firestore, 'pets_data', petId), {
+      name: data.name,
+      type: data.type,
+      race: data.race,
+      gender: data.gender,
+      weight: data.weight,
+      size: data.size,
+      birthdate: data.birthdate,
+      notes: data.notes,
+    });
+  };
   // Delete pet
+  const deletePet = async (docID) => {
+    await deleteDoc(doc(firestore, 'pets_data', docID))
+      .then(() => {
+        console.log('Entire Document has been deleted successfully.');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   // Add service
   const addService = async (serviceData, petId) => {
@@ -85,7 +107,17 @@ const PetShopProvider = ({ children }) => {
 
   return (
     <PetShopContext.Provider
-      value={{ data, setData, getData, createPet, getPet, addService, deleteService }}
+      value={{
+        data,
+        setData,
+        getData,
+        createPet,
+        updatePetInfo,
+        deletePet,
+        getPet,
+        addService,
+        deleteService,
+      }}
     >
       {children}
     </PetShopContext.Provider>

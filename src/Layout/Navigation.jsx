@@ -33,7 +33,7 @@ const Navigation = () => {
         } fixed inset-y-0 left-0 z-10 flex h-screen w-9/12 shrink-0 transition duration-200 ease-in-out sm:w-1/2 md:relative md:w-72 md:translate-x-0 md:py-4 lg:w-80 lg:py-6 `}
       >
         <div
-          className={` flex w-full flex-col rounded-e-2xl border-r-2  border-r-gray-400 bg-gray-100 p-6 shadow-lg dark:border-gray-600 dark:bg-gray-900 md:rounded-xl md:border-none`}
+          className={` flex w-full flex-col rounded-e-2xl border-r-2  border-r-gray-400 bg-gray-100 p-6 shadow-lg dark:border-gray-600 dark:bg-gray-800/80 md:rounded-xl md:border-none`}
         >
           <div className="flex w-full flex-col items-center justify-between gap-2 border-b border-b-gray-400 py-4 dark:border-b-gray-600">
             <div className="flex h-12 w-12 items-center">

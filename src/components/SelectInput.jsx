@@ -5,7 +5,7 @@ const selectInputVariants = cva(
   {
     variants: {
       size: {
-        sm: 'px-3 py-2 text-sm',
+        sm: 'px-3 py-2 text-base',
         md: 'px-4 py-3 text-base',
         lg: 'px-4 py-3 text-xl',
       },
@@ -30,7 +30,6 @@ const SelectInput = ({
   size,
   fullWidth,
   values,
-
   id,
   register,
   error,

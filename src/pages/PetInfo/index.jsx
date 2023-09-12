@@ -32,16 +32,16 @@ const PetInfoPage = () => {
 
   // handle AddService (STATE)
   const appendService = (serviceData) => {
-    currentPet.servicos.push(serviceData);
+    currentPet.services.push(serviceData);
   };
   // handle RemoveService (STATE)
   const removeService = (serviceId) => {
-    let newServiceArray = currentPet.servicos.filter(
-      (servico) => servico.serviceId != serviceId
+    let newServiceArray = currentPet.services.filter(
+      (service) => service.serviceId != serviceId
     );
     setCurrentPet((prev) => ({
       ...prev,
-      servicos: newServiceArray,
+      services: newServiceArray,
     }));
   };
 
@@ -53,7 +53,6 @@ const PetInfoPage = () => {
     } catch (error) {
       alert(error);
     }
-
     setAlertModal(false);
     setCurrentPetService(null);
   };
@@ -84,8 +83,7 @@ const PetInfoPage = () => {
 
   return (
     <>
-      <div className=" flex flex-1 flex-col gap-4 p-2 md:gap-4 md:p-4 lg:gap-6 lg:p-6">
-        {/* Top nav */}
+      <div className=" flex  flex-1 flex-col gap-4  p-2 md:gap-4 md:p-4  lg:gap-6 lg:p-6 ">
         <div className=" flex rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
           <Link onClick={() => navigate(-1)}>
             <button className="rounded-xl border-2 border-gray-300/50 bg-zinc-100 p-3 text-sm transition-all  ease-in hover:border-gray-500/50 dark:bg-gray-800">
@@ -97,10 +95,8 @@ const PetInfoPage = () => {
         {!currentPet && <Skeleton />}
         {currentPet && (
           <>
-            {/* Info Card  */}
-            <div className=" flex flex-col gap-4 rounded-xl bg-gray-100 p-2  pb-4 dark:bg-gray-800">
-              <div className="flex w-full gap-4 ">
-                {/* Foto e Nome */}
+            <div className="flex flex-col gap-4 rounded-xl bg-gray-100 p-2 pb-4  @container dark:bg-gray-800 ">
+              <div className="relative flex w-full  gap-4">
                 <div className="h-28 w-28">
                   <img
                     src="/src/assets/images/Todd.jpeg"
@@ -109,48 +105,56 @@ const PetInfoPage = () => {
                   />
                 </div>
                 <div className="flex flex-1 flex-col justify-center gap-2">
-                  <h1 className="text-2xl"> {currentPet?.nome} </h1>
-                  <p className="text-sm text-gray-500"> {currentPet?.raca} </p>
+                  <h1 className="text-2xl"> {currentPet?.name} </h1>
+                  <p className="text-sm text-gray-500"> {currentPet?.race} </p>
                 </div>
               </div>
               {/* Informações card */}
               <div className="flex gap-4">
-                <div className="w-1/3 rounded-xl bg-green-300/50 px-3 py-2 text-lg leading-6 dark:bg-green-300/90 ">
+                <div className="w-full rounded-xl bg-green-300/50 px-3 py-2 text-lg leading-6 dark:bg-green-300/90 ">
                   <span className="text-xs text-green-800/60 dark:text-green-800/90">
                     Gênero
                   </span>
-                  <p className="text-green-800"> {currentPet?.genero} </p>
+                  <p className="text-green-800"> {currentPet?.gender} </p>
                 </div>
-                <div className=" w-1/3  rounded-xl bg-orange-300/50 px-3 py-2 text-lg leading-6 dark:bg-orange-300/90">
+                <div className=" w-full  rounded-xl bg-orange-300/50 px-3 py-2 text-lg leading-6 dark:bg-orange-300/90">
                   <span className="text-xs text-orange-800/60 dark:text-orange-800/90">
                     Idade
                   </span>
                   <p className="whitespace-nowrap text-orange-800 dark:text-orange-900">
-                    {displayAgeFunction(currentPet?.nascimento)}
+                    {displayAgeFunction(currentPet?.birthdate)}
                   </p>
                 </div>
-                <div className="w-1/3 rounded-xl bg-cyan-300/50 px-3 py-2 text-lg  leading-6 dark:bg-cyan-300/90">
+                <div className="w-full rounded-xl bg-cyan-300/50 px-3 py-2 text-lg  leading-6 dark:bg-cyan-300/90">
                   <span className="text-xs text-cyan-800/60 dark:text-cyan-800/90">
                     Peso
                   </span>
                   <p className="text-cyan-800 dark:text-cyan-900">
-                    {currentPet?.peso} kg
+                    {currentPet?.weight} kg
+                  </p>
+                </div>
+                <div className="hidden w-full rounded-xl bg-yellow-400/50 px-3 py-2 text-lg leading-6  @md:block dark:bg-yellow-300/80">
+                  <span className="text-xs text-yellow-800/60 dark:text-yellow-800/90">
+                    Tamanho
+                  </span>
+                  <p className="text-yellow-800 dark:text-yellow-900">
+                    {currentPet?.size}
                   </p>
                 </div>
               </div>
               {/* observações */}
-              {!!currentPet?.observacoes?.length && (
-                <div className=" max-h-32 overflow-auto border-t border-gray-300 p-2">
+              {!!currentPet?.notes?.length && (
+                <div className=" max-h-32 overflow-auto border-t border-gray-300 p-2 dark:border-gray-300/20">
                   <span className="text-sm text-gray-500 dark:text-gray-400">
                     Observações importantes:
                   </span>
-                  {currentPet?.observacoes?.map((obs, i) => {
+                  {currentPet?.notes?.map((obs, i) => {
                     return (
                       <p
-                        className="pr-4 text-sm leading-4 text-gray-700 dark:text-gray-200"
+                        className="pr-4 text-sm text-gray-700 dark:text-gray-200"
                         key={i}
                       >
-                        {i}. {obs}
+                        {i + 1}. {obs}
                       </p>
                     );
                   })}
@@ -158,17 +162,15 @@ const PetInfoPage = () => {
               )}
             </div>
             {/* Services List Card  */}
-            {!!currentPet?.servicos?.length && (
+            {!!currentPet?.services?.length && (
               <div className="mb-6 flex flex-col rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
                 <div>
-                  <p className="pb-2"> Serviços prestados: </p>
+                  <p className="p-2 pb-3"> Serviços prestados: </p>
                   <div className="flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-1 dark:bg-gray-700">
-                    {/* Services container card */}
-                    {/* Verificar depois !!! */}
-                    {currentPet?.servicos?.toReversed()?.map((servico, i) => {
+                    {currentPet?.services?.toReversed()?.map((service, i) => {
                       return (
                         <ServiceCard
-                          servico={servico}
+                          service={service}
                           petId={id}
                           key={i}
                           setService={setCurrentPetService}
@@ -183,16 +185,11 @@ const PetInfoPage = () => {
 
             {/* Buttons section */}
             <div className="mb-2 mt-auto flex  w-full gap-4 px-0 md:mb-0">
-              <Button
-                size={'md'}
-                variant={''}
-                className={'w-full'}
-                onClick={() => setFormModal(true)}
-              >
+              <Button size={'md'} className={'w-full'} onClick={() => setFormModal(true)}>
                 Adicionar Serviço
               </Button>
               <Link to={`/pets/${id}/edit`} className="w-full">
-                <Button size={'md'} variant={'delete'} className={'w-full'}>
+                <Button size={'md'} className={'w-full'}>
                   Editar Informações
                 </Button>
               </Link>
@@ -201,7 +198,7 @@ const PetInfoPage = () => {
         )}
       </div>
 
-      {/* Modal */}
+      {/* Service Modal */}
       <ModalComponent
         displayModal={formModal}
         setModal={setFormModal}
@@ -211,7 +208,7 @@ const PetInfoPage = () => {
           <ServiceForm petId={id} setModal={setFormModal} appendService={appendService} />
         )}
       </ModalComponent>
-      {/* Modal two */}
+      {/* Edit Information Modal */}
       <ModalComponent
         displayModal={alertModal}
         setModal={setAlertModal}

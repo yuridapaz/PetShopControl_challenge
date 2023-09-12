@@ -1,4 +1,3 @@
-import React from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -11,11 +10,6 @@ const SkeletonPetInfoPage = () => {
           <div className="flex w-full gap-4 ">
             {/* Foto e Nome */}
             <div className="h-28 w-28">
-              {/* <img
-                src="/src/assets/images/Todd.jpeg"
-                alt=""
-                className="h-full w-full rounded-xl object-cover"
-              /> */}
               <Skeleton height={'100%'} borderRadius={16} />
             </div>
 

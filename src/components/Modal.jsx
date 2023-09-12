@@ -10,11 +10,11 @@ const ModalComponent = ({ children, modalTitle, displayModal, setModal }) => {
           }
         >
           {/* Modal */}
-          <div className="w-full max-w-sm rounded-lg bg-gray-100 dark:bg-gray-800">
-            <div className="flex items-center justify-between border-b border-gray-300 p-4">
-              <p> {modalTitle} </p>
+          <div className="w-full max-w-sm rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
+            <div className="flex items-center justify-between border-b border-gray-300 p-4 dark:border-gray-300/20">
+              <p className="md:text-lg"> {modalTitle} </p>
               <button
-                className="rounded-full border border-gray-400 p-1 text-lg text-gray-600"
+                className="rounded-full border border-gray-400 p-1 text-lg text-gray-600 dark:border-white dark:text-white"
                 onClick={() => setModal(null)}
               >
                 <RiCloseLine />

@@ -15,5 +15,5 @@ export default {
   // eslint-disable-next-line no-undef
   plugins: [require('@tailwindcss/container-queries'), require('flowbite/plugin')],
   // darkMode: 'class',
-  // darkMode: 'media',
+  darkMode: 'media',
 };
