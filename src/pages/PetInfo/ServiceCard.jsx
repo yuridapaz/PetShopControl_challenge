@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Button } from '../../components';
 
-const ServiceCard = ({ servico, setModal, setService }) => {
+const ServiceCard = ({ service, setModal, setService }) => {
   const [active, setActive] = useState(false);
 
   const toggleAccordion = () => {
@@ -11,7 +11,7 @@ const ServiceCard = ({ servico, setModal, setService }) => {
   };
 
   const handleDeleteServiceAlert = () => {
-    setService(servico);
+    setService(service);
     setModal(true);
   };
 
@@ -26,10 +26,10 @@ const ServiceCard = ({ servico, setModal, setService }) => {
         onClick={toggleAccordion}
       >
         <p className="text-sm font-semibold text-gray-500 dark:text-gray-300">
-          {servico.data}
+          {service?.date}
         </p>
         <p className="ml-4 text-sm group-[.is-active]:font-bold">
-          {active ? '' : servico.tipo}
+          {active ? '' : service?.type}
         </p>
         <p className="ml-auto transition-all group-[.is-active]:rotate-180">
           {active ? '--' : '+'}
@@ -39,17 +39,17 @@ const ServiceCard = ({ servico, setModal, setService }) => {
         <div>
           <div className="my-2 flex flex-col">
             <span className="text-xs font-bold"> Serviço: </span>
-            <p className=""> {servico.tipo} </p>
+            <p className=""> {service?.type} </p>
           </div>
           <div className="my-2 flex flex-col">
             <span className="text-xs font-bold"> Valor: </span>
-            <p className=""> R$ {servico.valor.toFixed(2)} </p>
+            <p className=""> R$ {service?.cost.toFixed(2)} </p>
           </div>
         </div>
         <div className="">
           <div className="my-2 flex flex-col">
             <span className="text-end text-xs font-bold"> Data: </span>
-            <p className="text-end"> {servico.data} </p>
+            <p className="text-end"> {service?.date} </p>
           </div>
           <div className="my-2 mt-3 flex flex-col ">
             <Button

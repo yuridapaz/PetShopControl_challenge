@@ -11,36 +11,38 @@ import {
   TextInput,
 } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
+import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 
 const RegisterPetPage = () => {
   const navigate = useNavigate();
-  const [typeInput, setTypeInput] = useState('Nenhum');
-  // const petRaceFilterKeys = pets[typeInput]?.racas || [''];
   const { createPet } = useContext(PetShopContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: 'all' });
+  const [petTypeInput, setPetTypeInput] = useState('');
+  const petTypeList = getPetTypeList();
+  const petRaceList = getPetRaceList(petTypeInput);
 
   const onSubmit = (formData) => {
     const data = {
-      nome: formData.nome,
-      tipo: formData.tipo,
-      raca: formData.raca,
-      genero: formData.genero,
-      peso: formData.peso,
-      tamanho: formData.tamanho,
-      nascimento: formData.nascimento.getTime(),
-      observacoes: [...formatObs(formData.observacoes)],
-      servicos: [],
+      name: formData.name,
+      type: formData.type,
+      race: formData.race,
+      gender: formData.gender,
+      weight: formData.weight,
+      size: formData.size,
+      birthdate: formData.birthdate.getTime(),
+      notes: [...formatNotes(formData.notes)],
+      services: [],
     };
     createPet(data);
     navigate('/cadastroconcluido');
   };
 
-  const formatObs = (obs) => {
-    const arr = obs
+  const formatNotes = (notes) => {
+    const arr = notes
       .split('\n')
       .map((o) => o.trim())
       .filter(Boolean);
@@ -50,23 +52,21 @@ const RegisterPetPage = () => {
   return (
     <div className="container flex h-full flex-1 flex-col items-center p-4 ">
       <div className="mb-6 mt-2 flex self-center">
-        {/* Heading */}
         <i className="mr-3 text-2xl">
           <FaPaw className="rotate-12" />
         </i>
         <h1 className="text-xl">Formulário de Cadastro</h1>
       </div>
-      {/* Form */}
       <form
-        className="flex h-full w-full max-w-4xl flex-1 flex-col gap-4"
+        className="flex h-full w-full max-w-4xl flex-1 flex-col gap-6"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="relative flex flex-col gap-0.5">
           <label htmlFor="name"> Nome: </label>
           <TextInput
-            id={'nome'}
+            id={'name'}
             register={{
-              ...register('nome', {
+              ...register('name', {
                 required: 'Escolher nome',
                 minLength: {
                   value: 3,
@@ -74,133 +74,130 @@ const RegisterPetPage = () => {
                 },
               }),
             }}
-            error={errors.nome && true}
+            error={errors.name && true}
           />
-
-          {errors.nome && <FormErrorMessage errorMessage={errors.nome.message} />}
+          {errors.name && <FormErrorMessage errorMessage={errors.name.message} />}
         </div>
 
-        <div className="flex w-full flex-col gap-5">
+        <div className="flex w-full flex-col gap-6">
           <div className="relative flex w-full flex-col gap-0.5">
-            <label htmlFor="tipo">Tipo:</label>
+            <label htmlFor="type">Tipo:</label>
             <SelectInput
-              id={'tipo'}
-              // values={petTypeFilterKeys.slice(1)}
-              values={['', '']}
+              id={'type'}
+              values={[...petTypeList, 'Outro']}
               register={{
-                ...register('tipo', {
+                ...register('type', {
                   required: 'Escolher tipo',
                 }),
               }}
-              error={errors.tipo && true}
-              // filled={touchedFields.tipo && !errors?.tipo}
+              error={errors.type && true}
+              // filled={touchedFields.type && !errors?.type}
               onChange={(e) => {
-                setTypeInput(e.target.value);
+                setPetTypeInput(e.target.value);
               }}
               defaultValue
             />
-            {errors.tipo && <FormErrorMessage errorMessage={errors.tipo.message} />}
+            {errors.type && <FormErrorMessage errorMessage={errors.type.message} />}
           </div>
 
           <div className="relative flex w-full flex-col gap-0.5">
-            <label htmlFor="raca">Raça:</label>
+            <label htmlFor="race">Raça:</label>
             <SelectInput
-              id={'raca'}
-              // values={typeInput === 'Outro' ? ['Outro'] : petRaceFilterKeys.slice(1)}
-              values={['', '']}
+              id={'race'}
+              values={petRaceList}
               register={{
-                ...register('raca', {
+                ...register('race', {
                   required: 'Escolher raça',
                 }),
               }}
-              error={errors.raca && true}
+              error={errors.race && true}
               defaultValue
-              disabled={typeInput === 'Nenhum'}
+              // lookup:
+              disabled={['Outro', 'Nenhum', '', undefined, null].includes(petTypeInput)}
             />
-            {errors.raca && <FormErrorMessage errorMessage={errors.raca.message} />}
+            {errors.race && <FormErrorMessage errorMessage={errors.race.message} />}
           </div>
         </div>
         <div className="flex w-full gap-4">
           <div className="relative flex w-full flex-col gap-0.5">
-            <label htmlFor="genero">Gênero:</label>
+            <label htmlFor="gender">Gênero:</label>
             <SelectInput
-              id={'genero'}
+              id={'gender'}
               values={['Macho', 'Fêmea']}
               register={{
-                ...register('genero', { required: 'Escolher gênero' }),
+                ...register('gender', { required: 'Escolher gênero' }),
               }}
-              error={errors.genero && true}
+              error={errors.gender && true}
               defaultValue
             />
-            {errors.genero && <FormErrorMessage errorMessage={errors.genero.message} />}
+            {errors.gender && <FormErrorMessage errorMessage={errors.gender.message} />}
           </div>
           <div className="relative flex flex-col gap-0.5">
-            <label htmlFor="peso" className="text-center">
+            <label htmlFor="weight" className="text-center">
               Peso:
             </label>
             <NumberInput
               max={50}
               min={0.1}
               step={0.1}
-              id={'peso'}
+              id={'weight'}
               className={'w-32 text-center'}
               register={{
-                ...register('peso', {
+                ...register('weight', {
                   required: 'Escolher peso',
                   valueAsNumber: true,
                 }),
               }}
-              error={errors.peso && true}
+              error={errors.weight && true}
             />
-            {errors.peso && <FormErrorMessage errorMessage={errors.peso.message} />}
+            {errors.weight && <FormErrorMessage errorMessage={errors.weight.message} />}
           </div>
         </div>
         <div className="flex w-full gap-4">
           <div className="relative flex w-full flex-col gap-0.5">
-            <label htmlFor="tamanho">Tamanho:</label>
+            <label htmlFor="size">Tamanho:</label>
             <SelectInput
-              id={'tamanho'}
+              id={'size'}
               values={['Micro', 'Pequeno', 'Médio', 'Grande', 'Gigante']}
               register={{
-                ...register('tamanho', { required: 'Escolher tamanho' }),
+                ...register('size', { required: 'Escolher tamanho' }),
               }}
-              error={errors.tamanho && true}
+              error={errors.size && true}
               defaultValue
             />
-            {errors.tamanho && <FormErrorMessage errorMessage={errors.tamanho.message} />}
+            {errors.size && <FormErrorMessage errorMessage={errors.size.message} />}
           </div>
           <div className="relative flex flex-col gap-0.5">
-            <label htmlFor="nascimento" className="text-center">
+            <label htmlFor="birthdate" className="text-center">
               Nascimento:
             </label>
             <input
               type="date"
               max={new Date().toISOString().slice(0, -8).split('T')[0]}
-              name="nascimento"
-              id="nascimento"
+              name="birthdate"
+              id="birthdate"
               className={`w-32 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
-                errors.nascimento &&
+                errors.birthdate &&
                 'border border-red-400 focus:outline-none dark:border-red-500/50'
               }
               `}
-              {...register('nascimento', { required: true, valueAsDate: true })}
+              {...register('birthdate', { required: true, valueAsDate: true })}
             />
-            {errors.nascimento && <FormErrorMessage errorMessage={'Escolher data'} />}
+            {errors.birthdate && <FormErrorMessage errorMessage={'Escolher data'} />}
           </div>
         </div>
         <div className="flex w-full flex-col gap-0.5">
-          <label htmlFor="observacoes"> Observações </label>
+          <label htmlFor="notes"> Observações </label>
           <textarea
-            name="observacoes"
-            id="observacoes"
+            name="notes"
+            id="notes"
             rows="4"
             className="rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50"
-            {...register('observacoes')}
+            {...register('notes')}
           ></textarea>
-          {/*  */}
         </div>
 
-        <Button type="submit" className={'mt-auto w-full max-w-xs self-center'}>
+        <Button type="submit" className={`mt-auto w-full max-w-xs self-center`}>
           Enviar
         </Button>
       </form>
