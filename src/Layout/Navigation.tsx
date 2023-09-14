@@ -11,22 +11,16 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Mobile Navbar */}
       <div className="p-2">
         <div className="flex items-center justify-between rounded-xl bg-gray-100 shadow-md ring-2 ring-gray-400 ring-offset-2  ring-offset-slate-300 dark:bg-gray-700 md:hidden ">
           <a href="" className="block p-3 font-light  text-zinc-950 dark:text-zinc-50 ">
             Pet Control
           </a>
-          <button
-            className="rounded-xl p-0 hover:bg-gray-500 dark:hover:bg-slate-700"
-            onClick={toggleSideBar}
-          >
+          <button className="rounded-xl p-0 hover:bg-gray-500 dark:hover:bg-slate-700" onClick={toggleSideBar}>
             <Bars3Icon className="h-14 w-14 p-3 hover:text-white  dark:text-gray-50" />
           </button>
         </div>
       </div>
-
-      {/* Sidebar */}
       <div
         className={`${
           openSideBar ? '' : '-translate-x-full'
@@ -58,11 +52,6 @@ const Navigation = () => {
                   Cadastrar Pet
                 </li>
               </Link>
-              {/* <Link to={'/'} onClick={toggleSideBar}>
-                <li className='underlineHover text-xl font-bold text-zinc-950 hover:cursor-pointer  hover:text-zinc-800  dark:text-zinc-50 dark:hover:text-zinc-300'>
-                  Users
-                </li>
-              </Link> */}
             </ul>
           </div>
           <div className="mt-auto flex justify-center">

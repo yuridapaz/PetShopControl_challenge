@@ -17,32 +17,40 @@ import { firestore } from '../firebase_setup/firebase';
 
 export const PetShopContext = createContext([]);
 
-const PetShopProvider = ({ children }) => {
+type Props = {
+  children: JSX.Element | JSX.Element[];
+};
+
+// interface IData {
+//   name: string;
+//   type: string;
+//   race: string;
+//   gender: string;
+//   weight: number;
+//   size: string;
+//   birthdate: number;
+//   notes: Array<string>;
+//   services: Array<any>;
+// }
+
+const PetShopProvider = ({ children }: Props) => {
   // eslint-disable-next-line no-unused-vars
-  const [data, setData] = useState([]);
+  //lookup: Verificar esse 'any' do setState
+  const [data, setData] = useState<{}[]>([]);
   const ref = collection(firestore, 'pets_data');
 
   // Fetch / Sort data
-  const getData = async (sortBy) => {
+  const getData = async (sortBy: string) => {
     let sortData;
     switch (sortBy) {
       case 'Z-A':
         sortData = await getDocs(query(ref, orderBy('name', 'desc')));
         break;
       case 'Tipo':
-        sortData = await getDocs(
-          query(ref, orderBy('type', 'asc'), orderBy('name', 'asc'))
-        );
+        sortData = await getDocs(query(ref, orderBy('type', 'asc'), orderBy('name', 'asc')));
         break;
       case 'Porte':
-        sortData = await getDocs(
-          query(
-            ref,
-            orderBy('type', 'asc'),
-            orderBy('size', 'asc'),
-            orderBy('name', 'asc')
-          )
-        );
+        sortData = await getDocs(query(ref, orderBy('type', 'asc'), orderBy('size', 'asc'), orderBy('name', 'asc')));
         break;
 
       default:
@@ -57,19 +65,21 @@ const PetShopProvider = ({ children }) => {
   };
 
   // Fetch pet
-  const getPet = async (petID) => {
+  const getPet = async (petID: string) => {
     const docRef = doc(firestore, 'pets_data', petID);
     const docSnap = await getDoc(docRef);
     return { ...docSnap.data(), id: docSnap.id };
   };
 
   // Add pet
-  const createPet = async (data) => {
+  //lookup: 'any'
+  const createPet = async (data: any) => {
     await addDoc(collection(firestore, 'pets_data'), data);
   };
 
   // Update petData
-  const updatePetInfo = async (data, petId) => {
+  //lookup: 'any'
+  const updatePetInfo = async (data: any, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
       name: data.name,
       type: data.type,
@@ -82,7 +92,7 @@ const PetShopProvider = ({ children }) => {
     });
   };
   // Delete pet
-  const deletePet = async (docID) => {
+  const deletePet = async (docID: string) => {
     await deleteDoc(doc(firestore, 'pets_data', docID))
       .then(() => {
         console.log('Entire Document has been deleted successfully.');
@@ -93,13 +103,15 @@ const PetShopProvider = ({ children }) => {
   };
 
   // Add service
-  const addService = async (serviceData, petId) => {
+  //lookup: 'any'
+  const addService = async (serviceData: any, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
       servicos: arrayUnion(serviceData),
     });
   };
   // Delete service
-  const deleteService = async (serviceData, petId) => {
+  //lookup: 'any'
+  const deleteService = async (serviceData: any, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
       servicos: arrayRemove(serviceData),
     });
@@ -108,6 +120,7 @@ const PetShopProvider = ({ children }) => {
   return (
     <PetShopContext.Provider
       value={{
+        //warning:
         data,
         setData,
         getData,
