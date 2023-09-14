@@ -1,7 +1,7 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes } from 'react';
 
-interface textInputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof textInputVariants> {
+export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof textInputVariants> {
   size: any;
   register: any;
 }
@@ -42,7 +42,7 @@ const TextInput = ({
   error,
   filled,
   onChange,
-}: textInputProps) => (
+}: TextInputProps) => (
   <input
     type="text"
     id={id}

@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 
-interface FormErrorMessageProps extends VariantProps<typeof formErrorMessageVariants> {
+export interface FormErrorMessageProps extends VariantProps<typeof formErrorMessageVariants> {
   errorMessage: boolean;
 }
 

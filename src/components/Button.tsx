@@ -1,7 +1,7 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {}
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {}
 
 const buttonVariants = cva('rounded-md transition-all ', {
   variants: {

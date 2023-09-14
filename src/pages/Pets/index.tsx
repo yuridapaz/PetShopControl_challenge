@@ -19,12 +19,13 @@ const PetsPage = () => {
     getData();
   }, []);
 
-  const filterBySelectInput = (data, filterInput, dataKey) => {
+  //lookup: 'any'
+  const filterBySelectInput = (data: any, filterInput: string, dataKey: string) => {
     if (filterInput === 'Nenhum' || filterInput === '') return data;
     return data[`${dataKey}`] === filterInput;
   };
-
-  const filteredData = data.filter((data) => {
+  //lookup: 'any'
+  const filteredData = data.filter((data: any) => {
     return (
       filterBySelectInput(data, typeInput, 'type') &&
       filterBySelectInput(data, raceInput, 'race') &&
@@ -36,11 +37,7 @@ const PetsPage = () => {
     <div className="flex max-h-[calc(100vh-5rem)] w-full flex-col gap-3 p-2 @container md:max-h-screen md:gap-4 md:p-4 lg:gap-6 lg:p-6">
       <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
         <div>
-          <TextInput
-            placeholder={'Pesquisar'}
-            fullWidth
-            onChange={(e) => setNameInput(e.target.value)}
-          />
+          <TextInput placeholder={'Pesquisar'} fullWidth onChange={(e: any) => setNameInput(e.target.value)} />
         </div>
         <div className="flex w-full gap-3">
           <div className="flex w-full flex-col gap-1 md:gap-2">
@@ -50,7 +47,7 @@ const PetsPage = () => {
             <SelectInput
               id={'type'}
               values={['Nenhum', ...petTypeList, 'Outro']}
-              onChange={(e) => {
+              onChange={(e: any) => {
                 if (e.target.value === 'Nenhum') setRaceInput('Nenhum');
                 setTypeInput(e.target.value);
               }}
@@ -64,7 +61,7 @@ const PetsPage = () => {
             <SelectInput
               id={'race'}
               values={['Nenhum', ...petRaceList]}
-              onChange={(e) => setRaceInput(e.target.value)}
+              onChange={(e: any) => setRaceInput(e.target.value)}
               fullWidth
               disabled={['Outro', 'Nenhum', ''].includes(typeInput)}
             />
@@ -76,7 +73,7 @@ const PetsPage = () => {
             <SelectInput
               id={'ordenar'}
               values={['A-Z', 'Z-A', 'Tipo', 'Porte']}
-              onChange={(e) => getData(e.target.value)}
+              onChange={(e: any) => getData(e.target.value)}
             />
           </div>
         </div>
@@ -88,16 +85,15 @@ const PetsPage = () => {
           <span className="hidden @xl:inline-flex"> Raça </span>
           <span className="hidden @3xl:inline-flex"> Tamanho </span>
         </div>
-        {filteredData.map((petData) => {
+        {/* //lookup: */}
+        {filteredData.map((petData: any) => {
           return (
             <Link key={petData.id} to={`/pets/${petData.id}`}>
               <PetCard petData={petData} />
             </Link>
           );
         })}
-        {filteredData.length < 1 && (
-          <p className="p-4 text-center">Nenhum resultado encontrado.</p>
-        )}
+        {filteredData.length < 1 && <p className="p-4 text-center">Nenhum resultado encontrado.</p>}
       </ul>
     </div>
   );

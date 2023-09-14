@@ -1,7 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes } from 'react';
 
-interface NumberInputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof numberInputVariants> {
+export interface NumberInputProps
+  extends InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof numberInputVariants> {
   size: any;
   //lookup:
   register: any;

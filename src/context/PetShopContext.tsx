@@ -19,24 +19,26 @@ export const PetShopContext = createContext([]);
 
 type Props = {
   children: JSX.Element | JSX.Element[];
+  // data: Array<IData>;
+  // setData: (value: Array<any>) => void;
 };
 
-// interface IData {
-//   name: string;
-//   type: string;
-//   race: string;
-//   gender: string;
-//   weight: number;
-//   size: string;
-//   birthdate: number;
-//   notes: Array<string>;
-//   services: Array<any>;
-// }
+type IData = {
+  name: string;
+  type: string;
+  race: string;
+  gender: string;
+  weight: number;
+  size: string;
+  birthdate: number;
+  notes: Array<string>;
+  services: Array<any>;
+};
 
 const PetShopProvider = ({ children }: Props) => {
   // eslint-disable-next-line no-unused-vars
   //lookup: Verificar esse 'any' do setState
-  const [data, setData] = useState<{}[]>([]);
+  const [data, setData] = useState<any>([]);
   const ref = collection(firestore, 'pets_data');
 
   // Fetch / Sort data

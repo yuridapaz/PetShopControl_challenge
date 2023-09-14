@@ -1,7 +1,9 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes } from 'react';
 
-interface SelectInputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof selectInputVariants> {
+export interface SelectInputProps
+  extends InputHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof selectInputVariants> {
   // lookup:
   // size: 'sm' | 'md' | 'lg' | undefined | null;
   size: any;

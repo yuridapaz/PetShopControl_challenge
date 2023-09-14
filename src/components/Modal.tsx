@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { RiCloseLine } from 'react-icons/ri';
 
-type ModalProps = {
+export type ModalProps = {
   modalTitle: string;
   displayModal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
