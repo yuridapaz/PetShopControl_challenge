@@ -1,4 +1,16 @@
-import { cva } from 'class-variance-authority';
+import { VariantProps, cva } from 'class-variance-authority';
+import { InputHTMLAttributes } from 'react';
+
+interface SelectInputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof selectInputVariants> {
+  // lookup:
+  // size: 'sm' | 'md' | 'lg' | undefined | null;
+  size: any;
+  values: Array<string>;
+  register: any;
+  // lookup:
+  // defaultValue: boolean | undefined | null;
+  defaultValue: any;
+}
 
 const selectInputVariants = cva(
   'rounded-md border border-gray-300 bg-gray-50 text-gray-900  disabled:cursor-not-allowed dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
@@ -37,7 +49,7 @@ const SelectInput = ({
   disabled,
   onChange,
   defaultValue,
-}) => (
+}: SelectInputProps) => (
   <select
     id={id}
     className={selectInputVariants({
@@ -51,13 +63,7 @@ const SelectInput = ({
     disabled={disabled}
     onChange={onChange}
   >
-    {defaultValue ? (
-      <option defaultValue hidden>
-        {defaultValue}
-      </option>
-    ) : (
-      ''
-    )}
+    {defaultValue ? <option defaultValue={defaultValue} hidden /> : ''}
 
     {values.map((value, i) => {
       return (

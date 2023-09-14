@@ -5,7 +5,7 @@ type ModalProps = {
   modalTitle: string;
   displayModal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  children: string | JSX.Element | JSX.Element[];
+  children: React.ReactNode;
 };
 
 const ModalComponent = ({ children, modalTitle, displayModal, setModal }: ModalProps) => {
@@ -16,7 +16,6 @@ const ModalComponent = ({ children, modalTitle, displayModal, setModal }: ModalP
             'absolute inset-0 z-20 flex h-full w-full items-center justify-center overflow-y-auto bg-gray-600/50 backdrop-blur-sm'
           }
         >
-          {/* Modal */}
           <div className="w-full max-w-sm rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
             <div className="flex items-center justify-between border-b border-gray-300 p-4 dark:border-gray-300/20">
               <p className="md:text-lg"> {modalTitle} </p>

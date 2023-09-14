@@ -1,11 +1,17 @@
-import { cva } from 'class-variance-authority';
+import { VariantProps, cva } from 'class-variance-authority';
+import { InputHTMLAttributes } from 'react';
 
-const numberInputVariants = cva(
+interface textInputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof textInputVariants> {
+  size: any;
+  register: any;
+}
+
+const textInputVariants = cva(
   'rounded-md border border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
   {
     variants: {
       size: {
-        sm: 'px-3 py-2 text-base placeholder:text-base placeholder:capitalize',
+        sm: 'px-3 py-2 text-base placeholder:text-sm placeholder:capitalize',
         md: 'px-4 py-3 text-base placeholder:text-base placeholder:capitalize',
         lg: 'px-4 py-3 text-xl placeholder:text-lg placeholder:capitalize',
       },
@@ -13,7 +19,7 @@ const numberInputVariants = cva(
         true: 'w-full',
       },
       error: {
-        true: 'border border-red-400 focus:outline-none dark:border-red-500/50',
+        true: 'border border-red-400 focus:border-red-400 focus:ring-red-400  dark:border-red-500/50',
       },
       filled: {
         true: 'border border-green-500 focus:outline-none dark:border-green-500/50',
@@ -26,25 +32,22 @@ const numberInputVariants = cva(
   }
 );
 
-const NumberInput = ({
+const TextInput = ({
   className,
   size,
   fullWidth,
+  placeholder,
   id,
   register,
   error,
   filled,
-  min,
-  max,
-  step,
-}) => (
+  onChange,
+}: textInputProps) => (
   <input
-    type="number"
-    min={min}
-    max={max}
-    step={step}
+    type="text"
     id={id}
-    className={numberInputVariants({
+    placeholder={placeholder}
+    className={textInputVariants({
       size,
       fullWidth,
       className,
@@ -52,6 +55,8 @@ const NumberInput = ({
       filled,
     })}
     {...register}
+    onChange={onChange}
   ></input>
 );
-export default NumberInput;
+
+export default TextInput;
