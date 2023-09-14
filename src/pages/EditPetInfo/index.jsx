@@ -25,16 +25,17 @@ const EditPetInfo = () => {
   const [typeInput, setTypeInput] = useState('');
   const petTypeList = getPetTypeList();
   const petRaceList = getPetRaceList(typeInput);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    setValue,
   } = useForm({
     mode: 'all',
     defaultValues: async () => {
       const petData = await getPet(id);
-
       petData.birthdate = new Date(petData.birthdate)
         .toISOString()
         .slice(0, -8)
@@ -42,7 +43,6 @@ const EditPetInfo = () => {
       // lookup:
       petData.race = '';
       setTypeInput(petData.type);
-
       return petData;
     },
   });
@@ -70,7 +70,6 @@ const EditPetInfo = () => {
       .split(/[\n,]/)
       .map((o) => o.trim())
       .filter(Boolean);
-    // return arr;
   };
 
   const handleDeletePet = () => {
@@ -89,10 +88,7 @@ const EditPetInfo = () => {
           </Link>
           <p className="m-auto text-lg">Editar Informações</p>
         </div>
-
-        {/* Control */}
         <DevTool control={control} />
-        {/* Form */}
         <form
           className="relative flex w-full max-w-5xl flex-1 flex-col gap-4 self-center overflow-auto pt-8 md:max-h-[calc(100vh-8.15rem)] md:px-4"
           onSubmit={handleSubmit(onSubmit)}
@@ -134,6 +130,7 @@ const EditPetInfo = () => {
                 defaultValue={typeInput}
                 onChange={(e) => {
                   setTypeInput(e.target.value);
+                  setValue('race', '');
                 }}
                 register={{
                   ...register('type', {

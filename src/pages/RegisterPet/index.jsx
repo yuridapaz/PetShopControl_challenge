@@ -50,7 +50,7 @@ const RegisterPetPage = () => {
   };
 
   return (
-    <div className="container flex h-full flex-1 flex-col items-center p-4 ">
+    <div className="container flex h-full flex-1 flex-col items-center p-4">
       <div className="mb-6 mt-2 flex self-center">
         <i className="mr-3 text-2xl">
           <FaPaw className="rotate-12" />
@@ -61,7 +61,7 @@ const RegisterPetPage = () => {
         className="flex h-full w-full max-w-4xl flex-1 flex-col gap-6"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="relative flex flex-col gap-0.5">
+        <div className="relative flex flex-col gap-0.5 md:gap-1.5">
           <label htmlFor="name"> Nome: </label>
           <TextInput
             id={'name'}
@@ -80,7 +80,7 @@ const RegisterPetPage = () => {
         </div>
 
         <div className="flex w-full flex-col gap-6">
-          <div className="relative flex w-full flex-col gap-0.5">
+          <div className="relative flex w-full flex-col gap-0.5 md:gap-1.5">
             <label htmlFor="type">Tipo:</label>
             <SelectInput
               id={'type'}
@@ -100,7 +100,7 @@ const RegisterPetPage = () => {
             {errors.type && <FormErrorMessage errorMessage={errors.type.message} />}
           </div>
 
-          <div className="relative flex w-full flex-col gap-0.5">
+          <div className="relative flex w-full flex-col gap-0.5 md:gap-1.5">
             <label htmlFor="race">Raça:</label>
             <SelectInput
               id={'race'}
@@ -119,7 +119,7 @@ const RegisterPetPage = () => {
           </div>
         </div>
         <div className="flex w-full gap-4">
-          <div className="relative flex w-full flex-col gap-0.5">
+          <div className="relative flex w-full flex-col gap-0.5 md:gap-1.5">
             <label htmlFor="gender">Gênero:</label>
             <SelectInput
               id={'gender'}
@@ -132,7 +132,7 @@ const RegisterPetPage = () => {
             />
             {errors.gender && <FormErrorMessage errorMessage={errors.gender.message} />}
           </div>
-          <div className="relative flex flex-col gap-0.5">
+          <div className="relative flex flex-col gap-0.5 md:gap-1.5">
             <label htmlFor="weight" className="text-center">
               Peso:
             </label>
@@ -154,7 +154,7 @@ const RegisterPetPage = () => {
           </div>
         </div>
         <div className="flex w-full gap-4">
-          <div className="relative flex w-full flex-col gap-0.5">
+          <div className="relative flex w-full flex-col gap-0.5 md:gap-1.5">
             <label htmlFor="size">Tamanho:</label>
             <SelectInput
               id={'size'}
@@ -167,7 +167,7 @@ const RegisterPetPage = () => {
             />
             {errors.size && <FormErrorMessage errorMessage={errors.size.message} />}
           </div>
-          <div className="relative flex flex-col gap-0.5">
+          <div className="relative flex flex-col gap-0.5 md:gap-1.5">
             <label htmlFor="birthdate" className="text-center">
               Nascimento:
             </label>
@@ -176,7 +176,7 @@ const RegisterPetPage = () => {
               max={new Date().toISOString().slice(0, -8).split('T')[0]}
               name="birthdate"
               id="birthdate"
-              className={`w-32 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
+              className={`w-36 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-base text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
                 errors.birthdate &&
                 'border border-red-400 focus:outline-none dark:border-red-500/50'
               }
@@ -186,16 +186,18 @@ const RegisterPetPage = () => {
             {errors.birthdate && <FormErrorMessage errorMessage={'Escolher data'} />}
           </div>
         </div>
-        <div className="flex w-full flex-col gap-0.5">
+        <div className="flex w-full flex-col gap-0.5 md:gap-1.5">
           <label htmlFor="notes"> Observações </label>
           <textarea
             name="notes"
             id="notes"
             rows="4"
+            style={{ resize: 'none' }}
             className="rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50"
             {...register('notes')}
           ></textarea>
         </div>
+        <div></div>
 
         <Button type="submit" className={`mt-auto w-full max-w-xs self-center`}>
           Enviar
