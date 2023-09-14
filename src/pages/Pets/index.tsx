@@ -7,8 +7,6 @@ import { PetShopContext } from '../../context/PetShopContext';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 import PetCard from './PetCard';
 
-// import PetCardSkeleton from './PetCardSkeleton';
-
 const PetsPage = () => {
   const { data, getData } = useContext(PetShopContext);
   const [typeInput, setTypeInput] = useState('');
@@ -83,7 +81,6 @@ const PetsPage = () => {
           </div>
         </div>
       </div>
-
       <ul className="w-full overflow-auto rounded-xl bg-gray-100 p-4 @container dark:bg-gray-800 md:max-h-screen md:overflow-auto">
         <div className="my-3 grid w-full grid-cols-2 items-center justify-between border-y border-gray-300 py-2 @sm:grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4">
           <span className=""> Nome </span>
@@ -101,18 +98,6 @@ const PetsPage = () => {
         {filteredData.length < 1 && (
           <p className="p-4 text-center">Nenhum resultado encontrado.</p>
         )}
-        {/* {data.length < 1 && (
-          <>
-            <PetCardSkeleton />
-            <PetCardSkeleton />
-            <PetCardSkeleton />
-            <PetCardSkeleton />
-            <PetCardSkeleton />
-            <PetCardSkeleton />
-            <PetCardSkeleton />
-            <PetCardSkeleton />
-          </>
-        )} */}
       </ul>
     </div>
   );

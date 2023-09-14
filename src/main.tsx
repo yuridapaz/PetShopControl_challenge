@@ -5,15 +5,15 @@ import App from './App.jsx';
 import RegisterPetOwnerPage from './RegisterPetOwner/index.jsx';
 import PetShopProvider from './context/PetShopContext.jsx';
 import './index.css';
+import EditPetInfo from './pages/EditPetInfo/index.jsx';
+import TestePage from './pages/TestePage.jsx';
 import {
   ErrorPage,
   PetInfoPage,
   PetsPage,
   RegisterConfirmationPage,
   RegisterPetPage,
-} from './pages';
-import EditPetInfo from './pages/EditPetInfo/index.jsx';
-import TestePage from './pages/TestePage.jsx';
+} from './pages/index.jsx';
 
 const router = createBrowserRouter([
   {

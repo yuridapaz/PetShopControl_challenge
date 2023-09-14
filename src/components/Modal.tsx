@@ -1,7 +1,14 @@
 import ReactDOM from 'react-dom';
 import { RiCloseLine } from 'react-icons/ri';
 
-const ModalComponent = ({ children, modalTitle, displayModal, setModal }) => {
+type ModalProps = {
+  modalTitle: string;
+  displayModal: boolean;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  children: string | JSX.Element | JSX.Element[];
+};
+
+const ModalComponent = ({ children, modalTitle, displayModal, setModal }: ModalProps) => {
   return displayModal
     ? ReactDOM.createPortal(
         <div
@@ -15,7 +22,7 @@ const ModalComponent = ({ children, modalTitle, displayModal, setModal }) => {
               <p className="md:text-lg"> {modalTitle} </p>
               <button
                 className="rounded-full border border-gray-400 p-1 text-lg text-gray-600 dark:border-white dark:text-white"
-                onClick={() => setModal(null)}
+                onClick={() => setModal(false)}
               >
                 <RiCloseLine />
               </button>
