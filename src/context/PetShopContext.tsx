@@ -54,18 +54,16 @@ export type DataContextType = {
 };
 
 // const PetShopContext = createContext([]);
-const PetShopContext = React.createContext<DataContextType | []>([]);
+export const PetShopContext = React.createContext<DataContextType | []>([]);
 
 const PetShopProvider = ({ children }: Props) => {
-  // eslint-disable-next-line no-unused-vars
-  //lookup: Verificar esse 'any' do setState
   const [data, setData] = React.useState<IData[]>([]);
-
   const ref = collection(firestore, 'pets_data');
 
   // Fetch / Sort data
   const getData = async (sortBy: string) => {
-    let sortData;
+    //lookup:
+    let sortData: any;
     switch (sortBy) {
       case 'Z-A':
         sortData = await getDocs(query(ref, orderBy('name', 'desc')));
@@ -96,14 +94,12 @@ const PetShopProvider = ({ children }: Props) => {
   };
 
   // Add pet
-  //lookup: 'any'
-  const createPet = async (data: any) => {
+  const createPet = async (data: IData) => {
     await addDoc(collection(firestore, 'pets_data'), data);
   };
 
   // Update petData
-  //lookup: 'any'
-  const updatePetInfo = async (data: any, petId: string) => {
+  const updatePetInfo = async (data: IData, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
       name: data.name,
       type: data.type,
@@ -127,17 +123,16 @@ const PetShopProvider = ({ children }: Props) => {
   };
 
   // Add service
-  //lookup: 'any'
-  const addService = async (serviceData: any, petId: string) => {
+  const addService = async (serviceData: IServiceData, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
-      servicos: arrayUnion(serviceData),
+      services: arrayUnion(serviceData),
     });
   };
+
   // Delete service
-  //lookup: 'any'
-  const deleteService = async (serviceData: any, petId: string) => {
+  const deleteService = async (serviceData: IServiceData, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
-      servicos: arrayRemove(serviceData),
+      services: arrayRemove(serviceData),
     });
   };
 
