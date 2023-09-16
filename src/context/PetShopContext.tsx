@@ -12,18 +12,15 @@ import {
   updateDoc,
 } from '@firebase/firestore';
 import { createContext, useState } from 'react';
+import React from 'react';
 
 import { firestore } from '../firebase_setup/firebase';
 
-export const PetShopContext = createContext([]);
-
 type Props = {
-  children: JSX.Element | JSX.Element[];
-  // data: Array<IData>;
-  // setData: (value: Array<any>) => void;
+  children: string | JSX.Element | JSX.Element[];
 };
 
-type IData = {
+interface IData {
   name: string;
   type: string;
   race: string;
@@ -31,14 +28,39 @@ type IData = {
   weight: number;
   size: string;
   birthdate: number;
-  notes: Array<string>;
-  services: Array<any>;
+  notes: string[];
+  services: any[];
+}
+
+interface IServiceData {
+  type: string;
+  cost: number;
+  date: string;
+  hour: string;
+  serviceId: string;
+  petId: string;
+}
+
+export type DataContextType = {
+  data: IData[];
+  setData: React.Dispatch<React.SetStateAction<IData[]>>;
+  getData: (sortBy: string) => void;
+  getPet: (petID: string) => void;
+  createPet: (data: any) => void;
+  updatePetInfo: (data: any, petId: string) => void;
+  deletePet: (docID: string) => void;
+  addService: (serviceData: IServiceData, petId: string) => void;
+  deleteService: (serviceData: IServiceData, petId: string) => void;
 };
+
+// const PetShopContext = createContext([]);
+const PetShopContext = React.createContext<DataContextType | []>([]);
 
 const PetShopProvider = ({ children }: Props) => {
   // eslint-disable-next-line no-unused-vars
   //lookup: Verificar esse 'any' do setState
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = React.useState<IData[]>([]);
+
   const ref = collection(firestore, 'pets_data');
 
   // Fetch / Sort data
@@ -122,7 +144,6 @@ const PetShopProvider = ({ children }: Props) => {
   return (
     <PetShopContext.Provider
       value={{
-        //warning:
         data,
         setData,
         getData,
