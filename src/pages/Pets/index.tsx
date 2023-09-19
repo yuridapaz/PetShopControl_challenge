@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { SelectInput, TextInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
+import { IData, IServiceData } from '../../context/PetShopContext';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 import PetCard from './PetCard';
 
@@ -16,16 +17,16 @@ const PetsPage = () => {
   const petRaceList = getPetRaceList(typeInput);
 
   useEffect(() => {
-    getData();
+    getData('');
   }, []);
 
-  //lookup: 'any'
-  const filterBySelectInput = (data: any, filterInput: string, dataKey: string) => {
+  //lookup: data
+  const filterBySelectInput = (data: IData, filterInput: string, dataKey: string) => {
     if (filterInput === 'Nenhum' || filterInput === '') return data;
     return data[`${dataKey}`] === filterInput;
   };
-  //lookup: 'any'
-  const filteredData = data.filter((data: any) => {
+  //lookup: data
+  const filteredData = data.filter((data: IData) => {
     return (
       filterBySelectInput(data, typeInput, 'type') &&
       filterBySelectInput(data, raceInput, 'race') &&

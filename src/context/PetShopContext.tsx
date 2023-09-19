@@ -20,7 +20,7 @@ type Props = {
   children: string | JSX.Element | JSX.Element[];
 };
 
-interface IData {
+export interface IData {
   name: string;
   type: string;
   race: string;
@@ -32,7 +32,7 @@ interface IData {
   services: any[];
 }
 
-interface IServiceData {
+export interface IServiceData {
   type: string;
   cost: number;
   date: string;
@@ -41,7 +41,7 @@ interface IServiceData {
   petId: string;
 }
 
-export type DataContextType = {
+export interface DataContextType {
   data: IData[];
   setData: React.Dispatch<React.SetStateAction<IData[]>>;
   getData: (sortBy: string) => void;
@@ -51,10 +51,24 @@ export type DataContextType = {
   deletePet: (docID: string) => void;
   addService: (serviceData: IServiceData, petId: string) => void;
   deleteService: (serviceData: IServiceData, petId: string) => void;
-};
+}
 
 // const PetShopContext = createContext([]);
-export const PetShopContext = React.createContext<DataContextType | []>([]);
+export const PetShopContext = React.createContext<DataContextType>({
+  // data: IData[],
+  // setData: React.Dispatch<React.SetStateAction<IData[]>>,
+  getData: () => {},
+  getPet: () => {},
+  createPet: () => {},
+  updatePetInfo: () => {},
+  deletePet: () => {},
+  addService: () => {},
+  deleteService: () => {},
+  data: [],
+  setData: function (value: React.SetStateAction<IData[]>): void {
+    throw new Error('Function not implemented.');
+  },
+});
 
 const PetShopProvider = ({ children }: Props) => {
   const [data, setData] = React.useState<IData[]>([]);
