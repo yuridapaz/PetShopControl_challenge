@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { SelectInput, TextInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
-import { IData, IServiceData } from '../../context/PetShopContext';
+import { DataContextType, DataType, ServiceDataType } from '../../context/PetShopContext';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 import PetCard from './PetCard';
 
 const PetsPage = () => {
-  const { data, getData } = useContext(PetShopContext);
+  const { data, getData } = React.useContext(PetShopContext) as DataContextType;
   const [typeInput, setTypeInput] = useState('');
   const [raceInput, setRaceInput] = useState('');
   const [nameInput, setNameInput] = useState('');
@@ -17,16 +18,15 @@ const PetsPage = () => {
   const petRaceList = getPetRaceList(typeInput);
 
   useEffect(() => {
-    getData('');
+    getData();
   }, []);
 
-  //lookup: data
-  const filterBySelectInput = (data: IData, filterInput: string, dataKey: string) => {
+  const filterBySelectInput = (data: DataType, filterInput: string, dataKey: string) => {
     if (filterInput === 'Nenhum' || filterInput === '') return data;
     return data[`${dataKey}`] === filterInput;
   };
-  //lookup: data
-  const filteredData = data.filter((data: IData) => {
+
+  const filteredData = data.filter((data: DataType) => {
     return (
       filterBySelectInput(data, typeInput, 'type') &&
       filterBySelectInput(data, raceInput, 'race') &&
@@ -38,7 +38,11 @@ const PetsPage = () => {
     <div className="flex max-h-[calc(100vh-5rem)] w-full flex-col gap-3 p-2 @container md:max-h-screen md:gap-4 md:p-4 lg:gap-6 lg:p-6">
       <div className="flex flex-col gap-3 rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
         <div>
-          <TextInput placeholder={'Pesquisar'} fullWidth onChange={(e: any) => setNameInput(e.target.value)} />
+          <TextInput
+            placeholder={'Pesquisar'}
+            fullWidth
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNameInput(e.target.value)}
+          />
         </div>
         <div className="flex w-full gap-3">
           <div className="flex w-full flex-col gap-1 md:gap-2">
@@ -48,7 +52,7 @@ const PetsPage = () => {
             <SelectInput
               id={'type'}
               values={['Nenhum', ...petTypeList, 'Outro']}
-              onChange={(e: any) => {
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 if (e.target.value === 'Nenhum') setRaceInput('Nenhum');
                 setTypeInput(e.target.value);
               }}
@@ -62,7 +66,7 @@ const PetsPage = () => {
             <SelectInput
               id={'race'}
               values={['Nenhum', ...petRaceList]}
-              onChange={(e: any) => setRaceInput(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setRaceInput(e.target.value)}
               fullWidth
               disabled={['Outro', 'Nenhum', ''].includes(typeInput)}
             />
@@ -74,7 +78,7 @@ const PetsPage = () => {
             <SelectInput
               id={'ordenar'}
               values={['A-Z', 'Z-A', 'Tipo', 'Porte']}
-              onChange={(e: any) => getData(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => getData(e.target.value)}
             />
           </div>
         </div>
@@ -87,7 +91,7 @@ const PetsPage = () => {
           <span className="hidden @3xl:inline-flex"> Tamanho </span>
         </div>
         {/* //lookup: */}
-        {filteredData.map((petData: any) => {
+        {filteredData.map((petData: DataType) => {
           return (
             <Link key={petData.id} to={`/pets/${petData.id}`}>
               <PetCard petData={petData} />

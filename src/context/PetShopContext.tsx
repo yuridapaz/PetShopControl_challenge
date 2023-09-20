@@ -20,62 +20,59 @@ type Props = {
   children: string | JSX.Element | JSX.Element[];
 };
 
-export interface IData {
+export type DataType = {
   name: string;
-  type: string;
+  type: 'Cachorro' | 'Gato' | 'Pássaro' | 'Outro';
   race: string;
-  gender: string;
+  gender: 'Macho' | 'Fêmea';
   weight: number;
-  size: string;
+  size: 'Micro' | 'Pequeno' | 'Médio' | 'Grande' | 'Gigante';
   birthdate: number;
   notes: string[];
-  services: any[];
-}
+  services: ServiceDataType[];
+  id: string;
+};
 
-export interface IServiceData {
+export type ServiceDataType = {
   type: string;
   cost: number;
   date: string;
   hour: string;
   serviceId: string;
   petId: string;
-}
+};
 
-export interface DataContextType {
-  data: IData[];
-  setData: React.Dispatch<React.SetStateAction<IData[]>>;
-  getData: (sortBy: string) => void;
+export type DataContextType = {
+  data: DataType[];
+  setData: React.Dispatch<React.SetStateAction<DataType[]>>;
+  getData: (sortBy?: string) => void;
   getPet: (petID: string) => void;
   createPet: (data: any) => void;
   updatePetInfo: (data: any, petId: string) => void;
   deletePet: (docID: string) => void;
-  addService: (serviceData: IServiceData, petId: string) => void;
-  deleteService: (serviceData: IServiceData, petId: string) => void;
-}
+  addService: (serviceData: ServiceDataType, petId: string) => void;
+  deleteService: (serviceData: ServiceDataType, petId: string) => void;
+};
 
-// const PetShopContext = createContext([]);
-export const PetShopContext = React.createContext<DataContextType>({
-  // data: IData[],
-  // setData: React.Dispatch<React.SetStateAction<IData[]>>,
-  getData: () => {},
-  getPet: () => {},
-  createPet: () => {},
-  updatePetInfo: () => {},
-  deletePet: () => {},
-  addService: () => {},
-  deleteService: () => {},
-  data: [],
-  setData: function (value: React.SetStateAction<IData[]>): void {
-    throw new Error('Function not implemented.');
-  },
-});
+// export const PetShopContext = React.createContext<DataContextType>({
+//   data: [],
+//   setData: () => {},
+//   getData: () => {},
+//   getPet: () => {},
+//   createPet: () => {},
+//   updatePetInfo: () => {},
+//   deletePet: () => {},
+//   addService: () => {},
+//   deleteService: () => {},
+// });
+export const PetShopContext = React.createContext<DataContextType | null>(null);
 
 const PetShopProvider = ({ children }: Props) => {
-  const [data, setData] = React.useState<IData[]>([]);
+  const [data, setData] = React.useState<DataType[]>([]);
   const ref = collection(firestore, 'pets_data');
 
   // Fetch / Sort data
-  const getData = async (sortBy: string) => {
+  const getData = async (sortBy?: string) => {
     //lookup:
     let sortData: any;
     switch (sortBy) {
@@ -93,7 +90,7 @@ const PetShopProvider = ({ children }: Props) => {
         sortData = await getDocs(query(ref, orderBy('name', 'asc')));
         break;
     }
-    const finalData = sortData.docs.map((doc) => ({
+    const finalData = sortData.docs.map((doc: { data: () => DataType; id: string }) => ({
       ...doc.data(),
       id: doc.id,
     }));
@@ -108,12 +105,12 @@ const PetShopProvider = ({ children }: Props) => {
   };
 
   // Add pet
-  const createPet = async (data: IData) => {
+  const createPet = async (data: DataType) => {
     await addDoc(collection(firestore, 'pets_data'), data);
   };
 
   // Update petData
-  const updatePetInfo = async (data: IData, petId: string) => {
+  const updatePetInfo = async (data: DataType, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
       name: data.name,
       type: data.type,
@@ -137,14 +134,14 @@ const PetShopProvider = ({ children }: Props) => {
   };
 
   // Add service
-  const addService = async (serviceData: IServiceData, petId: string) => {
+  const addService = async (serviceData: ServiceDataType, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
       services: arrayUnion(serviceData),
     });
   };
 
   // Delete service
-  const deleteService = async (serviceData: IServiceData, petId: string) => {
+  const deleteService = async (serviceData: ServiceDataType, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
       services: arrayRemove(serviceData),
     });

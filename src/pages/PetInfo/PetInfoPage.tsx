@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { GoAlert } from 'react-icons/go';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
+import { PetInfoProps } from '.';
 import { Button } from '../../components';
 import ModalComponent from '../../components/Modal';
 import { PetShopContext } from '../../context/PetShopContext';
@@ -10,12 +11,12 @@ import ServiceCard from './ServiceCard';
 import ServiceForm from './ServiceForm';
 import Skeleton from './Skeleton';
 
-const PetInfoPage = () => {
+export const PetInfoPage = (props: PetInfoProps) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { getPet, deleteService } = useContext(PetShopContext);
-  const [currentPet, setCurrentPet] = useState(null);
-  const [currentPetService, setCurrentPetService] = useState(null);
+  const [currentPet, setCurrentPet] = useState(undefined);
+  const [currentPetService, setCurrentPetService] = useState(undefined);
   const [formModal, setFormModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
 
@@ -195,5 +196,3 @@ const PetInfoPage = () => {
     </>
   );
 };
-
-export default PetInfoPage;

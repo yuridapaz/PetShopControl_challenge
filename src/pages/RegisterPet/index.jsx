@@ -3,13 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FaPaw } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  Button,
-  FormErrorMessage,
-  NumberInput,
-  SelectInput,
-  TextInput,
-} from '../../components';
+import { Button, FormErrorMessage, NumberInput, SelectInput, TextInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 
@@ -57,10 +51,7 @@ const RegisterPetPage = () => {
         </i>
         <h1 className="text-xl">Formulário de Cadastro</h1>
       </div>
-      <form
-        className="flex h-full w-full max-w-4xl flex-1 flex-col gap-6"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="flex h-full w-full max-w-4xl flex-1 flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="relative flex flex-col gap-0.5 md:gap-1.5">
           <label htmlFor="name"> Nome: </label>
           <TextInput
@@ -177,8 +168,7 @@ const RegisterPetPage = () => {
               name="birthdate"
               id="birthdate"
               className={`w-36 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-base text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
-                errors.birthdate &&
-                'border border-red-400 focus:outline-none dark:border-red-500/50'
+                errors.birthdate && 'border border-red-400 focus:outline-none dark:border-red-500/50'
               }
               `}
               {...register('birthdate', { required: true, valueAsDate: true })}
