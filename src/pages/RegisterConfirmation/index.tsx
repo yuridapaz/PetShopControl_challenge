@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterConfirmationPage = () => {
-  const [countdown, setCountdown] = useState(3);
+  const [countdown, setCountdown] = React.useState<number>(3);
   const navigate = useNavigate();
 
   useEffect(() => {

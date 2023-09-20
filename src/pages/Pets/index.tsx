@@ -90,7 +90,6 @@ const PetsPage = () => {
           <span className="hidden @xl:inline-flex"> Raça </span>
           <span className="hidden @3xl:inline-flex"> Tamanho </span>
         </div>
-        {/* //lookup: */}
         {filteredData.map((petData: DataType) => {
           return (
             <Link key={petData.id} to={`/pets/${petData.id}`}>

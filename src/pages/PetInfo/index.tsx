@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '../../components';
 import ModalComponent from '../../components/Modal';
-import { IData, IServiceData, PetShopContext } from '../../context/PetShopContext';
+import { DataContextType, DataType, PetShopContext, ServiceDataType } from '../../context/PetShopContext';
 import ServiceCard from './ServiceCard';
 import ServiceForm from './ServiceForm';
 import Skeleton from './Skeleton';
@@ -13,17 +13,17 @@ import Skeleton from './Skeleton';
 const PetInfoPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { getPet, deleteService } = useContext(PetShopContext);
-  const [currentPet, setCurrentPet] = useState<IData>();
-  const [currentPetService, setCurrentPetService] = useState<IServiceData>();
-  const [formModal, setFormModal] = useState<boolean>(false);
-  const [alertModal, setAlertModal] = useState<boolean>(false);
+  const { getPet, deleteService } = React.useContext(PetShopContext) as DataContextType;
+  const [currentPet, setCurrentPet] = React.useState<DataType | undefined>(undefined);
+  const [currentPetService, setCurrentPetService] = React.useState<ServiceDataType | undefined>(undefined);
+  const [formModal, setFormModal] = React.useState<boolean>(false);
+  const [alertModal, setAlertModal] = React.useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => {
       const fetchPetData = async () => {
-        //lookup:
-        const petData = await getPet(id!);
+        // lookup:
+        const petData: any = await getPet(id!);
         setCurrentPet(petData);
       };
       fetchPetData();
@@ -32,13 +32,15 @@ const PetInfoPage = () => {
   }, []);
 
   // handle AddService (STATE)
-  const appendService = (serviceData) => {
+  const appendService = (serviceData: ServiceDataType) => {
     currentPet?.services.push(serviceData);
   };
   // handle RemoveService (STATE)
-  const removeService = (serviceId) => {
-    let newServiceArray = currentPet?.services.filter((service) => service.serviceId != serviceId);
-    setCurrentPet((prev) => ({
+  const removeService = (serviceId: string) => {
+    let newServiceArray = currentPet?.services.filter((service: ServiceDataType) => service.serviceId != serviceId);
+
+    //lookup:
+    setCurrentPet((prev: any) => ({
       ...prev,
       services: newServiceArray,
     }));
@@ -53,13 +55,18 @@ const PetInfoPage = () => {
       alert(error);
     }
     setAlertModal(false);
-    setCurrentPetService(null);
+    setCurrentPetService(undefined);
   };
 
   const displayAgeFunction = (petTimeStamp) => {
-    let [years, months, days] = '';
+    //lookup:
+    // [years, months, days] = '';
+    let years: number;
+    let months: number;
+    let days: number;
+
     let displayPhrase = '';
-    const diffTime = new Date() - new Date(petTimeStamp);
+    const diffTime = new Date().valueOf() - new Date(petTimeStamp).valueOf();
     const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
     years = Math.floor(totalDays / 365.25);
@@ -84,7 +91,7 @@ const PetInfoPage = () => {
     <>
       <div className=" flex  flex-1 flex-col gap-4  p-2 md:gap-4 md:p-4  lg:gap-6 lg:p-6 ">
         <div className=" flex rounded-xl bg-gray-100 p-2 dark:bg-gray-800">
-          <Link onClick={() => navigate(-1)}>
+          <Link onClick={() => navigate(-1)} to={''}>
             <button className="rounded-xl border-2 border-gray-300/50 bg-zinc-100 p-3 text-sm transition-all  ease-in hover:border-gray-500/50 dark:bg-gray-800">
               <AiOutlineLeft />
             </button>
@@ -129,7 +136,7 @@ const PetInfoPage = () => {
               {!!currentPet?.notes?.length && (
                 <div className=" max-h-32 overflow-auto border-t border-gray-300 p-2 dark:border-gray-300/20">
                   <span className="text-sm text-gray-500 dark:text-gray-400">Observações importantes:</span>
-                  {currentPet?.notes?.map((obs, i) => {
+                  {currentPet?.notes?.map((obs: string, i: number) => {
                     return (
                       <p className="pr-4 text-sm text-gray-700 dark:text-gray-200" key={i}>
                         {i + 1}. {obs}
@@ -145,11 +152,10 @@ const PetInfoPage = () => {
                 <div>
                   <p className="p-2 pb-3"> Serviços prestados: </p>
                   <div className="flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-1 dark:bg-gray-700">
-                    {currentPet?.services?.toReversed()?.map((service, i) => {
+                    {currentPet?.services?.toReversed()?.map((service: ServiceDataType, i: number) => {
                       return (
                         <ServiceCard
                           service={service}
-                          petId={id}
                           key={i}
                           setService={setCurrentPetService}
                           setModal={setAlertModal}
@@ -160,7 +166,6 @@ const PetInfoPage = () => {
                 </div>
               </div>
             )}
-
             {/* Buttons section */}
             <div className="mb-2 mt-auto flex  w-full gap-4 px-0 md:mb-0">
               <Button size={'md'} className={'w-full'} onClick={() => setFormModal(true)}>

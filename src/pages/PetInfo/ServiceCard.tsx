@@ -1,10 +1,17 @@
 /* eslint-disable tailwindcss/no-custom-classname */
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import { Button } from '../../components';
+import { ServiceDataType } from '../../context/PetShopContext';
 
-const ServiceCard = ({ service, setModal, setService }) => {
-  const [active, setActive] = useState(false);
+type ServiceCardProps = {
+  service: ServiceDataType;
+  setService: Dispatch<SetStateAction<ServiceDataType | undefined>>;
+  setModal: Dispatch<SetStateAction<boolean>>;
+};
+
+const ServiceCard = ({ service, setModal, setService }: ServiceCardProps) => {
+  const [active, setActive] = useState<boolean>(false);
 
   const toggleAccordion = () => {
     setActive(!active);
@@ -21,19 +28,10 @@ const ServiceCard = ({ service, setModal, setService }) => {
         active ? 'is-active' : ''
       } `}
     >
-      <div
-        className="flex items-center px-3 py-2 hover:cursor-pointer"
-        onClick={toggleAccordion}
-      >
-        <p className="text-sm font-semibold text-gray-500 dark:text-gray-300">
-          {service?.date}
-        </p>
-        <p className="ml-4 text-sm group-[.is-active]:font-bold">
-          {active ? '' : service?.type}
-        </p>
-        <p className="ml-auto transition-all group-[.is-active]:rotate-180">
-          {active ? '--' : '+'}
-        </p>
+      <div className="flex items-center px-3 py-2 hover:cursor-pointer" onClick={toggleAccordion}>
+        <p className="text-sm font-semibold text-gray-500 dark:text-gray-300">{service?.date}</p>
+        <p className="ml-4 text-sm group-[.is-active]:font-bold">{active ? '' : service?.type}</p>
+        <p className="ml-auto transition-all group-[.is-active]:rotate-180">{active ? '--' : '+'}</p>
       </div>
       <div className="flex h-0 justify-between overflow-hidden rounded-b-lg bg-slate-300  px-7 py-0 group-[.is-active]:h-full">
         <div>
@@ -52,11 +50,7 @@ const ServiceCard = ({ service, setModal, setService }) => {
             <p className="text-end"> {service?.date} </p>
           </div>
           <div className="my-2 mt-3 flex flex-col ">
-            <Button
-              variant={'delete'}
-              className={'mt-auto w-28'}
-              onClick={handleDeleteServiceAlert}
-            >
+            <Button variant={'delete'} className={'mt-auto w-28'} onClick={handleDeleteServiceAlert}>
               Deletar
             </Button>
           </div>

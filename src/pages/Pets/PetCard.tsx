@@ -1,4 +1,10 @@
-const PetCard = ({ petData }: any) => {
+import { DataType } from '../../context/PetShopContext';
+
+type Props = {
+  petData: DataType;
+};
+
+const PetCard = ({ petData }: Props) => {
   return (
     <li className=" grid w-full cursor-pointer grid-cols-2 items-center justify-between rounded-sm p-1 ring-gray-400 ring-offset-1  hover:ring-1 @sm:grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 dark:ring-zinc-100/20 dark:ring-offset-gray-800">
       <div className="flex items-center gap-2 ">
