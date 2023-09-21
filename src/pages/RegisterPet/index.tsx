@@ -1,25 +1,39 @@
-import { useContext, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaPaw } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, FormErrorMessage, NumberInput, SelectInput, TextInput } from '../../components';
-import { PetShopContext } from '../../context/PetShopContext';
+import { DataContextType, PetShopContext } from '../../context/PetShopContext';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
+
+type RegisterFormInputs = {
+  name: string;
+  type: 'Cachorro' | 'Gato' | 'Pássaro' | 'Outro';
+  race: string;
+  gender: 'Macho' | 'Fêmea';
+  weight: number;
+  size: 'Micro' | 'Pequeno' | 'Médio' | 'Grande' | 'Gigante';
+  birthdate: { getTime: () => any };
+  notes: string;
+  services: [];
+};
 
 const RegisterPetPage = () => {
   const navigate = useNavigate();
-  const { createPet } = useContext(PetShopContext);
+  const { createPet } = React.useContext(PetShopContext) as DataContextType;
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'all' });
-  const [petTypeInput, setPetTypeInput] = useState('');
+  } = useForm<RegisterFormInputs>({ mode: 'all' });
+  const [petTypeInput, setPetTypeInput] = useState<string>('');
   const petTypeList = getPetTypeList();
   const petRaceList = getPetRaceList(petTypeInput);
 
-  const onSubmit = (formData) => {
+  //lookup:
+  const onSubmit = (formData: RegisterFormInputs) => {
     const data = {
       name: formData.name,
       type: formData.type,
@@ -35,7 +49,7 @@ const RegisterPetPage = () => {
     navigate('/cadastroconcluido');
   };
 
-  const formatNotes = (notes) => {
+  const formatNotes = (notes: string) => {
     const arr = notes
       .split('\n')
       .map((o) => o.trim())
@@ -165,7 +179,6 @@ const RegisterPetPage = () => {
             <input
               type="date"
               max={new Date().toISOString().slice(0, -8).split('T')[0]}
-              name="birthdate"
               id="birthdate"
               className={`w-36 rounded-md border border-gray-300 bg-gray-50 px-3 py-2 text-base text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50 ${
                 errors.birthdate && 'border border-red-400 focus:outline-none dark:border-red-500/50'
@@ -179,9 +192,8 @@ const RegisterPetPage = () => {
         <div className="flex w-full flex-col gap-0.5 md:gap-1.5">
           <label htmlFor="notes"> Observações </label>
           <textarea
-            name="notes"
             id="notes"
-            rows="4"
+            rows={4}
             style={{ resize: 'none' }}
             className="rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50"
             {...register('notes')}

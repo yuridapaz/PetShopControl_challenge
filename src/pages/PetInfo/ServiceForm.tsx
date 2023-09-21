@@ -6,12 +6,12 @@ import { Button, NumberInput, SelectInput } from '../../components';
 import { DataContextType, PetShopContext, ServiceDataType } from '../../context/PetShopContext';
 
 type ServiceFormProps = {
-  petId: string;
+  petId: string | undefined;
   setModal: Dispatch<SetStateAction<boolean>>;
   appendService: (service: ServiceDataType) => void;
 };
 
-type FormInputs = {
+type ServiceFormInputs = {
   type: string;
   cost: number;
   date: Date;
@@ -19,9 +19,9 @@ type FormInputs = {
 
 const ServiceForm = ({ petId, setModal, appendService }: ServiceFormProps) => {
   const { addService } = React.useContext(PetShopContext) as DataContextType;
-  const { register, handleSubmit } = useForm<FormInputs>({ mode: 'onChange' });
+  const { register, handleSubmit } = useForm<ServiceFormInputs>({ mode: 'onChange' });
 
-  const onSubmit = async (formData: FormInputs) => {
+  const onSubmit = async (formData: ServiceFormInputs) => {
     const serviceData = {
       type: formData.type,
       cost: formData.cost,

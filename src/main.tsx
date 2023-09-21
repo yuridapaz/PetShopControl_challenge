@@ -2,18 +2,12 @@ import ReactDOM from 'react-dom/client';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
-import RegisterPetOwnerPage from './RegisterPetOwner/index.jsx';
 import PetShopProvider from './context/PetShopContext.jsx';
 import './index.css';
 import EditPetInfo from './pages/EditPetInfo/index.jsx';
+import RegisterPetOwnerPage from './pages/RegisterPetOwner/index.jsx';
 import TestePage from './pages/TestePage.jsx';
-import {
-  ErrorPage,
-  PetInfoPage,
-  PetsPage,
-  RegisterConfirmationPage,
-  RegisterPetPage,
-} from './pages/index.jsx';
+import { ErrorPage, PetInfoPage, PetsPage, RegisterConfirmationPage, RegisterPetPage } from './pages/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,10 +42,6 @@ const router = createBrowserRouter([
       {
         path: 'cadastroConcluido',
         element: <RegisterConfirmationPage />,
-      },
-      {
-        path: 'teste',
-        element: <TestePage />,
       },
     ],
   },

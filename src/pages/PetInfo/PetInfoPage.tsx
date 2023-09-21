@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { GoAlert } from 'react-icons/go';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -10,13 +10,9 @@ import ServiceCard from './ServiceCard';
 import ServiceForm from './ServiceForm';
 import Skeleton from './Skeleton';
 
-type PetInfoParams = {
-  id: string | undefined;
-};
-
-const PetInfoPage = () => {
+export const PetInfoPage = () => {
   const navigate = useNavigate();
-  const { id } = useParams<PetInfoParams>();
+  const { id } = useParams();
   const { getPet, deleteService } = React.useContext(PetShopContext) as DataContextType;
   const [currentPet, setCurrentPet] = React.useState<DataType | undefined>(undefined);
   const [currentPetService, setCurrentPetService] = React.useState<ServiceDataType | undefined>(undefined);
@@ -51,7 +47,7 @@ const PetInfoPage = () => {
   };
 
   // handle RemoveService (Firebase & currentState)
-  const handleRemoveService = async (serviceData: ServiceDataType) => {
+  const handleRemoveService = async (serviceData) => {
     try {
       await deleteService(serviceData, serviceData.petId);
       removeService(serviceData.serviceId);
@@ -197,7 +193,7 @@ const PetInfoPage = () => {
           <p className="text-slate-700/70">Se eliminar não voltará e ver esse conteúdo !</p>
         </div>
         <div className="flex w-full justify-center p-4">
-          <Button onClick={() => handleRemoveService(currentPetService!)} className={'w-2/6'} variant={'delete'}>
+          <Button onClick={() => handleRemoveService(currentPetService)} className={'w-2/6'} variant={'delete'}>
             Deletar
           </Button>
         </div>
@@ -205,5 +201,3 @@ const PetInfoPage = () => {
     </>
   );
 };
-
-export default PetInfoPage;

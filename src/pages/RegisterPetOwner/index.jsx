@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { AiOutlineUser } from 'react-icons/ai';
 import InputMask from 'react-input-mask';
 
-import { Button, TextInput } from '../components';
-import EmailInput from '../components/EmailInput';
-import FormErrorMessage from '../components/FormErrorMessage';
+import { Button, TextInput } from '../../components';
+import EmailInput from '../../components/EmailInput';
+import FormErrorMessage from '../../components/FormErrorMessage';
 
 const RegisterPetOwnerPage = () => {
   const {
@@ -27,10 +27,7 @@ const RegisterPetOwnerPage = () => {
         </i>
       </div>
       {/* form */}
-      <form
-        className="flex h-full w-full max-w-4xl flex-1 flex-col gap-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="flex h-full w-full max-w-4xl flex-1 flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         {/* nome */}
         <div className="relative flex flex-col gap-0.5">
           <label htmlFor="name"> Nome: </label>
@@ -66,23 +63,7 @@ const RegisterPetOwnerPage = () => {
         {/* telefone */}
 
         <InputMask
-          mask={[
-            '(',
-            /[1-9]/,
-            /\d/,
-            ')',
-            ' ',
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/,
-            /\d/,
-            /\d/,
-          ]}
+          mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
           // mask={(value) =>
           //   value?.length >= 6 && value?.[5] === '9'
           //     ? '(99) 99999-9999'
@@ -96,11 +77,7 @@ const RegisterPetOwnerPage = () => {
         {/* idade */}
         {/* endereço */}
         {/*  */}
-        <Button
-          type="submit"
-          className={'mt-auto w-full max-w-xs self-center'}
-          size={'md'}
-        >
+        <Button type="submit" className={'mt-auto w-full max-w-xs self-center'} size={'md'}>
           Cadastrar dono !
         </Button>
       </form>
