@@ -5,12 +5,12 @@ export interface SelectInputProps
   extends InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof selectInputVariants> {
   // lookup:
-  // size: 'sm' | 'md' | 'lg' | undefined | null;
+  // size?: 'sm' | 'md' | 'lg' | undefined | null;
   size: any;
   values: Array<string>;
   register: any;
   // lookup:
-  // defaultValue: boolean | undefined | null;
+  // defaultValue?: boolean | undefined | null;
   defaultValue: any;
 }
 
