@@ -137,7 +137,7 @@ const EditPetInfo = () => {
               <SelectInput
                 id={'type'}
                 values={[...petTypeList, 'Outro']}
-                defaultValue={typeInput}
+                baseValue={typeInput}
                 onChange={(e) => {
                   setTypeInput(e.target.value);
                   setValue('race', '');
@@ -177,7 +177,6 @@ const EditPetInfo = () => {
                   ...register('gender', { required: 'Escolher gênero' }),
                 }}
                 error={errors.gender && true}
-                defaultValue
               />
               {errors.gender && <FormErrorMessage errorMessage={errors.gender.message} />}
             </div>
@@ -212,7 +211,6 @@ const EditPetInfo = () => {
                   ...register('size', { required: 'Escolher size' }),
                 }}
                 error={errors.size && true}
-                defaultValue
               />
               {errors.size && <FormErrorMessage errorMessage={errors.size.message} />}
             </div>

@@ -1,11 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes } from 'react';
 
-export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof textInputVariants> {
-  size: any;
-  register: any;
-}
-
 const textInputVariants = cva(
   'rounded-md border border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
   {
@@ -31,6 +26,16 @@ const textInputVariants = cva(
     },
   }
 );
+
+// export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof textInputVariants> {
+//   size: any;
+//   register: any;
+// }
+
+type TextInputProps = Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'className' | 'id' | 'onChange'> &
+  VariantProps<typeof textInputVariants> & {
+    register: any;
+  };
 
 const TextInput = ({
   className,

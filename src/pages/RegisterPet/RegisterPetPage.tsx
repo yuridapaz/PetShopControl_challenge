@@ -4,23 +4,12 @@ import { useForm } from 'react-hook-form';
 import { FaPaw } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
+import { RegisterFormInputs } from '.';
 import { Button, FormErrorMessage, NumberInput, SelectInput, TextInput } from '../../components';
 import { DataContextType, PetShopContext } from '../../context/PetShopContext';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 
-type RegisterFormInputs = {
-  name: string;
-  type: 'Cachorro' | 'Gato' | 'Pássaro' | 'Outro';
-  race: string;
-  gender: 'Macho' | 'Fêmea';
-  weight: number;
-  size: 'Micro' | 'Pequeno' | 'Médio' | 'Grande' | 'Gigante';
-  birthdate: { getTime: () => any };
-  notes: string;
-  services: [];
-};
-
-const RegisterPetPage = () => {
+export const RegisterPetPage = () => {
   const navigate = useNavigate();
   const { createPet } = React.useContext(PetShopContext) as DataContextType;
   const {
@@ -208,5 +197,3 @@ const RegisterPetPage = () => {
     </div>
   );
 };
-
-export default RegisterPetPage;

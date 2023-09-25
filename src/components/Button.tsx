@@ -1,6 +1,5 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
-import React from 'react';
 
 const buttonVariants = cva('rounded-md transition-all', {
   variants: {

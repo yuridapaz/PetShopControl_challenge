@@ -1,13 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority';
 import { InputHTMLAttributes } from 'react';
-
-export interface NumberInputProps
-  extends InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof numberInputVariants> {
-  size: any;
-  //lookup:
-  register: any;
-}
+import { RegisterOptions, UseFormRegisterReturn, UseFormReturn } from 'react-hook-form';
 
 const numberInputVariants = cva(
   'rounded-md border border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
@@ -34,6 +27,13 @@ const numberInputVariants = cva(
     },
   }
 );
+
+export type NumberInputProps = VariantProps<typeof numberInputVariants> &
+  Pick<InputHTMLAttributes<HTMLInputElement>, 'min' | 'max' | 'step' | 'id' | 'className'> & {
+    register: any;
+    // register: (name: string, options?: RegisterOptions) => UseFormRegisterReturn;
+    // register: UseFormReturn['register'];
+  };
 
 const NumberInput = ({ className, size, fullWidth, id, register, error, filled, min, max, step }: NumberInputProps) => (
   <input

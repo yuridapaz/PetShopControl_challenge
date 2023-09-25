@@ -1,18 +1,5 @@
 import { VariantProps, cva } from 'class-variance-authority';
-import { InputHTMLAttributes } from 'react';
-
-export interface SelectInputProps
-  extends InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof selectInputVariants> {
-  // lookup:
-  // size?: 'sm' | 'md' | 'lg' | undefined | null;
-  size: any;
-  values: Array<string>;
-  register: any;
-  // lookup:
-  // defaultValue?: boolean | undefined | null;
-  defaultValue: any;
-}
+import { InputHTMLAttributes, SelectHTMLAttributes } from 'react';
 
 const selectInputVariants = cva(
   'rounded-md border border-gray-300 bg-gray-50 text-gray-900  disabled:cursor-not-allowed dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
@@ -39,6 +26,16 @@ const selectInputVariants = cva(
   }
 );
 
+type SelectInputProps = Pick<
+  SelectHTMLAttributes<HTMLSelectElement>,
+  'id' | 'className' | 'value' | 'disabled' | 'onChange' | 'defaultValue'
+> &
+  VariantProps<typeof selectInputVariants> & {
+    register: any;
+    values: string[];
+    baseValue?: string;
+  };
+
 const SelectInput = ({
   className,
   size,
@@ -50,7 +47,7 @@ const SelectInput = ({
   filled,
   disabled,
   onChange,
-  defaultValue,
+  baseValue,
 }: SelectInputProps) => (
   <select
     id={id}
@@ -65,7 +62,7 @@ const SelectInput = ({
     disabled={disabled}
     onChange={onChange}
   >
-    {defaultValue ? <option defaultValue={defaultValue} hidden /> : ''}
+    {baseValue ? <option defaultValue={baseValue} hidden /> : ''}
 
     {values.map((value, i) => {
       return (
