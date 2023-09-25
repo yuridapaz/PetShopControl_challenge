@@ -1,7 +1,8 @@
-import { type VariantProps, cva } from 'class-variance-authority';
+import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
+import React from 'react';
 
-const buttonVariants = cva('rounded-md transition-all ', {
+const buttonVariants = cva('rounded-md transition-all', {
   variants: {
     variant: {
       primary:
@@ -25,15 +26,8 @@ const buttonVariants = cva('rounded-md transition-all ', {
   },
 });
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants> & {
-    disabled?: boolean;
-    onClick: React.MouseEventHandler<HTMLButtonElement>;
-    className: string;
-    // variant: 'primary' | 'secondary' | 'plain' | 'delete';
-    // size: 'sm' | 'md' | 'lg';
-    // bold: boolean;
-  };
+type ButtonProps = VariantProps<typeof buttonVariants> &
+  Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'disabled' | 'onClick' | 'children' | 'className'>;
 
 const Button = ({ className, variant, size, bold, children, disabled, onClick }: ButtonProps) => (
   <button disabled={disabled} onClick={onClick} className={buttonVariants({ variant, size, bold, className })}>

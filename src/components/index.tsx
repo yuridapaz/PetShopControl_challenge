@@ -1,4 +1,5 @@
 import Button from './Button';
+// import { TextInputProps } from './TextInput';
 // import { ButtonProps } from './Button';
 import FormErrorMessage from './FormErrorMessage';
 // import { FormErrorMessageProps } from './FormErrorMessage';
@@ -7,8 +8,6 @@ import NumberInput from './NumberInput';
 import SelectInput from './SelectInput';
 // import { SelectInputProps } from './SelectInput';
 import TextInput from './TextInput';
-
-// import { TextInputProps } from './TextInput';
 
 export {
   Button,

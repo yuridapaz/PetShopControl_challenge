@@ -1,7 +1,7 @@
 import { type VariantProps, cva } from 'class-variance-authority';
 
 export interface FormErrorMessageProps extends VariantProps<typeof formErrorMessageVariants> {
-  errorMessage: boolean;
+  errorMessage: string;
 }
 
 const formErrorMessageVariants = cva('absolute -bottom-4 right-3 text-red-500', {
