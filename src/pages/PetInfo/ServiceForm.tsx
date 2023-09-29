@@ -1,21 +1,10 @@
-import { Dispatch, SetStateAction, useContext } from 'react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button, NumberInput, SelectInput } from '../../components';
-import { DataContextType, PetShopContext, ServiceDataType } from '../../context/PetShopContext';
-
-type ServiceFormProps = {
-  petId: string | undefined;
-  setModal: Dispatch<SetStateAction<boolean>>;
-  appendService: (service: ServiceDataType) => void;
-};
-
-type ServiceFormInputs = {
-  type: string;
-  cost: number;
-  date: Date;
-};
+import { PetShopContext } from '../../context/PetShopContext';
+import { DataContextType, ServiceDataType } from '../../context/type';
+import { ServiceFormInputs, ServiceFormProps } from './types';
 
 const ServiceForm = ({ petId, setModal, appendService }: ServiceFormProps) => {
   const { addService } = React.useContext(PetShopContext) as DataContextType;
@@ -27,12 +16,12 @@ const ServiceForm = ({ petId, setModal, appendService }: ServiceFormProps) => {
       cost: formData.cost,
       date: formData.date.toLocaleDateString('en-GB'),
       hour: formData.date.toLocaleTimeString('en-GB'),
-      serviceId: formData.date.valueOf() + petId,
-      petId: petId,
+      serviceId: formData.date.valueOf() + petId!,
+      petId: petId!,
     };
 
     try {
-      await addService(serviceData, petId);
+      addService(serviceData, petId!);
       appendService(serviceData);
       setModal(false);
     } catch (error) {

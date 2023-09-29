@@ -1,19 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { SelectInput, TextInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
-import { DataContextType, DataType, ServiceDataType } from '../../context/PetShopContext';
+import { DataContextType, DataType } from '../../context/type';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
 import PetCard from './PetCard';
 
 const PetsPage = () => {
   const { data, getData } = React.useContext(PetShopContext) as DataContextType;
-  const [typeInput, setTypeInput] = useState('');
-  const [raceInput, setRaceInput] = useState('');
-  const [nameInput, setNameInput] = useState('');
+  const [typeInput, setTypeInput] = React.useState<string>('');
+  const [raceInput, setRaceInput] = React.useState<string>('');
+  const [nameInput, setNameInput] = React.useState<string>('');
   const petTypeList = getPetTypeList();
   const petRaceList = getPetRaceList(typeInput);
 
@@ -41,7 +40,7 @@ const PetsPage = () => {
           <TextInput
             placeholder={'Pesquisar'}
             fullWidth
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNameInput(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNameInput(e.target.value)}
           />
         </div>
         <div className="flex w-full gap-3">
@@ -52,7 +51,7 @@ const PetsPage = () => {
             <SelectInput
               id={'type'}
               values={['Nenhum', ...petTypeList, 'Outro']}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 if (e.target.value === 'Nenhum') setRaceInput('Nenhum');
                 setTypeInput(e.target.value);
               }}
@@ -66,7 +65,7 @@ const PetsPage = () => {
             <SelectInput
               id={'race'}
               values={['Nenhum', ...petRaceList]}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setRaceInput(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setRaceInput(e.target.value)}
               fullWidth
               disabled={['Outro', 'Nenhum', ''].includes(typeInput)}
             />
@@ -78,7 +77,7 @@ const PetsPage = () => {
             <SelectInput
               id={'ordenar'}
               values={['A-Z', 'Z-A', 'Tipo', 'Porte']}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => getData(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => getData(e.target.value)}
             />
           </div>
         </div>

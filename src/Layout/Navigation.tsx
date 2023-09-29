@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navigation = () => {
-  const [openSideBar, setOpenSideBar] = useState(false);
+  const [openSideBar, setOpenSideBar] = useState<boolean>(false);
 
   const toggleSideBar = () => {
     setOpenSideBar(!openSideBar);

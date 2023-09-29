@@ -1,38 +1,27 @@
-import { useState } from 'react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaPaw } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, FormErrorMessage, NumberInput, SelectInput, TextInput } from '../../components';
-import { DataContextType, PetShopContext } from '../../context/PetShopContext';
+import { PetShopContext } from '../../context/PetShopContext';
+import { DataContextType } from '../../context/type';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
-
-type RegisterFormInputs = {
-  name: string;
-  type: 'Cachorro' | 'Gato' | 'Pássaro' | 'Outro';
-  race: string;
-  gender: 'Macho' | 'Fêmea';
-  weight: number;
-  size: 'Micro' | 'Pequeno' | 'Médio' | 'Grande' | 'Gigante';
-  birthdate: { getTime: () => any };
-  notes: string;
-  services: [];
-};
+import { formatNotes } from '../../utils/helpers';
+import { RegisterFormInputs } from './types';
 
 const RegisterPetPage = () => {
-  const navigate = useNavigate();
-  const { createPet } = React.useContext(PetShopContext) as DataContextType;
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormInputs>({ mode: 'all' });
-  const [petTypeInput, setPetTypeInput] = useState<string>('');
+  const { createPet } = React.useContext(PetShopContext) as DataContextType;
+  const navigate = useNavigate();
+  const [petTypeInput, setPetTypeInput] = React.useState<string>('');
   const petTypeList = getPetTypeList();
   const petRaceList = getPetRaceList(petTypeInput);
 
-  //lookup:
   const onSubmit = (formData: RegisterFormInputs) => {
     const data = {
       name: formData.name,
@@ -47,14 +36,6 @@ const RegisterPetPage = () => {
     };
     createPet(data);
     navigate('/cadastroconcluido');
-  };
-
-  const formatNotes = (notes: string) => {
-    const arr = notes
-      .split('\n')
-      .map((o) => o.trim())
-      .filter(Boolean);
-    return arr;
   };
 
   return (
@@ -96,11 +77,9 @@ const RegisterPetPage = () => {
                 }),
               }}
               error={errors.type && true}
-              // filled={touchedFields.type && !errors?.type}
               onChange={(e) => {
                 setPetTypeInput(e.target.value);
               }}
-              defaultValue
             />
             {errors.type && <FormErrorMessage errorMessage={errors.type.message} />}
           </div>
@@ -116,8 +95,6 @@ const RegisterPetPage = () => {
                 }),
               }}
               error={errors.race && true}
-              defaultValue
-              // lookup:
               disabled={['Outro', 'Nenhum', '', undefined, null].includes(petTypeInput)}
             />
             {errors.race && <FormErrorMessage errorMessage={errors.race.message} />}
@@ -133,7 +110,6 @@ const RegisterPetPage = () => {
                 ...register('gender', { required: 'Escolher gênero' }),
               }}
               error={errors.gender && true}
-              defaultValue
             />
             {errors.gender && <FormErrorMessage errorMessage={errors.gender.message} />}
           </div>
@@ -168,7 +144,6 @@ const RegisterPetPage = () => {
                 ...register('size', { required: 'Escolher tamanho' }),
               }}
               error={errors.size && true}
-              defaultValue
             />
             {errors.size && <FormErrorMessage errorMessage={errors.size.message} />}
           </div>
@@ -201,7 +176,7 @@ const RegisterPetPage = () => {
         </div>
         <div></div>
 
-        <Button type="submit" className={`mt-auto w-full max-w-xs self-center`} onClick={() => console.log('')}>
+        <Button type="submit" className={`mt-auto w-full max-w-xs self-center`}>
           Enviar
         </Button>
       </form>

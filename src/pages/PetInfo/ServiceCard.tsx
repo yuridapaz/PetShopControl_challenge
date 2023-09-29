@@ -1,17 +1,10 @@
-/* eslint-disable tailwindcss/no-custom-classname */
-import { Dispatch, SetStateAction, useState } from 'react';
+import React from 'react';
 
 import { Button } from '../../components';
-import { ServiceDataType } from '../../context/PetShopContext';
-
-type ServiceCardProps = {
-  service: ServiceDataType;
-  setService: Dispatch<SetStateAction<ServiceDataType | undefined>>;
-  setModal: Dispatch<SetStateAction<boolean>>;
-};
+import { ServiceCardProps } from './types';
 
 const ServiceCard = ({ service, setModal, setService }: ServiceCardProps) => {
-  const [active, setActive] = useState<boolean>(false);
+  const [active, setActive] = React.useState<boolean>(false);
 
   const toggleAccordion = () => {
     setActive(!active);

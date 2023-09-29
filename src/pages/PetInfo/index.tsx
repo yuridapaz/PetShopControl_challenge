@@ -1,18 +1,16 @@
-import React, { FC, ReactElement, useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineLeft } from 'react-icons/ai';
 import { GoAlert } from 'react-icons/go';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '../../components';
 import ModalComponent from '../../components/Modal';
-import { DataContextType, DataType, PetShopContext, ServiceDataType } from '../../context/PetShopContext';
+import { PetShopContext } from '../../context/PetShopContext';
+import { DataContextType, DataType, ServiceDataType } from '../../context/type';
 import ServiceCard from './ServiceCard';
 import ServiceForm from './ServiceForm';
-import Skeleton from './Skeleton';
-
-type PetInfoParams = {
-  id: string | undefined;
-};
+import SkeletonPetInfoPage from './Skeleton';
+import { PetInfoParams } from './types';
 
 const PetInfoPage = () => {
   const navigate = useNavigate();
@@ -26,13 +24,12 @@ const PetInfoPage = () => {
   useEffect(() => {
     setTimeout(() => {
       const fetchPetData = async () => {
-        // lookup:
-        const petData: any = await getPet(id!);
+        // REVIEW:
+        const petData: any = getPet(id!);
         setCurrentPet(petData);
       };
       fetchPetData();
     }, 500);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // handle AddService (STATE)
@@ -43,7 +40,7 @@ const PetInfoPage = () => {
   const removeService = (serviceId: string) => {
     let newServiceArray = currentPet?.services.filter((service: ServiceDataType) => service.serviceId != serviceId);
 
-    //lookup:
+    //REVIEW:
     setCurrentPet((prev: any) => ({
       ...prev,
       services: newServiceArray,
@@ -53,7 +50,7 @@ const PetInfoPage = () => {
   // handle RemoveService (Firebase & currentState)
   const handleRemoveService = async (serviceData: ServiceDataType) => {
     try {
-      await deleteService(serviceData, serviceData.petId);
+      deleteService(serviceData, serviceData.petId);
       removeService(serviceData.serviceId);
     } catch (error) {
       alert(error);
@@ -62,14 +59,18 @@ const PetInfoPage = () => {
     setCurrentPetService(undefined);
   };
 
-  const displayAgeFunction = (petTimeStamp) => {
-    //lookup:
-    // [years, months, days] = '';
+  const displayAgeFunction = (petTimeStamp: string | number | Date) => {
+    // REVIEW:
+
+    // let [years, months, days] = '';
+
+    // let [years, months, days]: number[] | null[] = [null, null, null];
+
     let years: number;
     let months: number;
     let days: number;
 
-    let displayPhrase = '';
+    let displayPhrase: string = '';
     const diffTime = new Date().valueOf() - new Date(petTimeStamp).valueOf();
     const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
@@ -102,7 +103,7 @@ const PetInfoPage = () => {
           </Link>
           <p className="m-auto text-lg">Informações</p>
         </div>
-        {!currentPet && <Skeleton />}
+        {!currentPet && <SkeletonPetInfoPage />}
         {currentPet && (
           <>
             <div className="flex flex-col gap-4 rounded-xl bg-gray-100 p-2 pb-4  @container dark:bg-gray-800 ">

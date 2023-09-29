@@ -1,5 +1,5 @@
 import { DevTool } from '@hookform/devtools';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineLeft } from 'react-icons/ai';
@@ -9,24 +9,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { Button, FormErrorMessage, NumberInput, SelectInput, TextInput } from '../../components';
 import ModalComponent from '../../components/Modal';
-import { DataContextType, PetShopContext } from '../../context/PetShopContext';
+import { PetShopContext } from '../../context/PetShopContext';
+import { DataContextType } from '../../context/type';
 import { getPetRaceList, getPetTypeList } from '../../utils/constants';
-
-type EditPetParams = {
-  id: string | undefined;
-};
-
-type EditPetValues = {
-  name: string;
-  type: 'Cachorro' | 'Gato' | 'Pássaro' | 'Outro';
-  race: string;
-  gender: 'Macho' | 'Fêmea';
-  weight: number;
-  size: 'Micro' | 'Pequeno' | 'Médio' | 'Grande' | 'Gigante';
-  birthdate: { getTime: () => any };
-  notes: string;
-  services: [];
-};
+import { formatNotes } from '../../utils/helpers';
+import { EditPetParams, EditPetValues } from './types';
 
 const EditPetInfo = () => {
   const navigate = useNavigate();
@@ -46,16 +33,14 @@ const EditPetInfo = () => {
   } = useForm<EditPetValues>({
     mode: 'all',
     defaultValues: async () => {
-      // lookup:
-      const petData: any = await getPet(id!);
+      // REVIEW:
+      const petData: any = getPet(id!);
       petData.birthdate = new Date(petData.birthdate).toISOString().slice(0, -8).split('T')[0];
       petData.race = '';
       setTypeInput(petData.type);
       return petData;
     },
   });
-
-  // useEffect (setValue)
 
   const onSubmit = (formData: EditPetValues) => {
     const data = {
@@ -70,16 +55,6 @@ const EditPetInfo = () => {
     };
     updatePetInfo(data, id!);
     navigate(-1);
-  };
-
-  const formatNotes = (notes: string) => {
-    if (notes.length == 0) return [];
-    if (Array.isArray(notes) && notes.length > 0) return notes;
-
-    return notes
-      .split(/[\n,]/)
-      .map((o) => o.trim())
-      .filter(Boolean);
   };
 
   const handleDeletePet = () => {

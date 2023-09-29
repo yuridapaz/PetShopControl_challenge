@@ -1,12 +1,7 @@
 import ReactDOM from 'react-dom';
 import { RiCloseLine } from 'react-icons/ri';
 
-export type ModalProps = {
-  modalTitle: string;
-  displayModal: boolean;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  children: React.ReactNode;
-};
+import { ModalProps } from './type';
 
 const ModalComponent = ({ children, modalTitle, displayModal, setModal }: ModalProps) => {
   return displayModal
@@ -18,7 +13,7 @@ const ModalComponent = ({ children, modalTitle, displayModal, setModal }: ModalP
         >
           <div className="w-full max-w-sm rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white">
             <div className="flex items-center justify-between border-b border-gray-300 p-4 dark:border-gray-300/20">
-              <p className="md:text-lg"> {modalTitle} </p>
+              <p className="md:text-lg">{modalTitle}</p>
               <button
                 className="rounded-full border border-gray-400 p-1 text-lg text-gray-600 dark:border-white dark:text-white"
                 onClick={() => setModal(false)}

@@ -4,11 +4,9 @@ import 'react-loading-skeleton/dist/skeleton.css';
 const SkeletonPetInfoPage = () => {
   return (
     <>
-      {/* Info Card  */}
       <SkeletonTheme baseColor="#ffffff2e" highlightColor="#81818120">
         <div className="mb-3 flex flex-col gap-4 rounded-xl bg-gray-100 p-2  pb-4 dark:bg-gray-800">
           <div className="flex w-full gap-4 ">
-            {/* Foto e Nome */}
             <div className="h-28 w-28">
               <Skeleton height={'100%'} borderRadius={16} />
             </div>
@@ -23,20 +21,15 @@ const SkeletonPetInfoPage = () => {
             </div>
           </div>
 
-          {/* Informações card */}
           <div className="flex gap-4">
             <div className="w-1/3 rounded-xl bg-green-300/50 px-3 py-2 text-lg leading-6 dark:bg-green-300/90 ">
-              <span className="text-xs text-green-800/60 dark:text-green-800/90">
-                Gênero
-              </span>
+              <span className="text-xs text-green-800/60 dark:text-green-800/90">Gênero</span>
               <p className="text-green-800">
                 <Skeleton />
               </p>
             </div>
             <div className=" w-1/3  rounded-xl bg-orange-300/50 px-3 py-2 text-lg leading-6 dark:bg-orange-300/90">
-              <span className="text-xs text-orange-800/60 dark:text-orange-800/90">
-                Idade
-              </span>
+              <span className="text-xs text-orange-800/60 dark:text-orange-800/90">Idade</span>
               <p className="whitespace-nowrap text-orange-800 dark:text-orange-900">
                 <Skeleton />
               </p>

@@ -1,9 +1,6 @@
-import { type VariantProps, cva } from 'class-variance-authority';
-import { InputHTMLAttributes } from 'react';
+import { cva } from 'class-variance-authority';
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof emailInputVariants> {}
-
-const emailInputVariants = cva(
+export const textInputVariants = cva(
   'rounded-md border border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-zinc-50',
   {
     variants: {
@@ -28,22 +25,3 @@ const emailInputVariants = cva(
     },
   }
 );
-
-const EmailInput = ({ className, size, fullWidth, placeholder, id, register, error, filled, onChange }: InputProps) => (
-  <input
-    type="email"
-    id={id}
-    placeholder={placeholder}
-    className={emailInputVariants({
-      size,
-      fullWidth,
-      className,
-      error,
-      filled,
-    })}
-    {...register}
-    onChange={onChange}
-  ></input>
-);
-
-export default EmailInput;
