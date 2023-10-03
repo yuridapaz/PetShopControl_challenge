@@ -25,7 +25,7 @@ const PetInfoPage = () => {
     setTimeout(() => {
       const fetchPetData = async () => {
         // REVIEW:
-        const petData: any = getPet(id!);
+        const petData: any = await getPet(id!);
         setCurrentPet(petData);
       };
       fetchPetData();

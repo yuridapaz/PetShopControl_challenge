@@ -16,13 +16,14 @@ const RegisterPetPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormInputs>({ mode: 'all' });
-  const { createPet } = React.useContext(PetShopContext) as DataContextType;
+  const { createPet, uploadPetImage } = React.useContext(PetShopContext) as DataContextType;
   const navigate = useNavigate();
   const [petTypeInput, setPetTypeInput] = React.useState<string>('');
   const petTypeList = getPetTypeList();
   const petRaceList = getPetRaceList(petTypeInput);
+  const [imageUpload, setImageUpload] = React.useState<any>(null);
 
-  const onSubmit = (formData: RegisterFormInputs) => {
+  const onSubmit = async (formData: RegisterFormInputs) => {
     const data = {
       name: formData.name,
       type: formData.type,
@@ -33,20 +34,25 @@ const RegisterPetPage = () => {
       birthdate: formData.birthdate.getTime(),
       notes: [...formatNotes(formData.notes)],
       services: [],
+      imageURL: await uploadPetImage(formData.name, imageUpload),
     };
+
     createPet(data);
     navigate('/cadastroconcluido');
   };
 
   return (
     <div className="container flex h-full flex-1 flex-col items-center p-4">
-      <div className="mb-6 mt-2 flex self-center">
+      <div className="mb-4 mt-2 flex self-center">
         <i className="mr-3 text-2xl">
           <FaPaw className="rotate-12" />
         </i>
         <h1 className="text-xl">Formulário de Cadastro</h1>
       </div>
-      <form className="flex h-full w-full max-w-4xl flex-1 flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="flex h-full max-h-[calc(100vh-6rem)] min-h-[calc(100vh-6rem)] w-full max-w-4xl flex-1 flex-col gap-3 overflow-auto border"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="relative flex flex-col gap-0.5 md:gap-1.5">
           <label htmlFor="name"> Nome: </label>
           <TextInput
@@ -65,7 +71,7 @@ const RegisterPetPage = () => {
           {errors.name && <FormErrorMessage errorMessage={errors.name.message} />}
         </div>
 
-        <div className="flex w-full flex-col gap-6">
+        <div className="flex w-full flex-col gap-3">
           <div className="relative flex w-full flex-col gap-0.5 md:gap-1.5">
             <label htmlFor="type">Tipo:</label>
             <SelectInput
@@ -174,7 +180,17 @@ const RegisterPetPage = () => {
             {...register('notes')}
           ></textarea>
         </div>
-        <div></div>
+        <div className="flex w-full flex-col gap-0.5 md:gap-1.5">
+          <label htmlFor="image"> Imagem: </label>
+          <input
+            type="file"
+            id="image"
+            className="file:red-500 w-full cursor-pointer rounded-md bg-white file:bg-green-400"
+            onChange={(e: any) => {
+              setImageUpload(e.target.files[0]);
+            }}
+          />
+        </div>
 
         <Button type="submit" className={`mt-auto w-full max-w-xs self-center`}>
           Enviar

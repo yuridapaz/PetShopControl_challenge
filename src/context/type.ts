@@ -8,6 +8,8 @@ export type DataContextType = {
   getData: (sortBy?: string) => void;
   getPet: (petID: string) => void;
   createPet: (data: any) => void;
+  // FIXME:
+  uploadPetImage: (data: any, image: any) => void;
   updatePetInfo: (data: any, petId: string) => void;
   deletePet: (docID: string) => void;
   addService: (serviceData: ServiceDataType, petId: string) => void;
@@ -25,6 +27,8 @@ export type DataType = {
   notes: string[];
   services: ServiceDataType[];
   id: string;
+  image?: any;
+  imageURL: string;
 };
 
 export type ServiceDataType = {

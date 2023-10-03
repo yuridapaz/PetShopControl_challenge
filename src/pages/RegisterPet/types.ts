@@ -8,4 +8,5 @@ export type RegisterFormInputs = {
   birthdate: { getTime: () => any };
   notes: string;
   services: [];
+  image?: File;
 };

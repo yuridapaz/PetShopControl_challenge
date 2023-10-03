@@ -11,33 +11,36 @@ import {
   query,
   updateDoc,
 } from '@firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React from 'react';
 
-import { firestore } from '../firebase_setup/firebase';
+import { firestore, storage } from '../firebase_setup/firebase';
 import { ContextProps, DataContextType, DataType, ServiceDataType } from './type';
 
 export const PetShopContext = React.createContext<DataContextType | null>(null);
 
 const PetShopProvider = ({ children }: ContextProps) => {
   const [data, setData] = React.useState<DataType[]>([]);
-  const ref = collection(firestore, 'pets_data');
+  const firestoreRef = collection(firestore, 'pets_data');
 
   const getData = async (sortBy?: string) => {
     // REVIEW:
     let sortData: any;
     switch (sortBy) {
       case 'Z-A':
-        sortData = await getDocs(query(ref, orderBy('name', 'desc')));
+        sortData = await getDocs(query(firestoreRef, orderBy('name', 'desc')));
         break;
       case 'Tipo':
-        sortData = await getDocs(query(ref, orderBy('type', 'asc'), orderBy('name', 'asc')));
+        sortData = await getDocs(query(firestoreRef, orderBy('type', 'asc'), orderBy('name', 'asc')));
         break;
       case 'Porte':
-        sortData = await getDocs(query(ref, orderBy('type', 'asc'), orderBy('size', 'asc'), orderBy('name', 'asc')));
+        sortData = await getDocs(
+          query(firestoreRef, orderBy('type', 'asc'), orderBy('size', 'asc'), orderBy('name', 'asc')),
+        );
         break;
 
       default:
-        sortData = await getDocs(query(ref, orderBy('name', 'asc')));
+        sortData = await getDocs(query(firestoreRef, orderBy('name', 'asc')));
         break;
     }
     const finalData = sortData.docs.map((doc: { data: () => DataType; id: string }) => ({
@@ -58,6 +61,16 @@ const PetShopProvider = ({ children }: ContextProps) => {
     await addDoc(collection(firestore, 'pets_data'), data);
   };
 
+  const uploadPetImage = async (data: any, image: any) => {
+    if (image == null) return '';
+
+    const imageRef = ref(storage, `images/${data}` + new Date().getTime());
+
+    return await uploadBytes(imageRef, image).then(async () => {
+      return await getDownloadURL(imageRef);
+    });
+  };
+
   const updatePetInfo = async (data: DataType, petId: string) => {
     await updateDoc(doc(firestore, 'pets_data', petId), {
       name: data.name,
@@ -69,6 +82,10 @@ const PetShopProvider = ({ children }: ContextProps) => {
       birthdate: data.birthdate,
       notes: data.notes,
     });
+  };
+
+  const updatePetImage = () => {
+    return;
   };
 
   const deletePet = async (docID: string) => {
@@ -105,6 +122,7 @@ const PetShopProvider = ({ children }: ContextProps) => {
         getPet,
         addService,
         deleteService,
+        uploadPetImage,
       }}
     >
       {children}

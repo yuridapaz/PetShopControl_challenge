@@ -27,7 +27,7 @@ const SelectInput = ({
     disabled={disabled}
     onChange={onChange}
   >
-    {baseValue ? <option defaultValue={baseValue} hidden /> : ''}
+    {baseValue ? <option defaultValue={baseValue} hidden /> : <option defaultValue="" hidden />}
 
     {values.map((value, i) => {
       return (
