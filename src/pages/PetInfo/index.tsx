@@ -25,7 +25,7 @@ const PetInfoPage = () => {
     setTimeout(() => {
       const fetchPetData = async () => {
         // REVIEW:
-        const petData: any = getPet(id!);
+        const petData: any = await getPet(id!);
         setCurrentPet(petData);
       };
       fetchPetData();
@@ -60,12 +60,6 @@ const PetInfoPage = () => {
   };
 
   const displayAgeFunction = (petTimeStamp: string | number | Date) => {
-    // REVIEW:
-
-    // let [years, months, days] = '';
-
-    // let [years, months, days]: number[] | null[] = [null, null, null];
-
     let years: number;
     let months: number;
     let days: number;
@@ -108,8 +102,16 @@ const PetInfoPage = () => {
           <>
             <div className="flex flex-col gap-4 rounded-xl bg-gray-100 p-2 pb-4  @container dark:bg-gray-800 ">
               <div className="relative flex w-full  gap-4">
-                <div className="h-28 w-28">
-                  <img src="/src/assets/images/Todd.jpeg" alt="" className="h-full w-full rounded-xl object-cover" />
+                <div className="h-28 w-28 rounded-xl">
+                  {currentPet?.imageURL ? (
+                    <img src={currentPet?.imageURL} alt="" className="h-full w-full rounded-xl object-cover" />
+                  ) : (
+                    <img
+                      src={`/src/assets/images/${currentPet?.type}Avatar.png`}
+                      alt=""
+                      className="h-full w-full rounded-xl object-cover"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-1 flex-col justify-center gap-2">
                   <h1 className="text-2xl"> {currentPet?.name} </h1>

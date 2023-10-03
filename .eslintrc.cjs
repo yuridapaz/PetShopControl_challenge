@@ -7,7 +7,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
-
     'plugin:tailwindcss/recommended',
   ],
   parserOptions: {
@@ -15,7 +14,7 @@ module.exports = {
     sourceType: 'module',
   },
   settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh', 'tailwindcss'],
+  plugins: ['react-refresh', 'tailwindcss', 'prettier-plugin-tailwindcss'],
   rules: {
     'react-refresh/only-export-components': 'warn',
     'react/prop-types': 'off',
