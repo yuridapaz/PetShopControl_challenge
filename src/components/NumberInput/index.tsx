@@ -1,7 +1,19 @@
 import { numberInputVariants } from './constant';
 import { NumberInputProps } from './type';
 
-const NumberInput = ({ className, size, fullWidth, id, register, error, filled, min, max, step }: NumberInputProps) => (
+const NumberInput = ({
+  className,
+  size,
+  fullWidth,
+  id,
+  register,
+  error,
+  filled,
+  min,
+  max,
+  step,
+  'data-testid': dataTestId,
+}: NumberInputProps) => (
   <input
     type="number"
     min={min}
@@ -16,6 +28,7 @@ const NumberInput = ({ className, size, fullWidth, id, register, error, filled, 
       filled,
     })}
     {...register}
+    data-testid={dataTestId}
   ></input>
 );
 export default NumberInput;
