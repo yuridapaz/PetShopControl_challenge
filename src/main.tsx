@@ -6,7 +6,7 @@ import PetShopProvider from './context/PetShopContext.jsx';
 import './index.css';
 import EditPetInfo from './pages/EditPetInfo/index.jsx';
 import RegisterPetOwnerPage from './pages/RegisterPetOwner/index.jsx';
-import TestePage from './pages/TestePage.jsx';
+
 import { ErrorPage, PetInfoPage, PetsPage, RegisterConfirmationPage, RegisterPetPage } from './pages/index.jsx';
 
 const router = createBrowserRouter([
@@ -51,6 +51,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <PetShopProvider>
     <RouterProvider router={router} />
-  </PetShopProvider>
+  </PetShopProvider>,
   // </React.StrictMode>
 );

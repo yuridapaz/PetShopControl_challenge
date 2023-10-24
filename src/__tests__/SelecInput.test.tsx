@@ -10,6 +10,7 @@ describe('select input component', () => {
     expect(selectInputEl).toHaveValue('');
     debug();
   });
+
   test('should render select input', () => {
     render(<SelectInput values={['Dog', 'Cat', 'Bird', 'Other']} data-testid="select-input" />);
     const selectInputEl = screen.getByTestId('select-input');
