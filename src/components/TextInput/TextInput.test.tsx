@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 
-import { TextInput } from '../components';
+import { TextInput } from '..';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -41,18 +41,21 @@ describe('text input', () => {
     expect(textInput).toHaveValue('');
   });
 
-  test('should check the input based onChange event', () => {
+  test('should check the input based onChange event', async () => {
     const handleChange = jest.fn();
     render(<TextInput data-testid="text-input" onChange={handleChange} />);
     const textInput = screen.getByTestId('text-input');
 
     expect(textInput).toHaveValue('');
+    expect(handleChange).not.toBeCalled();
 
-    fireEvent.change(textInput, { target: { value: 'New Value' } });
+    await userEvent.type(textInput, 'New Value');
 
     expect(textInput).toHaveValue('New Value');
 
-    expect(handleChange).toBeCalledTimes(1);
+    expect(handleChange).toBeCalled(); // first option
+    expect(handleChange).toBeCalledTimes(9);
+
     expect(handleChange).toHaveBeenCalledWith(
       expect.objectContaining({
         target: expect.objectContaining({
@@ -60,7 +63,5 @@ describe('text input', () => {
         }),
       }),
     );
-
-    // expect(handleChange).toHaveBeenCalledWith('New Value');
   });
 });

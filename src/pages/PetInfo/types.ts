@@ -12,6 +12,7 @@ export type ServiceCardProps = {
   service: ServiceDataType;
   setService: Dispatch<SetStateAction<ServiceDataType | undefined>>;
   setModal: Dispatch<SetStateAction<boolean>>;
+  'data-testid'?: string;
 };
 
 // ServiceForm

@@ -13,15 +13,8 @@ const TextInput = ({
   error,
   filled,
   onChange,
-  // value,
   'data-testid': dataTestId,
 }: TextInputProps) => {
-  // const [controlledValue, setControlledValue] = useState(value);
-  // const handleChange = (event) => {
-  //   setControlledValue(event.target.value);
-  //   onChange(event);
-  // };
-
   return (
     <input
       type="text"
@@ -36,7 +29,6 @@ const TextInput = ({
       })}
       {...register}
       onChange={onChange}
-      // value={controlledValue}
       data-testid={dataTestId}
     />
   );

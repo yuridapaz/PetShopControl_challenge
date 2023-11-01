@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 
-import { FormErrorMessage } from '../components';
 import { render, screen } from '@testing-library/react';
+import FormErrorMessage from '.';
 
 describe('formErrorMessage component', () => {
   test('should render a component with default message', () => {

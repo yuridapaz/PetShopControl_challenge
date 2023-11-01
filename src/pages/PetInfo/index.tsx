@@ -27,6 +27,7 @@ const PetInfoPage = () => {
         // REVIEW:
         const petData: any = await getPet(id!);
         setCurrentPet(petData);
+        console.log(petData);
       };
       fetchPetData();
     }, 500);

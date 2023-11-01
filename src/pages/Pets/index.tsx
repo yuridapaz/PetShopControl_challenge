@@ -54,6 +54,7 @@ const PetsPage = () => {
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 if (e.target.value === 'Nenhum') setRaceInput('Nenhum');
                 setTypeInput(e.target.value);
+                console.log(e.target.value);
               }}
               fullWidth
             />

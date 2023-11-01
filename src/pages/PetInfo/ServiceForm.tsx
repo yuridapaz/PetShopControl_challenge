@@ -3,12 +3,16 @@ import { useForm } from 'react-hook-form';
 
 import { Button, NumberInput, SelectInput } from '../../components';
 import { PetShopContext } from '../../context/PetShopContext';
-import { DataContextType, ServiceDataType } from '../../context/type';
+import { DataContextType } from '../../context/type';
 import { ServiceFormInputs, ServiceFormProps } from './types';
 
 const ServiceForm = ({ petId, setModal, appendService }: ServiceFormProps) => {
   const { addService } = React.useContext(PetShopContext) as DataContextType;
-  const { register, handleSubmit } = useForm<ServiceFormInputs>({ mode: 'onChange' });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ServiceFormInputs>({ mode: 'all' });
 
   const onSubmit = async (formData: ServiceFormInputs) => {
     const serviceData = {
@@ -34,7 +38,15 @@ const ServiceForm = ({ petId, setModal, appendService }: ServiceFormProps) => {
       <form className="container  flex flex-col gap-6  p-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex w-full flex-col gap-1 md:gap-2">
           <label htmlFor="">Serviço:</label>
-          <SelectInput values={['Tosa', 'Vacina', 'Remédio']} register={{ ...register('type') }} />
+          <SelectInput
+            values={['Tosa', 'Vacina', 'Remédio']}
+            register={{
+              ...register('type', {
+                required: 'Escolher tipo',
+              }),
+            }}
+          />
+          {errors.type && <h6>{errors.type.message}</h6>}
         </div>
 
         <div className="flex w-full flex-col gap-1 md:gap-2">

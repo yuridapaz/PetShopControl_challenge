@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1698176750689" clover="3.2.0">
-  <project timestamp="1698176750689" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1698689125765" clover="3.2.0">
+  <project timestamp="1698689125765" name="All files">
+    <metrics statements="37" coveredstatements="37" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6" elements="47" coveredelements="46" complexity="0" loc="37" ncloc="37" packages="6" files="11" classes="11"/>
+    <package name="components">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="index.tsx" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/index.tsx">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.Button">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="constant.ts" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/Button/constant.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+      </file>
+      <file name="index.tsx" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/Button/index.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.FormErrorMessage">
+      <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="constant.ts" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/FormErrorMessage/constant.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+      </file>
+      <file name="index.tsx" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/FormErrorMessage/index.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.NumberInput">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="constant.ts" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/NumberInput/constant.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+      </file>
+      <file name="index.tsx" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/NumberInput/index.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="34" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.SelectInput">
+      <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
+      <file name="constant.ts" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/SelectInput/constant.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+      </file>
+      <file name="index.tsx" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/SelectInput/index.tsx">
+        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="35" count="12" type="stmt"/>
+        <line num="50" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.TextInput">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="TextInput.tsx" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/TextInput/TextInput.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+      </file>
+      <file name="constant.ts" path="/Users/yuridapazsimonin/Documents/Front End Developer/PetShopControl_challenge/src/components/TextInput/constant.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>

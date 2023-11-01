@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 
-import { NumberInput } from '../components';
 import { fireEvent, render, screen } from '@testing-library/react';
+import NumberInput from '.';
 
 describe('number input component', () => {
   test('should render number input correctly', () => {
