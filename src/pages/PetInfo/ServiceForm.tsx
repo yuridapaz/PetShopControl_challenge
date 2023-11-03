@@ -7,8 +7,8 @@ import { PetShopContext } from '../../context/PetShopContext';
 import { DataContextType } from '../../context/type';
 import { ServiceFormInputs, ServiceFormProps } from './types';
 
-const ServiceForm = ({ petId, setModal, appendService }: ServiceFormProps) => {
-  const { addService } = React.useContext(PetShopContext) as DataContextType;
+const ServiceForm = ({ petId, setModal, appendService, addService }: ServiceFormProps) => {
+  // const { addService } = React.useContext(PetShopContext) as DataContextType;
   const {
     register,
     handleSubmit,

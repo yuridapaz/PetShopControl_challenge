@@ -15,7 +15,7 @@ import { PetInfoParams } from './types';
 const PetInfoPage = () => {
   const navigate = useNavigate();
   const { id } = useParams<PetInfoParams>();
-  const { getPet, deleteService } = React.useContext(PetShopContext) as DataContextType;
+  const { getPet, deleteService, addService } = React.useContext(PetShopContext) as DataContextType;
   const [currentPet, setCurrentPet] = React.useState<DataType | undefined>(undefined);
   const [currentPetService, setCurrentPetService] = React.useState<ServiceDataType | undefined>(undefined);
   const [formModal, setFormModal] = React.useState<boolean>(false);
@@ -191,7 +191,9 @@ const PetInfoPage = () => {
 
       {/* Service Modal */}
       <ModalComponent displayModal={formModal} setModal={setFormModal} modalTitle={'Adicionar serviço'}>
-        {currentPet && <ServiceForm petId={id} setModal={setFormModal} appendService={appendService} />}
+        {currentPet && (
+          <ServiceForm petId={id} setModal={setFormModal} appendService={appendService} addService={addService} />
+        )}
       </ModalComponent>
       {/* Edit Information Modal */}
       <ModalComponent displayModal={alertModal} setModal={setAlertModal} modalTitle={'Remover Serviço'}>
