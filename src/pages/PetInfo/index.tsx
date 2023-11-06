@@ -98,7 +98,7 @@ const PetInfoPage = () => {
           </Link>
           <p className="m-auto text-lg">Informações</p>
         </div>
-        {!currentPet && <SkeletonPetInfoPage />}
+        {/* {!currentPet && <SkeletonPetInfoPage />} */}
         {currentPet && (
           <>
             <div className="flex flex-col gap-4 rounded-xl bg-gray-100 p-2 pb-4  @container dark:bg-gray-800 ">
