@@ -22,15 +22,15 @@ const PetInfoPage = () => {
   const [alertModal, setAlertModal] = React.useState<boolean>(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      const fetchPetData = async () => {
-        // REVIEW:
-        const petData: any = await getPet(id!);
-        setCurrentPet(petData);
-        console.log(petData);
-      };
-      fetchPetData();
-    }, 500);
+    // setTimeout(() => {
+    const fetchPetData = async () => {
+      // REVIEW:
+      const petData: any = await getPet(id!);
+      setCurrentPet(petData);
+      console.log(petData);
+    };
+    fetchPetData();
+    // }, 500);
   }, []);
 
   // handle AddService (STATE)
@@ -160,7 +160,7 @@ const PetInfoPage = () => {
                 <div>
                   <p className="p-2 pb-3"> Serviços prestados: </p>
                   <div className="flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-1 dark:bg-gray-700">
-                    {currentPet?.services?.toReversed()?.map((service: ServiceDataType, i: number) => {
+                    {currentPet?.services?.map((service: ServiceDataType, i: number) => {
                       return (
                         <ServiceCard
                           service={service}
