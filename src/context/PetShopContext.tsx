@@ -19,7 +19,7 @@ import { ContextProps, DataContextType, DataType, ServiceDataType } from './type
 
 export const PetShopContext = React.createContext<DataContextType | null>(null);
 
-const PetShopProvider = ({ children }: ContextProps) => {
+export const PetShopProvider = ({ children }: ContextProps) => {
   const [data, setData] = React.useState<DataType[]>([]);
   const firestoreRef = collection(firestore, 'pets_data');
 
