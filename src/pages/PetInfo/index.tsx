@@ -16,8 +16,8 @@ const PetInfoPage = () => {
   const navigate = useNavigate();
   const { id } = useParams<PetInfoParams>();
   const { getPet, deleteService, addService } = React.useContext(PetShopContext) as DataContextType;
-  const [currentPet, setCurrentPet] = React.useState<DataType | undefined>(undefined);
-  const [currentPetService, setCurrentPetService] = React.useState<ServiceDataType | undefined>(undefined);
+  const [currentPet, setCurrentPet] = React.useState<DataType | undefined>();
+  const [currentPetService, setCurrentPetService] = React.useState<ServiceDataType>();
   const [formModal, setFormModal] = React.useState<boolean>(false);
   const [alertModal, setAlertModal] = React.useState<boolean>(false);
 
@@ -25,7 +25,7 @@ const PetInfoPage = () => {
     // setTimeout(() => {
     const fetchPetData = async () => {
       // REVIEW:
-      const petData: any = await getPet(id!);
+      const petData = await getPet(id!);
       setCurrentPet(petData);
       // console.log(petData);
     };
@@ -51,8 +51,8 @@ const PetInfoPage = () => {
   // handle RemoveService (Firebase & currentState)
   const handleRemoveService = async (serviceData: ServiceDataType) => {
     try {
-      deleteService(serviceData, serviceData.petId);
-      removeService(serviceData.serviceId);
+      await deleteService(serviceData, serviceData.petId); // firebase - contexto
+      removeService(serviceData.serviceId); // local
     } catch (error) {
       alert(error);
     }

@@ -20,8 +20,7 @@ export type ServiceFormProps = {
   petId: string | undefined;
   setModal: Dispatch<SetStateAction<boolean>>;
   appendService: (service: ServiceDataType) => void;
-  //TODO:
-  addService: (service: any, petId: string) => void;
+  addService: (service: ServiceDataType, petId: string) => void;
 };
 
 export type ServiceFormInputs = {

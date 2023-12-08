@@ -24,7 +24,6 @@ export const PetShopProvider = ({ children }: ContextProps) => {
   const firestoreRef = collection(firestore, 'pets_data');
 
   const getData = async (sortBy?: string) => {
-    // REVIEW:
     let sortData: any;
     switch (sortBy) {
       case 'Z-A':
@@ -43,6 +42,8 @@ export const PetShopProvider = ({ children }: ContextProps) => {
         sortData = await getDocs(query(firestoreRef, orderBy('name', 'asc')));
         break;
     }
+
+    //REVIEW data: DataType
     const finalData = sortData.docs.map((doc: { data: () => DataType; id: string }) => ({
       ...doc.data(),
       id: doc.id,
@@ -50,11 +51,10 @@ export const PetShopProvider = ({ children }: ContextProps) => {
     setData(finalData);
   };
 
-  // REVIEW:
   const getPet = async (petID: string) => {
     const docRef = doc(firestore, 'pets_data', petID);
     const docSnap = await getDoc(docRef);
-    return { ...docSnap.data(), id: docSnap.id };
+    return { ...docSnap.data(), id: docSnap.id } as DataType;
   };
 
   const createPet = async (data: DataType) => {

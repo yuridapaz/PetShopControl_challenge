@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { PetShopContext } from '../../context/PetShopContext';
 import { MemoryRouter } from 'react-router-dom';
 import PetInfoPage from './index';
@@ -23,102 +23,42 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: jest.fn(),
-}));
+const mockPet = {
+  imageURL:
+    'https://firebasestorage.googleapis.com/v0/b/pet-shop-management-challenge.appspot.com/o/images%2FYURI%20PAZ%20SIMONIN1696355089548?alt=media&token=e25eafb6-2c28-4e72-9e31-7e126b6cc54d',
+  type: 'Cachorro',
+  notes: [],
+  gender: 'Macho',
+  services: [
+    {
+      hour: '13:54:00',
+      cost: 84,
+      serviceId: '1699030440000kBSEvsHWdINF4OYJs2Nu',
+      type: 'Tosa',
+      date: '03/11/2023',
+      petId: 'kBSEvsHWdINF4OYJs2Nu',
+    },
+    {
+      date: '03/11/2023',
+      hour: '17:02:00',
+      type: 'Vacina',
+      serviceId: '1699041720000kBSEvsHWdINF4OYJs2Nu',
+      petId: 'kBSEvsHWdINF4OYJs2Nu',
+      cost: 20,
+    },
+  ],
+  race: 'Sem-Raça-Definida-(SRD)',
+  name: 'YURI PAZ SIMONIN',
+  birthdate: 671587200000,
+  weight: 20,
+  size: 'Pequeno',
+  id: 'kBSEvsHWdINF4OYJs2Nu',
+};
 
 describe('Pet Info Page', () => {
-  const setStateMock = jest.fn();
-  beforeEach(() => {
-    const useStateMock = (useState) => [useState, setStateMock];
-    React.useState.mockImplementation(useStateMock);
-    jest
-      .spyOn(React, 'useState')
-      .mockImplementationOnce(() => [
-        {
-          gender: 'Macho',
-          notes: [],
-          imageURL:
-            'https://firebasestorage.googleapis.com/v0/b/pet-shop-management-challenge.appspot.com/o/images%2FYURI%20PAZ%20SIMONIN1696355089548?alt=media&token=e25eafb6-2c28-4e72-9e31-7e126b6cc54d',
-          race: 'Sem-Raça-Definida-(SRD)',
-          weight: 20,
-          name: 'YURI PAZ SIMONIN',
-          size: 'Pequeno',
-          services: [
-            {
-              date: '03/11/2023',
-              type: 'Tosa',
-              hour: '13:54:00',
-              serviceId: '1699030440000kBSEvsHWdINF4OYJs2Nu',
-              cost: 84,
-              petId: 'kBSEvsHWdINF4OYJs2Nu',
-            },
-            {
-              date: '03/11/2023',
-              type: 'Vacina',
-              hour: '17:02:00',
-              petId: 'kBSEvsHWdINF4OYJs2Nu',
-              cost: 20,
-              serviceId: '1699041720000kBSEvsHWdINF4OYJs2Nu',
-            },
-          ],
-          birthdate: 671587200000,
-          type: 'Cachorro',
-          id: 'kBSEvsHWdINF4OYJs2Nu',
-        },
-        () => null,
-      ])
-      .mockImplementationOnce(() => [
-        {
-          date: '03/11/2023',
-          type: 'Tosa',
-          hour: '13:54:00',
-          serviceId: '1699030440000kBSEvsHWdINF4OYJs2Nu',
-          cost: 84,
-          petId: 'kBSEvsHWdINF4OYJs2Nu',
-        },
-        () => null,
-      ])
-      .mockImplementationOnce(() => [false, () => null])
-      .mockImplementationOnce(() => [false, () => null]);
-  });
-
   test('should render the page properly', async () => {
-    // const mockPet = {
-    //   gender: 'Macho',
-    //   notes: [],
-    //   imageURL:
-    //     'https://firebasestorage.googleapis.com/v0/b/pet-shop-management-challenge.appspot.com/o/images%2FYURI%20PAZ%20SIMONIN1696355089548?alt=media&token=e25eafb6-2c28-4e72-9e31-7e126b6cc54d',
-    //   race: 'Sem-Raça-Definida-(SRD)',
-    //   weight: 20,
-    //   name: 'YURI PAZ SIMONIN',
-    //   size: 'Pequeno',
-    //   services: [
-    //     {
-    //       date: '03/11/2023',
-    //       type: 'Tosa',
-    //       hour: '13:54:00',
-    //       serviceId: '1699030440000kBSEvsHWdINF4OYJs2Nu',
-    //       cost: 84,
-    //       petId: 'kBSEvsHWdINF4OYJs2Nu',
-    //     },
-    //     {
-    //       date: '03/11/2023',
-    //       type: 'Vacina',
-    //       hour: '17:02:00',
-    //       petId: 'kBSEvsHWdINF4OYJs2Nu',
-    //       cost: 20,
-    //       serviceId: '1699041720000kBSEvsHWdINF4OYJs2Nu',
-    //     },
-    //   ],
-    //   birthdate: 671587200000,
-    //   type: 'Cachorro',
-    //   id: 'kBSEvsHWdINF4OYJs2Nu',
-    // };
-
     const MockContext = {
-      getPet: jest.fn(),
+      getPet: jest.fn().mockResolvedValueOnce(() => mockPet),
       deleteService: jest.fn(),
       addService: jest.fn(),
     };
@@ -130,6 +70,9 @@ describe('Pet Info Page', () => {
         </PetShopContext.Provider>
       </MemoryRouter>,
     );
+
+    const petName = await screen.findByText(mockPet.name);
+    expect(petName).toBeInTheDocument();
 
     debug();
   });
