@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 import Button from '.';
+import userEvent from '@testing-library/user-event';
 
 describe('button component', () => {
   test('should render a Button component with children text', () => {

@@ -11,6 +11,7 @@ const EmailInput = ({
   error,
   filled,
   onChange,
+  'data-testid': dataTestId,
 }: EmailInputProps) => (
   <input
     type="email"
@@ -25,6 +26,7 @@ const EmailInput = ({
     })}
     {...register}
     onChange={onChange}
+    data-testid={dataTestId}
   ></input>
 );
 

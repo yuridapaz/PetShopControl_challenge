@@ -72,7 +72,14 @@ describe('Pet Info Page', () => {
     );
 
     const petName = await screen.findByText(mockPet.name);
+    const petRace = await screen.findByText(mockPet.race);
+    const petSize = await screen.findByText(mockPet.size);
+    const petServicePrice = await screen.findAllByText('03/11/2023');
+
     expect(petName).toBeInTheDocument();
+    expect(petRace).toBeInTheDocument();
+    expect(petSize).toBeInTheDocument();
+    expect(petServicePrice[2]).toBeVisible();
 
     debug();
   });

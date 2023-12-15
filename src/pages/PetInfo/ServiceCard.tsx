@@ -41,7 +41,7 @@ const ServiceCard = ({ service, setModal, setService, 'data-testid': dataTestId 
         </p>
       </div>
       <div
-        className="flex h-0 justify-between overflow-hidden rounded-b-lg bg-slate-300 px-7 py-0 group-[.is-active]:h-full "
+        className="hidden h-0 justify-between overflow-hidden rounded-b-lg bg-slate-300 px-7 py-0 group-[.is-active]:flex group-[.is-active]:h-full "
         data-testid={`${dataTestId}.container`}
       >
         <div>
