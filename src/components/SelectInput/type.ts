@@ -11,4 +11,5 @@ export type SelectInputProps = Pick<
     register?: any;
     values: string[];
     baseValue?: string;
+    'data-testid'?: string;
   };

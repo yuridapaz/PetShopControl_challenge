@@ -15,16 +15,15 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React from 'react';
 
 import { firestore, storage } from '../firebase_setup/firebase';
-import { ContextProps, DataContextType, DataType, ServiceDataType } from './type';
+import { ContextProps, DataContextType, DataType, ServiceDataType, uploadPetImageType } from './type';
 
 export const PetShopContext = React.createContext<DataContextType | null>(null);
 
-const PetShopProvider = ({ children }: ContextProps) => {
+export const PetShopProvider = ({ children }: ContextProps) => {
   const [data, setData] = React.useState<DataType[]>([]);
   const firestoreRef = collection(firestore, 'pets_data');
 
   const getData = async (sortBy?: string) => {
-    // REVIEW:
     let sortData: any;
     switch (sortBy) {
       case 'Z-A':
@@ -43,6 +42,7 @@ const PetShopProvider = ({ children }: ContextProps) => {
         sortData = await getDocs(query(firestoreRef, orderBy('name', 'asc')));
         break;
     }
+
     const finalData = sortData.docs.map((doc: { data: () => DataType; id: string }) => ({
       ...doc.data(),
       id: doc.id,
@@ -50,18 +50,17 @@ const PetShopProvider = ({ children }: ContextProps) => {
     setData(finalData);
   };
 
-  // REVIEW:
   const getPet = async (petID: string) => {
     const docRef = doc(firestore, 'pets_data', petID);
     const docSnap = await getDoc(docRef);
-    return { ...docSnap.data(), id: docSnap.id };
+    return { ...docSnap.data(), id: docSnap.id } as DataType;
   };
 
   const createPet = async (data: DataType) => {
     await addDoc(collection(firestore, 'pets_data'), data);
   };
 
-  const uploadPetImage = async (data: any, image: any) => {
+  const uploadPetImage = async (data: string, image: any) => {
     if (image == null) return '';
 
     const imageRef = ref(storage, `images/${data}` + new Date().getTime());

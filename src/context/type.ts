@@ -5,16 +5,17 @@ export type ContextProps = {
 export type DataContextType = {
   data: DataType[];
   setData: React.Dispatch<React.SetStateAction<DataType[]>>;
-  getData: (sortBy?: string) => void;
-  getPet: (petID: string) => void;
-  createPet: (data: any) => void;
-  // FIXME:
-  uploadPetImage: (data: any, image: any) => void;
-  updatePetInfo: (data: any, petId: string) => void;
-  deletePet: (docID: string) => void;
-  addService: (serviceData: ServiceDataType, petId: string) => void;
-  deleteService: (serviceData: ServiceDataType, petId: string) => void;
+  getData: (sortBy?: string) => Promise<void>;
+  getPet: (petID: string) => Promise<DataType>;
+  createPet: (data: DataType) => Promise<void>;
+  uploadPetImage: (data: string, image: any) => Promise<void>;
+  updatePetInfo: (data: DataType, petId: string) => Promise<void>;
+  deletePet: (docID: string) => Promise<void>;
+  addService: (serviceData: ServiceDataType, petId: string) => Promise<void>;
+  deleteService: (serviceData: ServiceDataType, petId: string) => Promise<void>;
 };
+
+export type uploadPetImageType = DataContextType['uploadPetImage'];
 
 export type DataType = {
   name: string;

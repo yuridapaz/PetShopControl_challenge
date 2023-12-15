@@ -10,10 +10,6 @@ const RegisterConfirmationPage = () => {
       navigate('/pets');
     }, 3000);
     const timer = countdown > 0 && setInterval(() => setCountdown(countdown - 1), 1000);
-
-    // return () => {
-    // clearInterval(timer);
-    // };
   }, [countdown, navigate]);
 
   return (
