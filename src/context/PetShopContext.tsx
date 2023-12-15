@@ -15,7 +15,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React from 'react';
 
 import { firestore, storage } from '../firebase_setup/firebase';
-import { ContextProps, DataContextType, DataType, ServiceDataType } from './type';
+import { ContextProps, DataContextType, DataType, ServiceDataType, uploadPetImageType } from './type';
 
 export const PetShopContext = React.createContext<DataContextType | null>(null);
 
@@ -43,7 +43,6 @@ export const PetShopProvider = ({ children }: ContextProps) => {
         break;
     }
 
-    //REVIEW data: DataType
     const finalData = sortData.docs.map((doc: { data: () => DataType; id: string }) => ({
       ...doc.data(),
       id: doc.id,
@@ -61,7 +60,7 @@ export const PetShopProvider = ({ children }: ContextProps) => {
     await addDoc(collection(firestore, 'pets_data'), data);
   };
 
-  const uploadPetImage = async (data: any, image: any) => {
+  const uploadPetImage = async (data: string, image: any) => {
     if (image == null) return '';
 
     const imageRef = ref(storage, `images/${data}` + new Date().getTime());
