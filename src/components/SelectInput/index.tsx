@@ -13,6 +13,7 @@ const SelectInput = ({
   disabled,
   onChange,
   baseValue,
+  'data-testid': dataTestId,
 }: SelectInputProps) => (
   <select
     id={id}
@@ -26,6 +27,7 @@ const SelectInput = ({
     {...register}
     disabled={disabled}
     onChange={onChange}
+    data-testid={dataTestId}
   >
     {baseValue ? <option defaultValue={baseValue} hidden /> : <option defaultValue="" hidden />}
 

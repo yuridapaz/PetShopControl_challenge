@@ -9,4 +9,5 @@ export type EmailInputProps = Pick<
 > &
   VariantProps<typeof emailInputVariants> & {
     register: any;
+    'data-testid'?: string;
   };

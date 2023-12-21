@@ -16,13 +16,14 @@ import PetInfoErrorPage from '../ErrorPage/PetInfoErrorPage';
 const PetInfoPage = () => {
   const navigate = useNavigate();
   const { id } = useParams<PetInfoParams>();
-  const { getPet, deleteService } = React.useContext(PetShopContext) as DataContextType;
-  const [currentPet, setCurrentPet] = React.useState<DataType | undefined>(undefined);
-  const [currentPetService, setCurrentPetService] = React.useState<ServiceDataType | undefined>(undefined);
+  const { getPet, deleteService, addService } = React.useContext(PetShopContext) as DataContextType;
+  const [currentPet, setCurrentPet] = React.useState<DataType | undefined>();
+  const [currentPetService, setCurrentPetService] = React.useState<ServiceDataType>();
   const [formModal, setFormModal] = React.useState<boolean>(false);
   const [alertModal, setAlertModal] = React.useState<boolean>(false);
 
   useEffect(() => {
+
     setTimeout(() => {
       const fetchPetData = async () => {
         try {
@@ -35,6 +36,7 @@ const PetInfoPage = () => {
       };
       fetchPetData();
     }, 500);
+
   }, []);
 
   // handle AddService (STATE)
@@ -55,8 +57,8 @@ const PetInfoPage = () => {
   // handle RemoveService (Firebase & currentState)
   const handleRemoveService = async (serviceData: ServiceDataType) => {
     try {
-      deleteService(serviceData, serviceData.petId);
-      removeService(serviceData.serviceId);
+      await deleteService(serviceData, serviceData.petId); // firebase - contexto
+      removeService(serviceData.serviceId); // local
     } catch (error) {
       alert(error);
     }
@@ -102,7 +104,7 @@ const PetInfoPage = () => {
           </Link>
           <p className="m-auto text-lg">Informações</p>
         </div>
-        {!currentPet && <SkeletonPetInfoPage />}
+        {/* {!currentPet && <SkeletonPetInfoPage />} */}
         {currentPet && (
           <>
             <div className="flex flex-col gap-4 rounded-xl bg-gray-100 p-2 pb-4  @container dark:bg-gray-800 ">
@@ -164,7 +166,7 @@ const PetInfoPage = () => {
                 <div>
                   <p className="p-2 pb-3"> Serviços prestados: </p>
                   <div className="flex max-h-[420px] flex-col gap-1 overflow-auto rounded-lg bg-slate-200 p-1 dark:bg-gray-700">
-                    {currentPet?.services?.toReversed()?.map((service: ServiceDataType, i: number) => {
+                    {currentPet?.services?.map((service: ServiceDataType, i: number) => {
                       return (
                         <ServiceCard
                           service={service}
@@ -195,7 +197,9 @@ const PetInfoPage = () => {
 
       {/* Service Modal */}
       <ModalComponent displayModal={formModal} setModal={setFormModal} modalTitle={'Adicionar serviço'}>
-        {currentPet && <ServiceForm petId={id} setModal={setFormModal} appendService={appendService} />}
+        {currentPet && (
+          <ServiceForm petId={id} setModal={setFormModal} appendService={appendService} addService={addService} />
+        )}
       </ModalComponent>
       {/* Edit Information Modal */}
       <ModalComponent displayModal={alertModal} setModal={setAlertModal} modalTitle={'Remover Serviço'}>

@@ -51,7 +51,9 @@ const router = createBrowserRouter([
   },
 ]);
 
+
 ReactDOM.createRoot(document.getElementById('root') as Element).render(
+
   // <React.StrictMode>
   <PetShopProvider>
     <RouterProvider router={router} />
