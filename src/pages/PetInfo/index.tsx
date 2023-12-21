@@ -11,6 +11,7 @@ import ServiceCard from './ServiceCard';
 import ServiceForm from './ServiceForm';
 import SkeletonPetInfoPage from './Skeleton';
 import { PetInfoParams } from './types';
+import PetInfoErrorPage from '../ErrorPage/PetInfoErrorPage';
 
 const PetInfoPage = () => {
   const navigate = useNavigate();
@@ -24,9 +25,13 @@ const PetInfoPage = () => {
   useEffect(() => {
     setTimeout(() => {
       const fetchPetData = async () => {
-        // REVIEW:
-        const petData: any = await getPet(id!);
-        setCurrentPet(petData);
+        try {
+          // REVIEW:
+          const petData: any = await getPet(id!);
+          setCurrentPet(petData);
+        } catch {
+          navigate('/pets/petNotFound');
+        }
       };
       fetchPetData();
     }, 500);

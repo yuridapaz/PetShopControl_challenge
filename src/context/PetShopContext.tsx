@@ -50,11 +50,16 @@ const PetShopProvider = ({ children }: ContextProps) => {
     setData(finalData);
   };
 
-  // REVIEW:
+  //TODO: Try Catch !
   const getPet = async (petID: string) => {
     const docRef = doc(firestore, 'pets_data', petID);
     const docSnap = await getDoc(docRef);
-    return { ...docSnap.data(), id: docSnap.id };
+
+    if (docSnap.exists()) {
+      return { ...docSnap.data(), id: docSnap.id };
+    } else {
+      throw Error;
+    }
   };
 
   const createPet = async (data: DataType) => {
