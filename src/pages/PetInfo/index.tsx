@@ -11,6 +11,7 @@ import ServiceCard from './ServiceCard';
 import ServiceForm from './ServiceForm';
 import SkeletonPetInfoPage from './Skeleton';
 import { PetInfoParams } from './types';
+import PetInfoErrorPage from '../ErrorPage/PetInfoErrorPage';
 
 const PetInfoPage = () => {
   const navigate = useNavigate();
@@ -22,15 +23,20 @@ const PetInfoPage = () => {
   const [alertModal, setAlertModal] = React.useState<boolean>(false);
 
   useEffect(() => {
-    // setTimeout(() => {
-    const fetchPetData = async () => {
-      // REVIEW:
-      const petData = await getPet(id!);
-      setCurrentPet(petData);
-      // console.log(petData);
-    };
-    fetchPetData();
-    // }, 500);
+
+    setTimeout(() => {
+      const fetchPetData = async () => {
+        try {
+          // REVIEW:
+          const petData: any = await getPet(id!);
+          setCurrentPet(petData);
+        } catch {
+          navigate('/pets/petNotFound');
+        }
+      };
+      fetchPetData();
+    }, 500);
+
   }, []);
 
   // handle AddService (STATE)
