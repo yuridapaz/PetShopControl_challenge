@@ -8,6 +8,7 @@ import EditPetInfo from './pages/EditPetInfo/index.jsx';
 import RegisterPetOwnerPage from './pages/RegisterPetOwner/index.jsx';
 import { ErrorPage, PetInfoPage, PetsPage, RegisterConfirmationPage, RegisterPetPage } from './pages/index.jsx';
 import PetInfoErrorPage from './pages/ErrorPage/PetInfoErrorPage.js';
+import React from 'react';
 
 const router = createBrowserRouter([
   {
@@ -51,9 +52,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-
 ReactDOM.createRoot(document.getElementById('root') as Element).render(
-
   // <React.StrictMode>
   <PetShopProvider>
     <RouterProvider router={router} />
